@@ -177,7 +177,10 @@ fun ImageDetails(navController: NavController) {
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 modifier = Modifier
-                    .size(35.dp),
+                    .size(35.dp)
+                    .clickable{
+                        navController.navigate("Search")
+                    },
                 tint = Color.White
             )
             Spacer(Modifier.width(10.dp))

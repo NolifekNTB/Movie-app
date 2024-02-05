@@ -31,6 +31,7 @@ import com.example.movieapp.Home.HomeMenu.NewEpisodeReleases
 import com.example.movieapp.Home.HomeMenu.Notification
 import com.example.movieapp.Home.HomeMenu.TopHitsAnime
 import com.example.movieapp.Home.HomeScreen
+import com.example.movieapp.Home.Search.Search
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,6 +111,7 @@ fun BottomNavigationMenu() {
             composable("Top Hits Anime") { TopHitsAnime(navController) }
             composable("New Episode Releases") { NewEpisodeReleases(navController) }
             composable("Notification") { Notification(navController) }
+            composable("Search") { Search(navController) }
         }
     }
 }
