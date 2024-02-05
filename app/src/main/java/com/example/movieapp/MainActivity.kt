@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.Home.HomeMenu.NewEpisodeReleases
+import com.example.movieapp.Home.HomeMenu.Notification
 import com.example.movieapp.Home.HomeMenu.TopHitsAnime
 import com.example.movieapp.Home.HomeScreen
 
@@ -108,6 +109,7 @@ fun BottomNavigationMenu() {
             composable(BottomNavItem.Profile.route) { }
             composable("Top Hits Anime") { TopHitsAnime(navController) }
             composable("New Episode Releases") { NewEpisodeReleases(navController) }
+            composable("Notification") { Notification(navController) }
         }
     }
 }

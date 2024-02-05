@@ -73,7 +73,7 @@ fun HomeScreen(navController: NavController){
         .fillMaxSize()
         .background(Color.White)
     ) {
-        ImageHome()
+        ImageHome(navController)
         RowList("Top Hits Anime", navController)
         RowList("New Episode Releases", navController)
     }
@@ -147,10 +147,10 @@ fun RowList(name: String, navController: NavController){
 }
 
 @Composable
-fun ImageHome() {
+fun ImageHome(navController: NavController) {
     Box {
         MainPhoto()
-        ImageDetails()
+        ImageDetails(navController)
     }
 }
 
@@ -166,7 +166,7 @@ fun MainPhoto(){
 }
 
 @Composable
-fun ImageDetails() {
+fun ImageDetails(navController: NavController) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -185,7 +185,10 @@ fun ImageDetails() {
                 imageVector = Icons.Outlined.Notifications,
                 contentDescription = "Search",
                 modifier = Modifier
-                    .size(35.dp),
+                    .size(35.dp)
+                    .clickable{
+                        navController.navigate("Notification")
+                    },
                 tint = Color.White
             )
         }
