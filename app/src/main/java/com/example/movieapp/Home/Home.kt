@@ -23,8 +23,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -71,14 +73,14 @@ fun HomeScreen(navController: NavController){
         .fillMaxSize()
         .background(Color.White)
     ) {
-        ImageHome(navController)
-        RowList("Top Hits Anime")
-        RowList("New Episode Releases")
+        ImageHome()
+        RowList("Top Hits Anime", navController)
+        RowList("New Episode Releases", navController)
     }
 }
 
 @Composable
-fun RowList(name: String){
+fun RowList(name: String, navController: NavController){
     Row(modifier = Modifier
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -95,7 +97,10 @@ fun RowList(name: String){
         TextButton(onClick = { /*TODO*/ }) {
             Text(text = "See all",
                 modifier = Modifier
-                    .padding(end = 10.dp, top = 10.dp),
+                    .padding(end = 10.dp, top = 10.dp)
+                    .clickable {
+                        navController.navigate(name)
+                    },
                 fontSize = 15.sp,
                 color = Color.Green)
         }
@@ -142,10 +147,10 @@ fun RowList(name: String){
 }
 
 @Composable
-fun ImageHome(navController: NavController) {
+fun ImageHome() {
     Box {
         MainPhoto()
-        ImageDetails(navController)
+        ImageDetails()
     }
 }
 
@@ -161,20 +166,29 @@ fun MainPhoto(){
 }
 
 @Composable
-fun ImageDetails(navController: NavController) {
+fun ImageDetails() {
     Column(
         Modifier
             .fillMaxWidth()
             .padding(top = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.End) {
-        Icon(imageVector = Icons.Default.Search,
-            contentDescription = "Search",
-            modifier = Modifier
-                .size(35.dp)
-                .clickable {
-                    navController.navigate("topHitsAnime")
-                },
-            tint = Color.White)
+        Row {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search",
+                modifier = Modifier
+                    .size(35.dp),
+                tint = Color.White
+            )
+            Spacer(Modifier.width(10.dp))
+            Icon(
+                imageVector = Icons.Outlined.Notifications,
+                contentDescription = "Search",
+                modifier = Modifier
+                    .size(35.dp),
+                tint = Color.White
+            )
+        }
     }
     Column(
         Modifier

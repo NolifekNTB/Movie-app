@@ -56,13 +56,13 @@ fun TopHitsAnime(navController: NavController) {
         .fillMaxSize()
         .background(Color.White)
     ){
-        TopBar(navController)
+        TopBar(navController, "Top Hits Anime")
         List()
     }
 }
 
 @Composable
-fun TopBar(navController: NavController) {
+fun TopBar(navController: NavController, name: String) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -80,7 +80,7 @@ fun TopBar(navController: NavController) {
                     .clickable {
                         navController.popBackStack()
                     })
-            Text(text = "Top Hits Anime",
+            Text(text = name,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.Monospace
