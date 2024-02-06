@@ -114,6 +114,7 @@ fun BottomNavigationMenu() {
             composable("Notification") { Notification(navController) }
             composable("Search") { Search(navController) }
             composable("sortFilter") { SortFilter(navController) }
+            composable("releaseCalendar") { ReleaseCalendar(navController) }
         }
     }
 }

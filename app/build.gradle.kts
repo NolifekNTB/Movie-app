@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "1.9.21-1.0.15"
 }
 
 android {
@@ -50,6 +51,10 @@ android {
 }
 
 dependencies {
+    //FasterPreview
+    implementation("io.github.vram-voskanyan.kmp:PreviewGenerator:1.0.0")
+    ksp("io.github.vram-voskanyan.kmp:PreviewGenerator:1.0.0")
+
     implementation("androidx.navigation:navigation-compose:2.7.6")
     implementation ("androidx.compose.material:material:1.6.0")
 
