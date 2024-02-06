@@ -1,7 +1,9 @@
 package com.example.movieapp.Home.Search
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
@@ -23,8 +26,10 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,15 +64,17 @@ fun Search(navController: NavController) {
         .fillMaxSize()
         .background(Color.White)
     ) {
-        SearchBar()
-        //TopSearches()
+        SearchBar(navController)
+        TypedSorts()
+        //TODO Logic between screen
+        TopSearches()
         //NotFound()
-        ListEpisodeReleases()
+        //ListEpisodeReleases()
     }
 }
 
 @Composable
-fun SearchBar(){
+fun SearchBar(navController: NavController){
     var text by remember { mutableStateOf("")}
     var isFocused by remember { mutableStateOf(false)}
 
@@ -113,10 +120,18 @@ fun SearchBar(){
                     tint = Color(0xFFDDFCC8),
                     modifier = Modifier
                         .size(30.dp)
+                        .clickable {
+                            navController.navigate("sortFilter")
+                        }
                 )
             }
         }
     }
+}
+
+@Composable
+fun TypedSorts(){
+    //TODO logic
 }
 
 @Composable

@@ -87,16 +87,21 @@ fun TopBar(navController: NavController, name: String) {
                 fontFamily = FontFamily.Monospace
             )
         }
-        if(name == "Top Hits Anime") Icon(imageVector = Icons.Default.Search,
-            contentDescription = "Search",
-            modifier = Modifier
-                .size(35.dp),
-            tint = Color.Black)
-        else Icon(imageVector = Icons.Default.MoreVert,
-            contentDescription = null,
-            modifier = Modifier
-                .size(25.dp),
-            tint = Color.Black)
+        when (name) {
+            "Top Hits Anime" -> Icon(imageVector = Icons.Default.Search,
+                contentDescription = "Search",
+                modifier = Modifier
+                    .size(35.dp),
+                tint = Color.Black)
+            "Sort & Filter" -> Icon(imageVector = Icons.Default.Add,
+                contentDescription = null,
+                tint = Color.White)
+            else -> Icon(imageVector = Icons.Default.MoreVert,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(25.dp),
+                tint = Color.Black)
+        }
     }
 }
 
