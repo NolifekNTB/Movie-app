@@ -105,7 +105,7 @@ fun BottomNavigationMenu() {
             Modifier.padding(innerPadding)
         ) {
             composable(BottomNavItem.Home.route) { HomeScreen(navController) }
-            composable(BottomNavItem.ReleaseDate.route) { }
+            composable(BottomNavItem.ReleaseDate.route) { ReleaseCalendar(navController) }
             composable(BottomNavItem.Mylist.route) { }
             composable(BottomNavItem.Download.route) { }
             composable(BottomNavItem.Profile.route) { }
@@ -114,7 +114,6 @@ fun BottomNavigationMenu() {
             composable("Notification") { Notification(navController) }
             composable("Search") { Search(navController) }
             composable("sortFilter") { SortFilter(navController) }
-            composable("releaseCalendar") { ReleaseCalendar(navController) }
         }
     }
 }

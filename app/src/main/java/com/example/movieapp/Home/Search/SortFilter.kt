@@ -172,7 +172,6 @@ fun Elements(HowManyCells: Int, names: Array<String>){
     repeat(HowManyCells) {
         selected.add(false)
     }
-
         Row() {
             repeat(HowManyCells){item->
             OutlinedButton(

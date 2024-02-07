@@ -109,7 +109,7 @@ fun ListNotification(){
                 }
                 Column(verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.End,
-                    modifier = Modifier.padding(top = 15.dp)) {
+                        modifier = Modifier.padding(top = 15.dp)) {
                     Text(text = "12/20/2024",
                         fontSize = 10.sp)
                 }

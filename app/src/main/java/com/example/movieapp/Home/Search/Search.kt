@@ -67,8 +67,8 @@ fun Search(navController: NavController) {
         SearchBar(navController)
         TypedSorts()
         //TODO Logic between screen
-        TopSearches()
-        //NotFound()
+        //TopSearches()
+        NotFound("Not found", "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords.")
         //ListEpisodeReleases()
     }
 }
@@ -167,7 +167,7 @@ fun TopSearches() {
 }
 
 @Composable
-fun NotFound() {
+fun NotFound(title: String, text: String) {
     Column(
         Modifier
             .fillMaxSize()
@@ -179,12 +179,11 @@ fun NotFound() {
             contentDescription = null,
             modifier = Modifier
                 .size(350.dp))
-        Text(text = "Not found",
+        Text(text = title,
             color = Color.Green,
             fontSize = 25.sp,
             fontWeight = FontWeight.W500)
-        Text(text = "Sorry, the keyword you entered cannot be found. Try check it again or " +
-                "search with other keywords.",
+        Text(text = text,
             modifier = Modifier
                 .width(350.dp)
                 .padding(15.dp),
