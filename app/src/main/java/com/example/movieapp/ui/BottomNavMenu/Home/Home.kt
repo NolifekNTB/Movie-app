@@ -1,6 +1,5 @@
-package com.example.movieapp.Home
+package com.example.movieapp.ui.BottomNavMenu.Home
 
-import DataPreview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,7 +23,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.outlined.Notifications
@@ -51,7 +49,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.Home.HomeMenu.TopHitsAnime
 import com.example.movieapp.R
 
 // Constants
@@ -69,81 +66,15 @@ fun HomePreview(){
 
 @Composable
 fun HomeScreen(navController: NavController){
-    Column(modifier = Modifier
-        .verticalScroll(rememberScrollState())
-        .fillMaxSize()
-        .background(Color.White)
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         ImageHome(navController)
         RowList("Top Hits Anime", navController)
         RowList("New Episode Releases", navController)
-    }
-}
-
-@Composable
-fun RowList(name: String, navController: NavController){
-    Row(modifier = Modifier
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(text = name,
-            modifier = Modifier
-                .padding(start = 10.dp, top = 10.dp),
-            fontSize = 20.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Left
-        )
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text = "See all",
-                modifier = Modifier
-                    .padding(end = 10.dp, top = 10.dp)
-                    .clickable {
-                        navController.navigate(name)
-                    },
-                fontSize = 15.sp,
-                color = Color.Green)
-        }
-    }
-    LazyRow(){
-        items(3){ item ->
-            Box(modifier = Modifier
-                .height(200.dp)
-                .padding(10.dp)
-            ){
-                Card(){
-                    Image(painter = painterResource(id = R.drawable.attackontitan),
-                        contentDescription = "mainPhoto",
-                        alpha = AlphaValue
-                    )
-                }
-                Card(modifier = Modifier
-                    .padding(top = 10.dp, start = 10.dp)
-                    .size(30.dp, 20.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color.Green,
-                        contentColor = Color.White
-                ),
-                    shape = RoundedCornerShape(corner = CornerSize(5.dp))
-                ){
-                    Box(Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center){
-                        Text("9.8",
-                            textAlign = TextAlign.Center,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold)
-                    }
-                }
-                Text(text = "$item",
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(bottom = 10.dp, start = 10.dp),
-                    textAlign = TextAlign.Left,
-                    fontSize = 33.sp,
-                    color = Color.White)
-            }
-        }
     }
 }
 
@@ -157,10 +88,10 @@ fun ImageHome(navController: NavController) {
 
 @Composable
 fun MainPhoto(){
-    Image(painter = painterResource(id = R.drawable.demon_slayer),
+    Image(
+        painter = painterResource(id = R.drawable.demon_slayer),
         contentDescription = "mainPhoto",
-        modifier = Modifier
-            .height(MainPhotoHeight),
+        modifier = Modifier.height(MainPhotoHeight),
         contentScale = ContentScale.Crop,
         alpha = AlphaValue
     )
@@ -169,17 +100,18 @@ fun MainPhoto(){
 @Composable
 fun ImageDetails(navController: NavController) {
     Column(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(top = 25.dp, end = 25.dp),
-        horizontalAlignment = Alignment.End) {
+        horizontalAlignment = Alignment.End
+    ) {
         Row {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = "Search",
                 modifier = Modifier
                     .size(35.dp)
-                    .clickable{
+                    .clickable {
                         navController.navigate("Search")
                     },
                 tint = Color.White
@@ -190,7 +122,7 @@ fun ImageDetails(navController: NavController) {
                 contentDescription = "Search",
                 modifier = Modifier
                     .size(35.dp)
-                    .clickable{
+                    .clickable {
                         navController.navigate("Notification")
                     },
                 tint = Color.White
@@ -198,13 +130,14 @@ fun ImageDetails(navController: NavController) {
         }
     }
     Column(
-        Modifier
+        modifier = Modifier
             .height(MainPhotoHeight)
             .fillMaxWidth()
             .padding(DetailsPadding),
         verticalArrangement = Arrangement.Bottom
     ) {
-        Text(text = "Demon slayer: Kimetsu no Yaiba",
+        Text(
+            text = "Demon slayer: Kimetsu no Yaiba",
             modifier = Modifier
                 .size(275.dp, 40.dp),
             color = Color.White,
@@ -213,32 +146,40 @@ fun ImageDetails(navController: NavController) {
             fontFamily = FontFamily.Default,
             overflow = TextOverflow.Ellipsis
         )
-        Text(text = "Action: Shounen, Martial Arts, Adventure",
+        Text(
+            text = "Action: Shounen, Martial Arts, Adventure",
             color = Color.White,
             fontWeight = FontWeight.W500,
             fontFamily = FontFamily.Default,
             overflow = TextOverflow.Ellipsis)
-        Row(Modifier
-            .padding(top = 10.dp)
+        Row(
+            modifier = Modifier.padding(top = 10.dp)
         ) {
-            FilledTonalButton(onClick = { /*TODO*/ },
+            FilledTonalButton(
+                onClick = { /*TODO*/ },
                 modifier = Modifier
                     .size(ButtonWidth, ButtonHeight),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Green,
                     contentColor = Color.White
                 ),
-                contentPadding = PaddingValues(5.dp)) {
-                Icon(imageVector = Icons.Default.PlayArrow,
-                    contentDescription = "")
-                Text(text = "Play",
+                contentPadding = PaddingValues(5.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = ""
+                )
+                Text(
+                    text = "Play",
                     modifier = Modifier
                         .padding(start = 3.dp),
-                    fontSize = 15.sp)
+                    fontSize = 15.sp
+                )
             }
-            Spacer(modifier = Modifier
-                .width(10.dp))
-            OutlinedButton(onClick = { /*TODO*/ },
+            Spacer(
+                modifier = Modifier.width(10.dp))
+            OutlinedButton(
+                onClick = { /*TODO*/ },
                 modifier = Modifier
                     .size(ButtonWidth, ButtonHeight),
                 border = BorderStroke(2.dp, Color.White),
@@ -248,11 +189,99 @@ fun ImageDetails(navController: NavController) {
                 ),
                 contentPadding = PaddingValues(5.dp)
             ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "")
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = ""
+                )
                 Text("My list")
             }
         }
     }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+
+@Composable
+fun RowList(name: String, navController: NavController){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = name,
+            modifier = Modifier.padding(start = 10.dp, top = 10.dp),
+            fontSize = 20.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.SemiBold,
+            textAlign = TextAlign.Left
+        )
+        TextButton(
+            onClick = { /*TODO*/ }
+        ) {
+            Text(
+                text = "See all",
+                modifier = Modifier
+                    .padding(end = 10.dp, top = 10.dp)
+                    .clickable {
+                        navController.navigate(name)
+                    },
+                fontSize = 15.sp,
+                color = Color.Green)
+        }
+    }
+    LazyRow(){
+        items(3){ item ->
+            Box(
+                modifier = Modifier
+                    .height(200.dp)
+                    .padding(10.dp)
+            ){
+                //Modifier.align -> to position image index item to the left botto
+                imageCard(item, Modifier.align(Alignment.BottomStart))
+            }
+        }
+    }
+}
+
+@Composable
+fun imageCard(item: Int, modifier: Modifier){
+    Card(){
+        Image(
+            painter = painterResource(id = R.drawable.attackontitan),
+            contentDescription = "mainPhoto",
+            alpha = AlphaValue
+        )
+    }
+    Card(
+        modifier = Modifier
+            .padding(top = 10.dp, start = 10.dp)
+            .size(30.dp, 20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Green,
+            contentColor = Color.White
+        ),
+        shape = RoundedCornerShape(corner = CornerSize(5.dp))
+    ){
+        Box(
+            Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ){
+            Text(
+                text = "9.8",
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold)
+        }
+    }
+    Text(
+        text = "$item",
+        modifier = modifier
+            .padding(bottom = 10.dp, start = 10.dp),
+        textAlign = TextAlign.Left,
+        fontSize = 33.sp,
+        color = Color.White)
 }
 
 

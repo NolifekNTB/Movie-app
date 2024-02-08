@@ -1,4 +1,4 @@
-package com.example.movieapp.Home.HomeMenu
+package com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -65,135 +65,166 @@ fun TopHitsAnime(navController: NavController) {
 @Composable
 fun TopBar(navController: NavController, name: String) {
     Row(
-        Modifier
+        modifier = Modifier
             .fillMaxWidth()
             .height(75.dp)
             .padding(15.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ){
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(10.dp)){
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = "ArrowBack",
-                modifier = Modifier
-                    .size(33.dp)
-                    .clickable {
-                        navController.popBackStack()
-                    })
-            Text(text = name,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.Monospace
-            )
-        }
-        when (name) {
-            "Top Hits Anime" -> Icon(imageVector = Icons.Default.Search,
-                contentDescription = "Search",
-                modifier = Modifier
-                    .size(35.dp),
-                tint = Color.Black)
-            "Sort & Filter" -> Icon(imageVector = Icons.Default.Add,
-                contentDescription = null,
-                tint = Color.White)
-            else -> Icon(imageVector = Icons.Default.MoreVert,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(25.dp),
-                tint = Color.Black)
-        }
+        TopBarTitle(name, navController)
+        TopBarActionIcon(name)
     }
+}
+
+@Composable
+fun TopBarTitle(name: String, navController: NavController){
+    Row(verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(10.dp)){
+        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+            contentDescription = "ArrowBack",
+            modifier = Modifier
+                .size(33.dp)
+                .clickable {
+                    navController.popBackStack()
+                })
+        Text(text = name,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.Monospace
+        )
+    }
+}
+
+@Composable
+fun TopBarActionIcon(name: String){
+    val icon = when (name) {
+        "Top Hits Anime" -> Icons.Default.Search
+        "Sort & Filter" -> Icons.Default.Add
+        else -> Icons.Default.MoreVert
+    }
+
+    Icon(
+        imageVector = icon,
+        contentDescription = null,
+        tint = if (name == "Sort & Filter") Color.White else Color.Black,
+        modifier = Modifier.size(35.dp)
+    )
 }
 
 @Composable
 fun ListTopHitsAnime(){
     LazyColumn(){
         items(4){ item ->
-            Row(Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start) {
-                Box(
-                    modifier = Modifier
-                        .height(200.dp)
-                        .padding(10.dp)
-                ) {
-                    Card() {
-                        Image(
-                            painter = painterResource(id = R.drawable.attackontitan),
-                            contentDescription = "mainPhoto",
-                            alpha = 0.85f
-                        )
-                    }
-                    Card(
-                        modifier = Modifier
-                            .padding(top = 10.dp, start = 10.dp)
-                            .size(30.dp, 20.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color.Green,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(corner = CornerSize(5.dp))
-                    ) {
-                        Box(
-                            Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                "9.8",
-                                textAlign = TextAlign.Center,
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
-                        }
-                    }
-                    Text(
-                        text = "$item",
-                        modifier = Modifier
-                            .align(Alignment.BottomStart)
-                            .padding(bottom = 10.dp, start = 10.dp),
-                        textAlign = TextAlign.Left,
-                        fontSize = 33.sp,
-                        color = Color.White
-                    )
-                }
-                Column(Modifier.padding(start = 15.dp, end = 25.dp)) {
-                    Text(text = "Attack on Titan Final Season Part 2",
-                        modifier = Modifier
-                            .width(200.dp),
-                        overflow = TextOverflow.Ellipsis,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold)
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = "2022 | Japan")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = "Genre: Action fiction, Dark fantasy, Apocalyptic, Drama, Shonen, Manga",
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 2)
-                    Spacer(modifier = Modifier.height(15.dp))
-
-                    FilledTonalButton(onClick = { /*TODO*/ },
-                        modifier = Modifier
-                            .size(125.dp, 40.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Green,
-                            contentColor = Color.White
-                        ),
-                        contentPadding = PaddingValues(5.dp)
-                    ) {
-                        Icon(imageVector = Icons.Default.Add,
-                            contentDescription = "")
-                        Text(text = "My List",
-                            modifier = Modifier
-                                .padding(start = 3.dp),
-                            fontSize = 15.sp)
-                    }
-                }
-            }
+            AnimeItem(item)
         }
     }
 }
 
+@Composable
+fun AnimeItem(item: Int) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Start
+    ) {
+        AnimeItemImage(item)
+        AnimeItemDetails()
+    }
+}
 
+@Composable
+fun AnimeItemImage(item: Int) {
+    Box(
+        modifier = Modifier
+            .height(200.dp)
+            .padding(10.dp)
+    ) {
+        Card() {
+            Image(
+                painter = painterResource(id = R.drawable.attackontitan),
+                contentDescription = "mainPhoto",
+                alpha = 0.85f
+            )
+        }
+        Card(
+            modifier = Modifier
+                .padding(top = 10.dp, start = 10.dp)
+                .size(30.dp, 20.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color.Green,
+                contentColor = Color.White
+            ),
+            shape = RoundedCornerShape(corner = CornerSize(5.dp))
+        ) {
+            Box(
+                Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    "9.8",
+                    textAlign = TextAlign.Center,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+        }
+        Text(
+            text = "$item",
+            modifier = Modifier
+                .align(Alignment.BottomStart)
+                .padding(bottom = 10.dp, start = 10.dp),
+            textAlign = TextAlign.Left,
+            fontSize = 33.sp,
+            color = Color.White
+        )
+    }
+}
 
+@Composable
+fun AnimeItemDetails() {
+    Column(
+        modifier = Modifier.padding(start = 15.dp, end = 25.dp)
+    ) {
+        Text(
+            text = "Attack on Titan Final Season Part 2",
+            modifier = Modifier
+                .width(200.dp),
+            overflow = TextOverflow.Ellipsis,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(text = "2022 | Japan")
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Genre: Action fiction, Dark fantasy, Apocalyptic, " +
+                    "Drama, Shonen, Manga",
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 2
+        )
+        Spacer(modifier = Modifier.height(15.dp))
+
+        FilledTonalButton(
+            onClick = { /*TODO*/ },
+            modifier = Modifier
+                .size(125.dp, 40.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Green,
+                contentColor = Color.White
+            ),
+            contentPadding = PaddingValues(5.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "")
+            Text(
+                text = "My List",
+                modifier = Modifier
+                    .padding(start = 3.dp),
+                fontSize = 15.sp)
+        }
+    }
+}
 
 
 

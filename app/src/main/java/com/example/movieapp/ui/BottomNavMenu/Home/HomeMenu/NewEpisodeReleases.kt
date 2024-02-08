@@ -1,4 +1,4 @@
-package com.example.movieapp.Home.HomeMenu
+package com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
