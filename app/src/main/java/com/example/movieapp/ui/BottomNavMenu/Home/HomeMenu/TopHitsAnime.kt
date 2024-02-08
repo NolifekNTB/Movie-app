@@ -53,9 +53,10 @@ fun TopHitsAnimePreview() {
 
 @Composable
 fun TopHitsAnime(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
     ){
         TopBar(navController, "Top Hits Anime")
         ListTopHitsAnime()

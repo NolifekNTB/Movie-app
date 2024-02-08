@@ -1,4 +1,4 @@
-package com.example.movieapp.Home.Search
+package com.example.movieapp.ui.BottomNavMenu.Home.Search
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -53,15 +53,14 @@ fun SearchPreview() {
 
 @Composable
 fun Search(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         SearchBar(navController)
-        TypedSorts()
-        //TODO Logic between screen
         //TopSearches()
-        NotFound("Not found", "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords.")
+        //NotFound("Not found", "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords.")
         //ListEpisodeReleases()
     }
 }
@@ -71,11 +70,13 @@ fun SearchBar(navController: NavController){
     var text by remember { mutableStateOf("")}
     var isFocused by remember { mutableStateOf(false)}
 
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .padding(end = 20.dp, start = 10.dp, top = 10.dp),
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(end = 20.dp, start = 10.dp, top = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween){
+        horizontalArrangement = Arrangement.SpaceBetween
+    ){
         OutlinedTextField(
             value = text,
             onValueChange = { text = it; isFocused = true },
@@ -87,7 +88,8 @@ fun SearchBar(navController: NavController){
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
-                    tint = if (isFocused) Color(0x339A9498) else Color.Gray
+                    tint = if (isFocused) Color(0x339A9498)
+                    else Color.Gray
                 )
             },
             maxLines = 1,
@@ -98,97 +100,118 @@ fun SearchBar(navController: NavController){
                 backgroundColor = if (isFocused) Color(0x5598FB98) else Color(0x339A9498)
             )
         )
-        Card(
-            modifier = Modifier.size(55.dp),
-            shape = RoundedCornerShape(15.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color(0xFF98FB98),
-                contentColor = Color.White
-            )
+        SortFilterButton(navController)
+    }
+}
+
+@Composable
+fun SortFilterButton(navController: NavController) {
+    Card(
+        modifier = Modifier.size(55.dp),
+        shape = RoundedCornerShape(15.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFF98FB98),
+            contentColor = Color.White
+        )
+    ){
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
         ){
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
-                Icon(
-                    painter = painterResource(id = R.drawable.slider),
-                    contentDescription = null,
-                    tint = Color(0xFFDDFCC8),
-                    modifier = Modifier
-                        .size(30.dp)
-                        .clickable {
-                            navController.navigate("sortFilter")
-                        }
-                )
-            }
+            Icon(
+                painter = painterResource(id = R.drawable.slider),
+                contentDescription = null,
+                tint = Color(0xFFDDFCC8),
+                modifier = Modifier
+                    .size(30.dp)
+                    .clickable {
+                        navController.navigate("sortFilter")
+                    }
+            )
         }
     }
 }
 
 @Composable
-fun TypedSorts(){
-    //TODO logic
-}
-
-@Composable
 fun TopSearches() {
-    Column(Modifier.height(70.dp),
+    Column(
+        modifier = Modifier.height(70.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start) {
-        Text(text = "Top Searches",
+        Text(
+            text = "Top Searches",
             modifier = Modifier
                 .padding(start = 20.dp, top = 10.dp),
             fontSize = 25.sp,
             fontWeight = FontWeight.SemiBold)
     }
     LazyColumn(){
-        items(5){
-            Row(verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.padding(end = 20.dp, start = 20.dp, top = 10.dp)){
-                Card(modifier = Modifier.size(150.dp, 125.dp)){
-                    Image(painter = painterResource(id = R.drawable.attackontitan),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop)
-                }
-                Spacer(Modifier.width(15.dp))
-                Text(text = "Attack on titan Final Season part 2",
-                    modifier = Modifier
-                        .width(160.dp),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold)
-            }
+        items(5)
+        {
+            TopSearchesItem()
         }
+    }
+}
+
+@Composable
+fun TopSearchesItem() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .padding(end = 20.dp, start = 20.dp, top = 10.dp)
+    ){
+        Card(
+            modifier = Modifier.size(150.dp, 125.dp)
+        ){
+            Image(
+                painter = painterResource(id = R.drawable.attackontitan),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+        }
+        Spacer(Modifier.width(15.dp))
+        Text(
+            text = "Attack on titan Final Season part 2",
+            modifier = Modifier
+                .width(160.dp),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold)
     }
 }
 
 @Composable
 fun NotFound(title: String, text: String) {
     Column(
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 50.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(painter = painterResource(id = R.drawable.error),
+        Image(
+            painter = painterResource(id = R.drawable.error),
             contentDescription = null,
             modifier = Modifier
                 .size(350.dp))
-        Text(text = title,
+        Text(
+            text = title,
             color = Color.Green,
             fontSize = 25.sp,
-            fontWeight = FontWeight.W500)
-        Text(text = text,
+            fontWeight = FontWeight.W500
+        )
+        Text(
+            text = text,
             modifier = Modifier
                 .width(350.dp)
                 .padding(15.dp),
             fontSize = 15.sp,
             letterSpacing = 2.sp,
-            textAlign = TextAlign.Center)
+            textAlign = TextAlign.Center
+        )
 
     }
 }
-
-
-
 
 
 

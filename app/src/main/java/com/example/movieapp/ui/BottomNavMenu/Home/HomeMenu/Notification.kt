@@ -43,9 +43,10 @@ fun NotificationPreview() {
 
 @Composable
 fun Notification(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)
+    Column(
+        modifier = Modifier
+           .fillMaxSize()
+           .background(Color.White)
     ) {
         TopBar(navController = navController, name = "Notification")
         ListNotification()
@@ -54,60 +55,122 @@ fun Notification(navController: NavController) {
 
 @Composable
 fun ListNotification(){
-    LazyColumn(Modifier.fillMaxSize()){
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ){
         items(7){
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp)
-            ){
-                Card( modifier = Modifier
-                    .size(150.dp, 125.dp)){
-                    Image(painter = painterResource(id = R.drawable.attackontitan),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillWidth)
-                }
-                Column(Modifier.padding(top = 10.dp, start = 10.dp)) {
-                    Text(text = "Attack on titan",
-                        modifier = Modifier
-                            .width(125.dp),
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
-                    Spacer(Modifier.height(5.dp))
-                    Text(text = "Episodes 1040")
-                    Spacer(Modifier.height(5.dp))
-                    Card(
-                        modifier = Modifier
-                            .size(60.dp, 25.dp),
-                        colors = CardDefaults.cardColors(
-                            containerColor = Color.Green,
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(corner = CornerSize(3.dp))
-                    ) {
-                        Box(
-                            Modifier.fillMaxSize(),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                "Update",
-                                textAlign = TextAlign.Center,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.SemiBold
-                            )
-                        }
-                    }
-                }
-                Column(verticalArrangement = Arrangement.Top,
-                    horizontalAlignment = Alignment.End,
-                        modifier = Modifier.padding(top = 15.dp)) {
-                    Text(text = "12/20/2024",
-                        fontSize = 10.sp)
-                }
+           NotificationItem()
+        }
+    }
+}
+
+@Composable
+fun NotificationItem() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp)
+    ){
+        NotificationImage()
+        NotificationContent()
+        NotificationDate()
+    }
+}
+
+@Composable
+fun NotificationImage() {
+    Card(
+        modifier = Modifier
+          .size(150.dp, 125.dp)
+    ){
+        Image(
+            painter = painterResource(id = R.drawable.attackontitan),
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth
+        )
+    }
+}
+
+@Composable
+fun NotificationContent() {
+    Column(
+        modifier = Modifier.padding(top = 10.dp, start = 10.dp)
+    ) {
+        Text(
+            text = "Attack on titan",
+            modifier = Modifier
+                .width(125.dp),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        Spacer(Modifier.height(5.dp))
+        Text(text = "Episodes 1040")
+        Spacer(Modifier.height(5.dp))
+        Card(
+            modifier = Modifier
+                .size(60.dp, 25.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color.Green,
+                contentColor = Color.White
+            ),
+            shape = RoundedCornerShape(corner = CornerSize(3.dp))
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Update",
+                    textAlign = TextAlign.Center,
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
         }
     }
 }
+
+@Composable
+fun NotificationDate() {
+    Column(
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.End,
+        modifier = Modifier.padding(top = 15.dp)
+    ) {
+        Text(
+            text = "12/20/2024",
+            fontSize = 10.sp
+        )
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

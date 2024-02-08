@@ -25,8 +25,8 @@ import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.NewEpisodeReleases
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.Notification
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.TopHitsAnime
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeScreen
-import com.example.movieapp.Home.Search.Search
-import com.example.movieapp.Home.Search.SortFilter
+import com.example.movieapp.ui.BottomNavMenu.Home.Search.Search
+import com.example.movieapp.ui.BottomNavMenu.Home.Search.SortFilter
 import com.example.movieapp.ui.BottomNavMenu.ReleaseCalendar
 
 @Composable

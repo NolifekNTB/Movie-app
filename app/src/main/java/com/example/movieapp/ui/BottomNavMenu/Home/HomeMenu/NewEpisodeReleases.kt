@@ -38,9 +38,10 @@ fun NewEpisodeReleasesPreview() {
 
 @Composable
 fun NewEpisodeReleases(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         TopBar(navController, "New Episode Releases")
         ListEpisodeReleases()
@@ -57,34 +58,45 @@ fun ListEpisodeReleases() {
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ){
         items(10){
-            Box(){
-                Card(){
-                    Image(painter = painterResource(id = R.drawable.attackontitan),
-                        contentDescription = "")
-                }
-                Card(
-                    modifier = Modifier
-                        .padding(top = 10.dp, start = 10.dp)
-                        .size(30.dp, 20.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = Color.Green,
-                        contentColor = Color.White
-                    ),
-                    shape = RoundedCornerShape(corner = CornerSize(5.dp))
-                ) {
-                    Box(
-                        Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            "9.8",
-                            textAlign = TextAlign.Center,
-                            fontSize = 12.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                    }
-                }
-            }
+            EpisodeItem()
+        }
+    }
+}
+
+@Composable
+fun EpisodeItem(){
+    Box(){
+        Card(){
+            Image(
+                painter = painterResource(id = R.drawable.attackontitan),
+                contentDescription = "")
+        }
+        EpisodeRating()
+    }
+}
+
+@Composable
+fun EpisodeRating() {
+    Card(
+        modifier = Modifier
+            .padding(top = 10.dp, start = 10.dp)
+            .size(30.dp, 20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Green,
+            contentColor = Color.White
+        ),
+        shape = RoundedCornerShape(corner = CornerSize(5.dp))
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "9.8",
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }

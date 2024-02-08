@@ -1,4 +1,4 @@
-package com.example.movieapp.Home.Search
+package com.example.movieapp.ui.BottomNavMenu.Home.Search
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -41,148 +41,124 @@ fun SortFilterPreview() {
 
 @Composable
 fun SortFilter(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
     ) {
         TopBar(navController, "Sort & Filter")
         FilterList()
     }
 }
 
-
 @Composable
 fun FilterList() {
-        Column(Modifier.verticalScroll(rememberScrollState()).padding(bottom = 20.dp)){
-            Text(
-                text = "Sort",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif,
-                modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
-            )
-            Elements(HowManyCells = 2, arrayOf("Popularity", "Latest Release"))
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 20.dp)
+    ){
+        Section(title = "Sort", elements = arrayOf("Popularity", "Latest Release"), numCells = 2)
+        Section(title = "Categories", elements = arrayOf("Episode", "Movie"), numCells = 2)
+        Section(title = "Region", elements = arrayOf("All", "Japan", "Korea", "China"), numCells = 4)
 
-            Text(
-                text = "Categories",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif,
-                modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
-            )
-            Elements(HowManyCells = 2, arrayOf("Episode", "Movie"))
+        SectionWithSeeAllButton(title = "Genre", elements = arrayOf("All", "Action", "Slice of Life", "Magic", "Sci-Fi", "Mystery", "Comedy", "Romance", "Drama"), numCells = 3)
+        SectionWithSeeAllButton(title = "Release Year", elements = arrayOf("All", "2022", "2021"), numCells = 3)
 
-            Text(
-                text = "Region",
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif,
-                modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
-            )
-            Elements(HowManyCells = 4, arrayOf("All", "Japan", "Korea", "China"))
-
-            //Genre
-            Row(
-                Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Genre",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.SansSerif,
-                    modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
-                )
-                TextButton(onClick = { /*TODO*/ }) {
-                    Text(text = "See all", color = Color.Green)
-                }
-            }
-            Elements(HowManyCells = 3, arrayOf("All", "Action", "Slice of Life"))
-            Elements(HowManyCells = 3, arrayOf("Magic", "Sci-Fi", "Mystery"))
-            Elements(HowManyCells = 3, arrayOf("Comedy", "Romance", "Drama"))
-
-            //Release year
-            Row(
-                Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Release Year",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = FontFamily.SansSerif,
-                    modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
-                )
-                TextButton(onClick = { /*TODO*/ }) {
-                    Text(text = "See all", color = Color.Green)
-                }
-            }
-            Elements(HowManyCells = 3, arrayOf("All", "2022", "2021"))
-
-            Spacer(Modifier.height(10.dp))
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Absolute.SpaceAround
-            ) {
-                OutlinedButton(
-                    onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Green.copy(
-                            alpha = 0.2f
-                        ),
-                        contentColor = Color.Green
-                    ),
-                    border = BorderStroke(2.dp, Color.Green)
-                ) {
-                    Text(
-                        text = "Reset",
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .width(135.dp)
-                            .height(40.dp)
-                            .padding(top = 10.dp)
-                    )
-                }
-                OutlinedButton(
-                    onClick = { /*TODO*/ },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Green,
-                        contentColor = Color.White
-                    ),
-                    border = BorderStroke(2.dp, Color.Green)
-                ) {
-                    Text(
-                        text = "Apply",
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .width(135.dp)
-                            .height(40.dp)
-                            .padding(top = 10.dp)
-                    )
-                }
-            }
+        Spacer(Modifier.height(10.dp))
+        ApplyResetButtons()
     }
 }
 
 @Composable
-fun Elements(HowManyCells: Int, names: Array<String>){
+fun Section(title: String, elements: Array<String>, numCells: Int) {
+    Text(
+        text = title,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        fontFamily = FontFamily.SansSerif,
+        modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
+    )
+    Elements(numCells, elements)
+}
+
+@Composable
+fun SectionWithSeeAllButton(title: String, elements: Array<String>, numCells: Int) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = title,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily.SansSerif,
+            modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
+        )
+        TextButton(onClick = { /*TODO*/ }) {
+            Text(text = "See all", color = Color.Green)
+        }
+    }
+    Elements(numCells, elements)
+}
+
+@Composable
+fun ApplyResetButtons() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        ApplyResetButton(text = "Reset", containerColor = Color.Green.copy(alpha = 0.2f), contentColor = Color.Green)
+        ApplyResetButton(text = "Apply", containerColor = Color.Green, contentColor = Color.White)
+    }
+}
+
+@Composable
+fun ApplyResetButton(text: String, containerColor: Color, contentColor: Color) {
+    OutlinedButton(
+        onClick = { /*TODO*/ },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor,
+            contentColor = contentColor
+        ),
+        border = BorderStroke(2.dp, Color.Green)
+    ) {
+        Text(
+            text = text,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .width(135.dp)
+                .height(40.dp)
+                .padding(top = 10.dp)
+        )
+    }
+}
+
+@Composable
+fun Elements(howManyCells: Int, names: Array<String>){
     val selected = remember { mutableStateListOf<Boolean>() }
-    repeat(HowManyCells) {
+    repeat(howManyCells) {
         selected.add(false)
     }
-        Row() {
-            repeat(HowManyCells){item->
+    Row() {
+        repeat(howManyCells){ item->
             OutlinedButton(
                 onClick = { selected[item] = !selected[item] },
                 modifier = Modifier.padding(3.dp),
                 colors = ButtonDefaults.buttonColors(
-                    if (selected[item]) Color.Green else Color.White
+                    containerColor =
+                        if (selected[item]) Color.Green
+                        else Color.White
                 ),
                 border = BorderStroke(2.dp, Color.Green)
             ) {
-                Text(names[item], color = if (selected[item]) Color.White else Color.Green)
+                Text(
+                    text = names[item],
+                    color =
+                        if (selected[item]) Color.White
+                        else Color.Green
+                )
             }
         }
     }
