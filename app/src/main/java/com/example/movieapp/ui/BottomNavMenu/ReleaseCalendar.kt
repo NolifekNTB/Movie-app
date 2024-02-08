@@ -1,10 +1,9 @@
-package com.example.movieapp
+package com.example.movieapp.ui.BottomNavMenu
 
 import DataPreview
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -46,9 +45,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import com.example.movieapp.Home.Search.NotFound
+import com.example.movieapp.R
 
 @Preview
 @Composable
@@ -138,7 +136,7 @@ fun DateList() {
             }
             Row(
                 Modifier
-                    .fillMaxWidth
+                    .fillMaxWidth()
                     .padding(15.dp)
             ){
                 Card( modifier = Modifier

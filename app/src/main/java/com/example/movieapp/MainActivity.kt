@@ -33,6 +33,8 @@ import com.example.movieapp.Home.HomeMenu.TopHitsAnime
 import com.example.movieapp.Home.HomeScreen
 import com.example.movieapp.Home.Search.Search
 import com.example.movieapp.Home.Search.SortFilter
+import com.example.movieapp.ui.BottomNavMenu.ReleaseCalendar
+import com.example.movieapp.ui.navigation.BottomNavItem
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
