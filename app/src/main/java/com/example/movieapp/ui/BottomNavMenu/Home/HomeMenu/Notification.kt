@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.R
+import com.example.movieapp.ui.BottomNavMenu.Home.TopBar
 
 @Preview
 @Composable

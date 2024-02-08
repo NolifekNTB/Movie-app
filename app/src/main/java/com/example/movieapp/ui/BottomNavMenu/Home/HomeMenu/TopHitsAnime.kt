@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.R
+import com.example.movieapp.ui.BottomNavMenu.Home.TopBar
 
 @Preview
 @Composable
@@ -61,56 +62,6 @@ fun TopHitsAnime(navController: NavController) {
         TopBar(navController, "Top Hits Anime")
         ListTopHitsAnime()
     }
-}
-
-@Composable
-fun TopBar(navController: NavController, name: String) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(75.dp)
-            .padding(15.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ){
-        TopBarTitle(name, navController)
-        TopBarActionIcon(name)
-    }
-}
-
-@Composable
-fun TopBarTitle(name: String, navController: NavController){
-    Row(verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)){
-        Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "ArrowBack",
-            modifier = Modifier
-                .size(33.dp)
-                .clickable {
-                    navController.popBackStack()
-                })
-        Text(text = name,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = FontFamily.Monospace
-        )
-    }
-}
-
-@Composable
-fun TopBarActionIcon(name: String){
-    val icon = when (name) {
-        "Top Hits Anime" -> Icons.Default.Search
-        "Sort & Filter" -> Icons.Default.Add
-        else -> Icons.Default.MoreVert
-    }
-
-    Icon(
-        imageVector = icon,
-        contentDescription = null,
-        tint = if (name == "Sort & Filter") Color.White else Color.Black,
-        modifier = Modifier.size(35.dp)
-    )
 }
 
 @Composable
