@@ -51,6 +51,15 @@ android {
 }
 
 dependencies {
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0-RC2")
+
+    //ROOM
+    implementation ("androidx.room:room-runtime:2.6.1")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+
+
     //FasterPreview
     implementation("io.github.vram-voskanyan.kmp:PreviewGenerator:1.0.0")
     ksp("io.github.vram-voskanyan.kmp:PreviewGenerator:1.0.0")

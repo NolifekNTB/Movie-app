@@ -1,5 +1,6 @@
 package com.example.movieapp.ui.BottomNavMenu.Home
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,6 +30,7 @@ import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
@@ -50,6 +52,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.R
+import com.example.movieapp.data.AnimeItem
+import kotlinx.coroutines.awaitAll
 
 // Constants
 private val MainPhotoHeight = 300.dp
@@ -61,11 +65,17 @@ private val ButtonHeight = 35.dp
 @Preview
 @Composable
 fun HomePreview(){
-    HomeScreen(rememberNavController())
+    val preview = arrayListOf(
+        AnimeItem(id = 0, "Attack on titan test", R.drawable.attackontitan, 9.9),
+        AnimeItem(id = 1, "Naruto", R.drawable.demon_slayer, 9.2),
+        AnimeItem(id = 2, "Dragon ball", R.drawable.error, 8.2),
+    )
+
+    HomeScreen(rememberNavController(), preview)
 }
 
 @Composable
-fun HomeScreen(navController: NavController){
+fun HomeScreen(navController: NavController, animeList: List<AnimeItem> = emptyList()) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -73,8 +83,8 @@ fun HomeScreen(navController: NavController){
             .background(Color.White)
     ) {
         ImageHome(navController)
-        RowList("Top Hits Anime", navController)
-        RowList("New Episode Releases", navController)
+        RowList("Top Hits Anime", navController, animeList)
+        RowList("New Episode Releases", navController, animeList)
     }
 }
 
@@ -202,7 +212,7 @@ fun ImageDetails(navController: NavController) {
 //////////////////////////////////////////////////////////////////////////////
 
 @Composable
-fun RowList(name: String, navController: NavController){
+fun RowList(name: String, navController: NavController, animeList: List<AnimeItem>){
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -232,26 +242,32 @@ fun RowList(name: String, navController: NavController){
         }
     }
     LazyRow(){
-        items(3){ item ->
-            Box(
-                modifier = Modifier
-                    .height(200.dp)
-                    .padding(10.dp)
-            ){
-                //Modifier.align -> to position image index item to the left botto
-                imageCard(item, Modifier.align(Alignment.BottomStart))
+        Log.i("testowo", "2-> ${animeList}}")
+        if(animeList.isNotEmpty()){
+            items(animeList.size){ item ->
+                Box(
+                    modifier = Modifier
+                        .height(200.dp)
+                        .width(150.dp)
+                        .padding(10.dp)
+                ){
+                    //Modifier.align -> to position image index item to the left botto
+                    imageCard(animeList[item], Modifier.align(Alignment.BottomStart))
+                }
             }
         }
     }
 }
 
 @Composable
-fun imageCard(item: Int, modifier: Modifier){
+fun imageCard(itemAnime: AnimeItem, modifier: Modifier){
+    Log.i("testowo", "3-> ${itemAnime}}")
     Card(){
         Image(
-            painter = painterResource(id = R.drawable.attackontitan),
+            painter = painterResource(id = itemAnime.image),
             contentDescription = "mainPhoto",
-            alpha = AlphaValue
+            alpha = AlphaValue,
+            contentScale = ContentScale.FillHeight
         )
     }
     Card(
@@ -269,14 +285,14 @@ fun imageCard(item: Int, modifier: Modifier){
             contentAlignment = Alignment.Center
         ){
             Text(
-                text = "9.8",
+                text = "${itemAnime.rating}",
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold)
         }
     }
     Text(
-        text = "$item",
+        text = itemAnime.id.toString(),
         modifier = modifier
             .padding(bottom = 10.dp, start = 10.dp),
         textAlign = TextAlign.Left,

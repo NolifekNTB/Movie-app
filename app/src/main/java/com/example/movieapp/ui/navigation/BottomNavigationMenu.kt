@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.movieapp.data.AnimeItem
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.NewEpisodeReleases
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.Notification
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.TopHitsAnime
@@ -30,7 +31,7 @@ import com.example.movieapp.ui.BottomNavMenu.Home.Search.SortFilter
 import com.example.movieapp.ui.BottomNavMenu.ReleaseCalendar
 
 @Composable
-fun BottomNavigationMenu() {
+fun BottomNavigationMenu(animeList: List<AnimeItem>) {
     val navController = rememberNavController()
 
     val items = listOf(
@@ -93,7 +94,7 @@ fun BottomNavigationMenu() {
             startDestination = BottomNavItem.Home.route,
             Modifier.padding(innerPadding)
         ) {
-            composable(BottomNavItem.Home.route) { HomeScreen(navController) }
+            composable(BottomNavItem.Home.route) { HomeScreen(navController, animeList) }
             composable(BottomNavItem.ReleaseDate.route) { ReleaseCalendar(navController) }
             composable(BottomNavItem.Mylist.route) { }
             composable(BottomNavItem.Download.route) { }

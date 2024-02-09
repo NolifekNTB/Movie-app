@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.R
+import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.ListEpisodeReleases
 
 @Preview
 @Composable
@@ -61,7 +62,7 @@ fun Search(navController: NavController) {
         SearchBar(navController)
         //TopSearches()
         //NotFound("Not found", "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords.")
-        //ListEpisodeReleases()
+        ListEpisodeReleases()
     }
 }
 
