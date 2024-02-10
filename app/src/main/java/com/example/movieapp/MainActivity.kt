@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.movieapp.data.AnimeItem
+import com.example.movieapp.room.AnimeDatabase
 import com.example.movieapp.ui.navigation.BottomNavigationMenu
 
 class MainActivity : ComponentActivity() {
@@ -22,8 +23,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Column(Modifier.fillMaxSize()) {
-                val animeList by viewModel.animeList.collectAsState(emptyList())
-                Log.i("testowo", "1-> $animeList")
+                val animeList by viewModel.getAnimeList().collectAsState(emptyList())
+
                 BottomNavigationMenu(animeList = animeList)
             }
         }

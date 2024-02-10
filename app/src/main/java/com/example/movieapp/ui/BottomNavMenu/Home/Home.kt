@@ -252,7 +252,7 @@ fun RowList(name: String, navController: NavController, animeList: List<AnimeIte
                         .padding(10.dp)
                 ){
                     //Modifier.align -> to position image index item to the left botto
-                    imageCard(animeList[item], Modifier.align(Alignment.BottomStart))
+                    imageCard(animeList[item], item, Modifier.align(Alignment.BottomStart))
                 }
             }
         }
@@ -260,7 +260,7 @@ fun RowList(name: String, navController: NavController, animeList: List<AnimeIte
 }
 
 @Composable
-fun imageCard(itemAnime: AnimeItem, modifier: Modifier){
+fun imageCard(itemAnime: AnimeItem, index: Int, modifier: Modifier){
     Log.i("testowo", "3-> ${itemAnime}}")
     Card(){
         Image(
@@ -292,7 +292,7 @@ fun imageCard(itemAnime: AnimeItem, modifier: Modifier){
         }
     }
     Text(
-        text = itemAnime.id.toString(),
+        text = index.toString(),
         modifier = modifier
             .padding(bottom = 10.dp, start = 10.dp),
         textAlign = TextAlign.Left,
