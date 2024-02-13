@@ -64,8 +64,8 @@ dependencies {
     ksp("io.github.vram-voskanyan.kmp:PreviewGenerator:1.0.0")
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.6")
-    implementation ("androidx.compose.material:material:1.6.0")
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation ("androidx.compose.material:material:1.6.1")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")

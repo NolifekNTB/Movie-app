@@ -71,28 +71,28 @@ fun HomePreview(){
         AnimeItem(id = 2, "Dragon ball", R.drawable.error, 8.2),
     )
 
-    HomeScreen(rememberNavController(), preview)
+    HomeScreen({}, preview)
 }
 
 @Composable
-fun HomeScreen(navController: NavController, animeList: List<AnimeItem> = emptyList()) {
+fun HomeScreen(onPlayClicked: (String) -> Unit, animeList: List<AnimeItem> = emptyList()) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .fillMaxSize()
             .background(Color.White)
     ) {
-        ImageHome(navController)
-        RowList("Top Hits Anime", navController, animeList)
-        RowList("New Episode Releases", navController, animeList)
+        ImageHome(onPlayClicked)
+        RowList("Top Hits Anime", animeList, onPlayClicked)
+        RowList("New Episode Releases", animeList, onPlayClicked)
     }
 }
 
 @Composable
-fun ImageHome(navController: NavController) {
+fun ImageHome(onPlayClicked: (String) -> Unit) {
     Box {
         MainPhoto()
-        ImageDetails(navController)
+        ImageDetails(onPlayClicked)
     }
 }
 
@@ -108,7 +108,7 @@ fun MainPhoto(){
 }
 
 @Composable
-fun ImageDetails(navController: NavController) {
+fun ImageDetails(onPlayClicked: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,7 +122,7 @@ fun ImageDetails(navController: NavController) {
                 modifier = Modifier
                     .size(35.dp)
                     .clickable {
-                        navController.navigate("Search")
+                        onPlayClicked("Search")
                     },
                 tint = Color.White
             )
@@ -133,7 +133,7 @@ fun ImageDetails(navController: NavController) {
                 modifier = Modifier
                     .size(35.dp)
                     .clickable {
-                        navController.navigate("Notification")
+                        onPlayClicked("Notification")
                     },
                 tint = Color.White
             )
@@ -212,7 +212,7 @@ fun ImageDetails(navController: NavController) {
 //////////////////////////////////////////////////////////////////////////////
 
 @Composable
-fun RowList(name: String, navController: NavController, animeList: List<AnimeItem>){
+fun RowList(name: String, animeList: List<AnimeItem>, onPlayClicked: (String) -> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -235,7 +235,7 @@ fun RowList(name: String, navController: NavController, animeList: List<AnimeIte
                 modifier = Modifier
                     .padding(end = 10.dp, top = 10.dp)
                     .clickable {
-                        navController.navigate(name)
+                        onPlayClicked(name)
                     },
                 fontSize = 15.sp,
                 color = Color.Green)
