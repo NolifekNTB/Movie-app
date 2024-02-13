@@ -49,4 +49,8 @@ class MainViewModel(app: Application): AndroidViewModel(app) {
             )
         }
     }
+
+    suspend fun searchAllAnime(query: String): List<AnimeItem> {
+        return repo.searchAnimeByName(query)
+    }
 }

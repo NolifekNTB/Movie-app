@@ -2,12 +2,14 @@ package com.example.movieapp.room
 
 import android.content.Context
 import com.example.movieapp.data.AnimeItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 class AnimeRepository(context: Context): AnimeDao {
     private val dao = AnimeDatabase.getInstance(context).animedao()
 
-    override suspend fun insertAnime(anime: AnimeItem) {
+    override suspend fun insertAnime(anime: AnimeItem){
         dao.insertAnime(anime)
     }
 
@@ -29,5 +31,9 @@ class AnimeRepository(context: Context): AnimeDao {
 
     override fun getAllAnime(): Flow<List<AnimeItem>> {
         return dao.getAllAnime()
+    }
+
+    override suspend fun searchAnimeByName(searchQuery: String): List<AnimeItem> = withContext(Dispatchers.IO){
+        return@withContext dao.searchAnimeByName(searchQuery)
     }
 }

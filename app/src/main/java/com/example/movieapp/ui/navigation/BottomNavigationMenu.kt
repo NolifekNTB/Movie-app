@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.AndroidViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -23,6 +24,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.example.movieapp.MainViewModel
 import com.example.movieapp.data.AnimeItem
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.NewEpisodeReleases
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.Notification
@@ -33,13 +35,13 @@ import com.example.movieapp.ui.BottomNavMenu.Home.Search.SortFilter
 import com.example.movieapp.ui.BottomNavMenu.ReleaseCalendar
 
 
-fun NavGraphBuilder.homeGraph(navController: NavController, animeList: List<AnimeItem>) {
+fun NavGraphBuilder.homeGraph(navController: NavController, animeList: List<AnimeItem>, viewModel: MainViewModel) {
     navigation(startDestination = "home", route = "homeRoute") {
         composable("home") { HomeScreen(
             onPlayClicked = {s -> navController.navigate(s)},
             animeList
         )}
-        composable("search") { Search(navController) }
+        composable("search") { Search(navController, viewModel) }
         composable("sortFilter") { SortFilter(navController) }
 
         composable("notification") { Notification(navController) }
@@ -58,7 +60,7 @@ fun NavGraphBuilder.calendarGraph(navController: NavController) {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BottomNavigationMenu(animeList: List<AnimeItem>) {
+fun BottomNavigationMenu(animeList: List<AnimeItem>, viewModel: MainViewModel) {
     val navController = rememberNavController()
 
     val items = listOf(
@@ -126,7 +128,7 @@ fun BottomNavigationMenu(animeList: List<AnimeItem>) {
                 animeList
             )}
 
-            homeGraph(navController, animeList)
+            homeGraph(navController, animeList, viewModel)
             calendarGraph(navController)
             composable(BottomNavItem.Mylist.route) {}
             composable(BottomNavItem.Download.route) {}

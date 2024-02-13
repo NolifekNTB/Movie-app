@@ -25,17 +25,10 @@ class MainActivity : ComponentActivity() {
             Column(Modifier.fillMaxSize()) {
                 val animeList by viewModel.getAnimeList().collectAsState(emptyList())
 
-                BottomNavigationMenu(animeList = animeList)
+                BottomNavigationMenu(animeList = animeList, viewModel = viewModel)
             }
         }
     }
 }
-
-@Preview
-@Composable
-fun BottomNavigationMenuPreview() {
-    BottomNavigationMenu(emptyList())
-}
-
 
 

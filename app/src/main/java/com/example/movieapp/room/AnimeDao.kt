@@ -29,5 +29,6 @@ interface AnimeDao {
     @Query("SELECT * FROM anime")
     fun getAllAnime(): Flow<List<AnimeItem>>
 
-    // Add other queries as needed (e.g., by genre, status)
+    @Query("SELECT * FROM anime WHERE name LIKE '%' || :searchQuery || '%'")
+    suspend fun searchAnimeByName(searchQuery: String): List<AnimeItem>
 }

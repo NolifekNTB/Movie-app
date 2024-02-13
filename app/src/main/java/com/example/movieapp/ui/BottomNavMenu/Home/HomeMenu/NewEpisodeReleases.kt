@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.R
+import com.example.movieapp.data.AnimeItem
 import com.example.movieapp.ui.BottomNavMenu.Home.TopBar
 
 @Preview
@@ -39,37 +40,44 @@ fun NewEpisodeReleasesPreview() {
 
 @Composable
 fun NewEpisodeReleases(navController: NavController) {
+    var exampleList = arrayListOf(
+        AnimeItem(1, "attack", R.drawable.attackontitan, 9.2),
+        AnimeItem(2, "Naruto", R.drawable.naruto, 9.3),
+        AnimeItem(3, "Dragon Ball", R.drawable.attackontitan, 9.5),
+        AnimeItem(4, "Death Note", R.drawable.naruto, 9.1),
+        AnimeItem(5, "One Piece", R.drawable.attackontitan, 9.4),
+        )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
         TopBar(navController, "New Episode Releases")
-        ListEpisodeReleases()
+        ListEpisodeReleases(exampleList)
     }
 
 }
-
 @Composable
-fun ListEpisodeReleases() {
+fun ListEpisodeReleases(animeList: List<AnimeItem>) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(10.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ){
-        items(10){
-            EpisodeItem()
+        items(animeList.size){ item ->
+            EpisodeItem(animeList[item])
         }
     }
 }
 
 @Composable
-fun EpisodeItem(){
+fun EpisodeItem(episode: AnimeItem) {
     Box(){
         Card(){
             Image(
-                painter = painterResource(id = R.drawable.attackontitan),
+                painter = painterResource(id = episode.image),
                 contentDescription = "")
         }
         EpisodeRating()

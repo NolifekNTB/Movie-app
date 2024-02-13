@@ -1,5 +1,9 @@
 package com.example.movieapp.ui.BottomNavMenu.Home.Search
 
+import android.app.Application
+import android.content.Context
+import android.util.Log
+import androidx.activity.viewModels
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -43,33 +47,38 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.movieapp.MainViewModel
 import com.example.movieapp.R
+import com.example.movieapp.data.AnimeItem
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.ListEpisodeReleases
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
+/*
 @Preview
 @Composable
 fun SearchPreview() {
-    Search(rememberNavController())
+    Search(rememberNavController(), MainViewModel(Application()))
 }
+ */
 
 @Composable
-fun Search(navController: NavController) {
+fun Search(navController: NavController, viewModel: MainViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        SearchBar(navController)
-        //TopSearches()
-        //NotFound("Not found", "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords.")
-        ListEpisodeReleases()
+        SearchBar(navController, viewModel)
     }
 }
 
 @Composable
-fun SearchBar(navController: NavController){
+fun SearchBar(navController: NavController, viewModel: MainViewModel){
     var text by remember { mutableStateOf("")}
     var isFocused by remember { mutableStateOf(false)}
+    var searchResults by remember { mutableStateOf<List<AnimeItem>>(emptyList()) }
 
     Row(
         modifier = Modifier
@@ -80,7 +89,12 @@ fun SearchBar(navController: NavController){
     ){
         OutlinedTextField(
             value = text,
-            onValueChange = { text = it; isFocused = true },
+            onValueChange = {
+                text = it;
+                isFocused = true;
+                    CoroutineScope(Dispatchers.Main).launch {
+                    searchResults = viewModel.searchAllAnime(text)}
+                            },
             modifier = Modifier
                 .weight(1f)
                 .padding(end = 20.dp),
@@ -102,6 +116,15 @@ fun SearchBar(navController: NavController){
             )
         )
         SortFilterButton(navController)
+    }
+
+    //Logic between 3 screens
+    if(searchResults.isNotEmpty()){
+        ListEpisodeReleases(searchResults)
+    } else if (searchResults.isEmpty() && isFocused){
+        NotFound("Not found", "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords.")
+    } else {
+        TopSearches()
     }
 }
 
