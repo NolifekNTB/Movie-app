@@ -1,9 +1,11 @@
 package com.example.movieapp.ui.BottomNavMenu.Home.Search
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -27,12 +30,16 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCompositionContext
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,13 +62,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/*
 @Preview
 @Composable
 fun SearchPreview() {
-    Search(rememberNavController(), MainViewModel(Application()))
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        filterList("Popularity")
+    }
 }
- */
 
 @Composable
 fun Search(navController: NavController, viewModel: MainViewModel) {
@@ -71,14 +82,17 @@ fun Search(navController: NavController, viewModel: MainViewModel) {
             .background(Color.White)
     ) {
         SearchBar(navController, viewModel)
+
     }
 }
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun SearchBar(navController: NavController, viewModel: MainViewModel){
     var text by remember { mutableStateOf("")}
     var isFocused by remember { mutableStateOf(false)}
     var searchResults by remember { mutableStateOf<List<AnimeItem>>(emptyList()) }
+    val list by viewModel.filtersList.collectAsState(emptyList())
 
     Row(
         modifier = Modifier
@@ -118,6 +132,15 @@ fun SearchBar(navController: NavController, viewModel: MainViewModel){
         SortFilterButton(navController)
     }
 
+    //Display filters
+    if(list.isNotEmpty()){
+        LazyRow() {
+            items(list.size) { item ->
+                filterList(list[item])
+            }
+        }
+    }
+
     //Logic between 3 screens
     if(searchResults.isNotEmpty()){
         ListEpisodeReleases(searchResults)
@@ -125,6 +148,24 @@ fun SearchBar(navController: NavController, viewModel: MainViewModel){
         NotFound("Not found", "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords.")
     } else {
         TopSearches()
+    }
+}
+
+
+@Composable
+fun filterList(name: String) {
+    OutlinedButton(
+        onClick = {},
+        modifier = Modifier.padding(3.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Green
+        ),
+        border = BorderStroke(2.dp, Color.Green)
+    ) {
+        Text(
+            text = name,
+            color = Color.White
+        )
     }
 }
 

@@ -2,7 +2,11 @@ package com.example.movieapp
 
 import android.app.Application
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.currentRecomposeScope
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.data.AnimeItem
 import com.example.movieapp.room.AnimeRepository
@@ -52,5 +56,21 @@ class MainViewModel(app: Application): AndroidViewModel(app) {
 
     suspend fun searchAllAnime(query: String): List<AnimeItem> {
         return repo.searchAnimeByName(query)
+    }
+
+    //Search (filter)
+    private val _filtersList = MutableStateFlow<List<String>>(listOf())
+    val filtersList: StateFlow<List<String>> = _filtersList.asStateFlow()
+
+    fun updateList(s: String) {
+        val currentList = _filtersList.value.toMutableList()
+        currentList.add(s)
+        _filtersList.value = currentList
+    }
+
+    fun removeFromList(s: String) {
+        val currentList = _filtersList.value.toMutableList()
+        currentList.remove(s)
+        _filtersList.value = currentList
     }
 }
