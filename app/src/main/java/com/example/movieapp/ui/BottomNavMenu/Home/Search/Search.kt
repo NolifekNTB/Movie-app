@@ -52,6 +52,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.MainViewModel
@@ -65,24 +66,18 @@ import kotlinx.coroutines.launch
 @Preview
 @Composable
 fun SearchPreview() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        filterList("Popularity")
-    }
+   Search(navController = rememberNavController())
 }
 
 @Composable
-fun Search(navController: NavController, viewModel: MainViewModel) {
+fun Search(navController: NavController) {
+    val viewModel = hiltViewModel<MainViewModel>()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
         SearchBar(navController, viewModel)
-
     }
 }
 
@@ -131,7 +126,6 @@ fun SearchBar(navController: NavController, viewModel: MainViewModel){
         )
         SortFilterButton(navController)
     }
-
     //Display filters
     if(list.isNotEmpty()){
         LazyRow() {
@@ -156,7 +150,7 @@ fun SearchBar(navController: NavController, viewModel: MainViewModel){
 fun filterList(name: String) {
     OutlinedButton(
         onClick = {},
-        modifier = Modifier.padding(3.dp),
+        modifier = Modifier.padding(3 .dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Green
         ),

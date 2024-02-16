@@ -41,7 +41,7 @@ fun NavGraphBuilder.homeGraph(navController: NavController, animeList: List<Anim
             onPlayClicked = {s -> navController.navigate(s)},
             animeList
         )}
-        composable("search") { Search(navController, viewModel) }
+        composable("search") { Search(navController) }
         composable("sortFilter") { SortFilter(navController, viewModel) }
 
         composable("notification") { Notification(navController) }

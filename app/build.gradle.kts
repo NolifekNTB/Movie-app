@@ -1,8 +1,12 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.android") version "1.9.0"
     id("com.google.devtools.ksp") version "1.9.21-1.0.15"
+    id("org.jetbrains.kotlin.kapt")
+    id("com.google.dagger.hilt.android") version "2.46" apply false
+    id ("dagger.hilt.android.plugin")
 }
+
 
 android {
     namespace = "com.example.movieapp"
@@ -19,6 +23,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
     }
 
     buildTypes {
@@ -51,6 +56,15 @@ android {
 }
 
 dependencies {
+    //Dagger Hilt
+    implementation ("com.google.dagger:hilt-android:2.50")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+    kapt ("com.google.dagger:hilt-compiler:2.50")
+    kapt ("androidx.hilt:hilt-compiler:1.1.0")
+    //implementation("androidx.hilt:hilt-work:1.1.0")
+    //implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+
     //ROOM
     val room_version = "2.6.1"
 

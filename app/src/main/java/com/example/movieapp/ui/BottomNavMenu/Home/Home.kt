@@ -264,7 +264,7 @@ fun imageCard(itemAnime: AnimeItem, index: Int, modifier: Modifier){
     Log.i("testowo", "3-> ${itemAnime}}")
     Card(){
         Image(
-            painter = painterResource(id = itemAnime.image),
+            painter = painterResource(itemAnime.image),
             contentDescription = "mainPhoto",
             alpha = AlphaValue,
             contentScale = ContentScale.FillHeight

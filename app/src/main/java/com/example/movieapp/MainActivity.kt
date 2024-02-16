@@ -15,15 +15,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.movieapp.data.AnimeItem
 import com.example.movieapp.room.AnimeDatabase
 import com.example.movieapp.ui.navigation.BottomNavigationMenu
+import dagger.hilt.android.AndroidEntryPoint
+import androidx.hilt.navigation.compose.hiltViewModel
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel by viewModels<MainViewModel>()
+    //private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             Column(Modifier.fillMaxSize()) {
+                val viewModel = hiltViewModel<MainViewModel>()
                 val animeList by viewModel.getAnimeList().collectAsState(emptyList())
+                Log.d("listaAnime", animeList.toString())
 
                 BottomNavigationMenu(animeList = animeList, viewModel = viewModel)
             }

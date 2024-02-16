@@ -66,7 +66,7 @@ val days = listOf(
     Day("Sun", 12),
     // ...
 )
-@DataPreview
+
 data class Day(val dayOfWeek: String, val date: Int)
 
 @Composable

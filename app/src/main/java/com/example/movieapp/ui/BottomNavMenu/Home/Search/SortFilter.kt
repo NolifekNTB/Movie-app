@@ -46,7 +46,8 @@ import com.example.movieapp.ui.BottomNavMenu.Home.TopBar
 @Preview
 @Composable
 fun SortFilterPreview() {
-    SortFilter(rememberNavController(), MainViewModel(Application()))
+    //val viewModel = viewModel<MainViewModel>()
+    //SortFilter(rememberNavController(), viewModel)
 }
 
 @Composable
