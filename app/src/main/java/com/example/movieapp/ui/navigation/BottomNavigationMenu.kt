@@ -1,6 +1,7 @@
 package com.example.movieapp.ui.navigation
 
 import android.annotation.SuppressLint
+import android.telecom.Call.Details
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -33,6 +34,7 @@ import com.example.movieapp.ui.BottomNavMenu.Home.HomeScreen
 import com.example.movieapp.ui.BottomNavMenu.Home.Search.Search
 import com.example.movieapp.ui.BottomNavMenu.Home.Search.SortFilter
 import com.example.movieapp.ui.BottomNavMenu.ReleaseCalendar
+import com.example.movieapp.ui.DetailsPlay.DetailScreen
 
 
 fun NavGraphBuilder.homeGraph(navController: NavController, animeList: List<AnimeItem>, viewModel: MainViewModel) {
@@ -41,7 +43,7 @@ fun NavGraphBuilder.homeGraph(navController: NavController, animeList: List<Anim
             onPlayClicked = {s -> navController.navigate(s)},
             animeList
         )}
-        composable("search") { Search(navController) }
+        composable("search") { Search(navController, viewModel) }
         composable("sortFilter") { SortFilter(navController, viewModel) }
 
         composable("notification") { Notification(navController) }
@@ -130,7 +132,7 @@ fun BottomNavigationMenu(animeList: List<AnimeItem>, viewModel: MainViewModel) {
 
             homeGraph(navController, animeList, viewModel)
             calendarGraph(navController)
-            composable(BottomNavItem.Mylist.route) {}
+            composable(BottomNavItem.Mylist.route) { DetailScreen()}
             composable(BottomNavItem.Download.route) {}
             composable(BottomNavItem.Profile.route) {}
         }

@@ -53,25 +53,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.MainViewModel
 import com.example.movieapp.R
 import com.example.movieapp.data.AnimeItem
 import com.example.movieapp.ui.BottomNavMenu.Home.HomeMenu.ListEpisodeReleases
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Preview
-@Composable
-fun SearchPreview() {
-   Search(navController = rememberNavController())
-}
 
+@HiltViewModelMap
 @Composable
-fun Search(navController: NavController) {
-    val viewModel = hiltViewModel<MainViewModel>()
+fun Search(navController: NavController ,viewModel: MainViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -126,6 +124,9 @@ fun SearchBar(navController: NavController, viewModel: MainViewModel){
         )
         SortFilterButton(navController)
     }
+
+
+    Log.d("testowanie123", list.toString())
     //Display filters
     if(list.isNotEmpty()){
         LazyRow() {

@@ -25,7 +25,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
-    //ROOM
     //To test ROOM
     /*val list = arrayListOf(
         AnimeItem(id = 0, "Attack on titan test", R.drawable.attackontitan, 9.9),
@@ -39,6 +38,7 @@ class MainViewModel @Inject constructor(
     }
      */
 
+    //ROOM
     fun getAnimeList(): Flow<List<AnimeItem>> {
         return repo.getAllAnime()
     }
