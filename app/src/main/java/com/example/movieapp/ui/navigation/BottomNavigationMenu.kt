@@ -34,6 +34,8 @@ import com.example.movieapp.ui.BottomNavMenu.Home.HomeScreen
 import com.example.movieapp.ui.BottomNavMenu.Home.Search.Search
 import com.example.movieapp.ui.BottomNavMenu.Home.Search.SortFilter
 import com.example.movieapp.ui.BottomNavMenu.ReleaseCalendar
+import com.example.movieapp.ui.DetailsPlay.Comments
+import com.example.movieapp.ui.DetailsPlay.CommentsScreen
 import com.example.movieapp.ui.DetailsPlay.DetailScreen
 
 
@@ -132,11 +134,13 @@ fun BottomNavigationMenu(animeList: List<AnimeItem>, viewModel: MainViewModel) {
 
             homeGraph(navController, animeList, viewModel)
             calendarGraph(navController)
-            composable(BottomNavItem.Mylist.route) { DetailScreen()}
+            composable(BottomNavItem.Mylist.route) { DetailScreen(navController)}
             composable(BottomNavItem.Download.route) {}
             composable(BottomNavItem.Profile.route) {}
+            composable("comments") { CommentsScreen()}
         }
     }
+
 }
 
 

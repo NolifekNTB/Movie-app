@@ -62,6 +62,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.R
 
 
@@ -73,12 +75,12 @@ fun PreviewDetailScreen() {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        DetailScreen()
+        DetailScreen(rememberNavController())
     }
 }
 
 @Composable
-fun DetailScreen() {
+fun DetailScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -88,7 +90,7 @@ fun DetailScreen() {
         MainPhoto()
         Description()
         Episodes()
-        MoreLikeThisComments()
+        MoreLikeThisComments(navController)
     }
 }
 
@@ -383,7 +385,7 @@ fun Episodes() {
 }
 
 @Composable
-fun MoreLikeThisComments() {
+fun MoreLikeThisComments(navController: NavController) {
     var selectedSection by remember { mutableStateOf(0) }
     val sections = listOf("More Like This", "Comments")
 
@@ -430,7 +432,7 @@ fun MoreLikeThisComments() {
                 MoreLikeThis()
             }
             1 -> {
-                 Comments()
+                 Comments(navController)
             }
         }
     }
@@ -480,7 +482,7 @@ fun MoreLikeThis() {
 }
 
 @Composable
-fun Comments() {
+fun Comments(navController: NavController) {
     //Follow comment
     var selected by remember { mutableStateOf(false) }
 
@@ -494,10 +496,12 @@ fun Comments() {
             fontSize = 18.sp,
             fontWeight = FontWeight.SemiBold
             )
-        Text(
-            text = "See all",
-            color = Color.Green
-        )
+        TextButton(onClick = { navController.navigate("comments") }) {
+            Text(
+                text = "See all",
+                color = Color.Green
+            )
+        }
     }
 
     Column(){
