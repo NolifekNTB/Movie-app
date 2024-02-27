@@ -1,7 +1,9 @@
 package com.example.movieapp.ui.navigation
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.telecom.Call.Details
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -62,6 +64,7 @@ fun NavGraphBuilder.calendarGraph(navController: NavController) {
 }
 
 
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BottomNavigationMenu(animeList: List<AnimeItem>, viewModel: MainViewModel) {
@@ -134,7 +137,7 @@ fun BottomNavigationMenu(animeList: List<AnimeItem>, viewModel: MainViewModel) {
 
             homeGraph(navController, animeList, viewModel)
             calendarGraph(navController)
-            composable(BottomNavItem.Mylist.route) { DetailScreen(navController)}
+            composable(BottomNavItem.Mylist.route) { DetailScreen(navController, viewModel)}
             composable(BottomNavItem.Download.route) {}
             composable(BottomNavItem.Profile.route) {}
             composable("comments") { CommentsScreen()}

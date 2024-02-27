@@ -1,8 +1,14 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.example.movieapp.ui.DetailsPlay
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,68 +38,203 @@ import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.outlined.Send
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.movieapp.MainViewModel
 import com.example.movieapp.R
+import kotlinx.coroutines.launch
 
-
-@Preview
 @Composable
-fun PreviewDetailScreen() {
+fun sheetToDisplay(viewModel: MainViewModel){
+    val context = LocalContext.current
+
+    val icons = mutableListOf(
+        R.drawable.whatsapp,
+        R.drawable.twitter,
+        R.drawable.facebook,
+        R.drawable.instagram,
+        R.drawable.yahoo,
+        R.drawable.message,
+        R.drawable.wechat,
+        R.drawable.tiktok,
+    )
+
+    val names = mutableListOf(
+        "WhatsApp",
+        "Twitter",
+        "Facebook",
+        "Instagram",
+        "Yahoo",
+        "Message",
+        "WeChat",
+        "TikTok",
+    )
+
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
+        Modifier
+            .height(350.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        DetailScreen(rememberNavController())
+        Text(
+            text = "Share to",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(15.dp)
+        )
+        Divider(thickness = 1.dp, color = Color.LightGray)
+
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            for(i in 0..3){
+                Column {
+                    Image(
+                        painterResource(id = icons[i]),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(75.dp)
+                            .padding(15.dp)
+                            .clickable {
+                                intent(context, names[i])
+                            }
+                    )
+                    Text(
+                        text = names[i],
+                        fontSize = 13.sp,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                }
+            }
+        }
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            for(i in 4..6){
+                Column() {
+                    Image(
+                        painterResource(id = icons[i]),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(75.dp)
+                            .padding(15.dp)
+                            .clickable {
+                                intent(context, names[i])
+                            }
+                    )
+                    Text(
+                        text = names[i],
+                        fontSize = 13.sp,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+                }
+            }
+        }
     }
 }
 
-@Composable
-fun DetailScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        MainPhoto()
-        Description()
-        Episodes()
-        MoreLikeThisComments(navController)
+fun intent(context: Context, whatApp: String){
+    var packageName = ""
+    when(whatApp){
+        "WhatsApp" -> packageName = "com.whatsapp"
+        "Twitter" -> packageName = "com.twitter.android"
+        "Facebook" -> packageName = "com.facebook.katana"
+        "Instagram" -> packageName = "com.instagram.android"
+        "Yahoo" -> packageName = "com.yahoo.mobile.client.android.mail"
+        "Message" -> packageName = "com.google.android.apps.messaging"
+        "WeChat" -> packageName = "com.tencent.mm"
+        "TikTok" -> packageName = "com.zhiliaoapp.musically"
+        else -> null
+    }
+
+    val sendIntent = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, "text")
+        `package` = packageName
+    }
+
+    try{
+        context.startActivity(sendIntent)
+    } catch (e: ActivityNotFoundException){
+        e.printStackTrace()
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+@Composable
+fun DetailScreen(navController: NavController, viewModel: MainViewModel) {
+    //Share to scaffold
+    val scaffoldState = rememberBottomSheetScaffoldState()
+    val whichState = remember {
+        mutableStateOf("")
+    }
+
+    androidx.compose.material3.BottomSheetScaffold(
+        scaffoldState = scaffoldState,
+        sheetContent = {
+            if(whichState.value == "share"){
+                sheetToDisplay(viewModel)
+            } else {
+                sheetToDisplayDownload()
+            }
+        },
+        sheetPeekHeight = 0.dp,
+        sheetContainerColor = Color.White
+    ) {
+        Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxSize()
+            ) {
+                MainPhoto()
+                Description(scaffoldState, whichState)
+                Episodes()
+                MoreLikeThisComments(navController)
+            }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
 fun MainPhoto() {
     Box {
@@ -116,9 +257,10 @@ fun justImage(){
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
 @Composable
 fun justImageInformation() {
-     Row(
+    Row(
          horizontalArrangement = Arrangement.SpaceBetween,
          modifier = Modifier
              .fillMaxWidth()
@@ -127,18 +269,20 @@ fun justImageInformation() {
          Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
              contentDescription = "ArrowBack",
              tint = Color.White)
-         Icon(
-             painter = painterResource(R.drawable.mirror),
-             contentDescription = "ArrowBack",
-             modifier = Modifier
-                 .width(20.dp)
-                 .height(20.dp),
-             tint = Color.White)
+        Icon(
+            painter = painterResource(R.drawable.mirror),
+            contentDescription = "ArrowBack",
+            tint = Color.White,
+            modifier = Modifier.size(20.dp, 30.dp))
      }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Description() {
+fun Description(scaffoldState: BottomSheetScaffoldState, whichState: MutableState<String>) {
+    //To intent share
+    val scope = rememberCoroutineScope()
+
     Column() {
         //Title
         Row(
@@ -160,10 +304,19 @@ fun Description() {
                 contentDescription = "List"
             )
             Spacer(modifier = Modifier.width(10.dp))
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.Send,
-                contentDescription = "List"
-            )
+            IconButton(
+                onClick = {
+                    whichState.value = "share"
+                    scope.launch {
+                        scaffoldState.bottomSheetState.expand()
+                    }
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Outlined.Send,
+                    contentDescription = "List"
+                )
+            }
         }
         //Below tittle
         Row(
@@ -272,7 +425,12 @@ fun Description() {
             Spacer(
                 modifier = Modifier.width(10.dp))
             OutlinedButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    whichState.value = "download"
+                    scope.launch {
+                        scaffoldState.bottomSheetState.expand()
+                             }
+                          },
                 modifier = Modifier
                     .weight(1f),
                 border = BorderStroke(2.dp, Color.Green),
@@ -287,7 +445,7 @@ fun Description() {
                     contentDescription = "",
                     tint = Color.Green
                 )
-                androidx.compose.material3.Text("My list", color = Color.Green)
+                androidx.compose.material3.Text("Download", color = Color.Green)
             }
         }
         //Other info

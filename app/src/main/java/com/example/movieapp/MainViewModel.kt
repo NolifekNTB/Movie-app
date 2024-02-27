@@ -26,7 +26,9 @@ class MainViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
     //To test ROOM
-    /*val list = arrayListOf(
+
+    /*
+    val list = arrayListOf(
         AnimeItem(id = 0, "Attack on titan test", R.drawable.attackontitan, 9.9),
         AnimeItem(id = 1, "Naruto", R.drawable.naruto, 9.2),
         AnimeItem(id = 2, "Dragon ball", R.drawable.demon_slayer, 8.2),
@@ -77,3 +79,13 @@ class MainViewModel @Inject constructor(
         _filtersList.value = currentList
     }
 }
+
+
+
+
+
+
+
+
+
+

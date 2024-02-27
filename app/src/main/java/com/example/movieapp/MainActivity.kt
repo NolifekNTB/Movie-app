@@ -1,5 +1,6 @@
 package com.example.movieapp
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -29,6 +30,7 @@ class MainActivity : ComponentActivity() {
                 val viewModel = hiltViewModel<MainViewModel>()
                 val animeList by viewModel.getAnimeList().collectAsState(emptyList())
                 Log.d("listaAnime", animeList.toString())
+
 
                 BottomNavigationMenu(animeList = animeList, viewModel = viewModel)
             }
