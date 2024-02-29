@@ -47,12 +47,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 
-@Preview
-@Composable
-fun CommentsScreenPreview() {
-    CommentsScreen()
-}
-
 @Composable
 fun CommentsScreen(){
     Column(
@@ -96,7 +90,6 @@ fun TopBarComments() {
 
 @Composable
 fun CommentsList() {
-    //Follow comment
     var selected by remember { mutableStateOf(false) }
 
     repeat(5){
@@ -139,7 +132,7 @@ fun CommentsList() {
                         "efficitur dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. ")
             }
             Row(
-                Modifier
+                modifier = Modifier
                     .width(250.dp)
                     .padding(start = 5.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -168,7 +161,6 @@ fun CommentsList() {
 fun AddComment() {
     var comment by remember { mutableStateOf("") }
     var selected by remember { mutableStateOf(false) }
-
 
     Row(
         modifier =Modifier.padding(15.dp),

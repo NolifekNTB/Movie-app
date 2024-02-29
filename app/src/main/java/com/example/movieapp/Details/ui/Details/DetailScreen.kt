@@ -71,15 +71,13 @@ fun DetailScreen(navController: NavController) {
         mutableStateOf("")
     }
 
-    val viewModel = DetailsViewModel()
-
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetContent = {
             if(whichState.value == "share"){
-                sheetToDisplay(viewModel)
+                shareDisplayBox()
             } else if (whichState.value == "download"){
-                displayBox(scaffoldState)
+                displayDownloadBox(scaffoldState)
             }
         },
         sheetPeekHeight = 0.dp,

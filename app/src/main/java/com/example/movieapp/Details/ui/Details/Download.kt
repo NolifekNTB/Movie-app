@@ -3,7 +3,6 @@ package com.example.movieapp.Details.ui.Details
 import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
-import android.os.Environment
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -53,7 +52,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.net.toUri
 import com.example.movieapp.Details.logic.DetailsViewModel
 import com.example.movieapp.R
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -64,7 +62,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun displayBox(scaffoldState: BottomSheetScaffoldState) {
+fun displayDownloadBox(scaffoldState: BottomSheetScaffoldState) {
     val selectedEpisodes = remember {
         mutableStateListOf<Int>()
     }

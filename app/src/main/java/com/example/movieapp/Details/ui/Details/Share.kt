@@ -23,11 +23,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.Details.logic.DetailsViewModel
 import com.example.movieapp.R
 
 @Composable
-fun sheetToDisplay(viewModel: DetailsViewModel){
+fun shareDisplayBox(){
     val context = LocalContext.current
 
     val icons = mutableListOf(
@@ -81,7 +80,7 @@ fun sheetToDisplay(viewModel: DetailsViewModel){
                             .size(75.dp)
                             .padding(15.dp)
                             .clickable {
-                                intent(context, names[i])
+                                intentShare(context, names[i])
                             }
                     )
                     Text(
@@ -97,7 +96,7 @@ fun sheetToDisplay(viewModel: DetailsViewModel){
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            for(i in 4..6){
+            for(i in 4..7){
                 Column() {
                     Image(
                         painterResource(id = icons[i]),
@@ -106,7 +105,7 @@ fun sheetToDisplay(viewModel: DetailsViewModel){
                             .size(75.dp)
                             .padding(15.dp)
                             .clickable {
-                                intent(context, names[i])
+                                intentShare(context, names[i])
                             }
                     )
                     Text(
@@ -120,7 +119,7 @@ fun sheetToDisplay(viewModel: DetailsViewModel){
     }
 }
 
-fun intent(context: Context, whatApp: String){
+fun intentShare(context: Context, whatApp: String){
     var packageName = ""
     when(whatApp){
         "WhatsApp" -> packageName = "com.whatsapp"
