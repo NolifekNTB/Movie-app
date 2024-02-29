@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui
+package com.example.movieapp.Details.ui.Details
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager
@@ -54,6 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.net.toUri
+import com.example.movieapp.Details.logic.DetailsViewModel
 import com.example.movieapp.R
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -63,27 +64,27 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun sheetToDisplayDownload(scaffoldState: BottomSheetScaffoldState) {
+fun displayBox(scaffoldState: BottomSheetScaffoldState) {
     val selectedEpisodes = remember {
         mutableStateListOf<Int>()
     }
     val scope = rememberCoroutineScope()
-    var showDialog = remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(false) }
 
     val startDownloadPhoto = remember {
         mutableStateOf(false)
     }
 
-    Log.d("testowanie", selectedEpisodes.toString())
+    val viewModel = DetailsViewModel()
 
     Column(
-        Modifier
+        modifier = Modifier
             .height(400.dp)
             .padding(20.dp, 0.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        androidx.compose.material.Text(
+        Text(
             text = "Download",
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
@@ -124,7 +125,7 @@ fun sheetToDisplayDownload(scaffoldState: BottomSheetScaffoldState) {
                                     {
                                         Log.d("testowanie", item.toString());
                                         if(selectedEpisodes.contains(item)) selectedEpisodes.remove(item)
-                                            else selectedEpisodes.add(item)
+                                        else selectedEpisodes.add(item)
                                     }
                                 )
                                 Text(
@@ -192,7 +193,7 @@ fun sheetToDisplayDownload(scaffoldState: BottomSheetScaffoldState) {
                 ),
                 contentPadding = PaddingValues(5.dp)
             ) {
-                androidx.compose.material3.Text(
+                Text(
                     text = "Download",
                     modifier = Modifier
                         .padding(start = 3.dp),
@@ -202,15 +203,22 @@ fun sheetToDisplayDownload(scaffoldState: BottomSheetScaffoldState) {
         }
     }
     if(showDialog.value){
-        downloadCenterBox(showDialog, startDownloadPhoto)
+        downloadBox(showDialog, startDownloadPhoto, viewModel)
     }
 }
 
 @Composable
-fun downloadCenterBox(
+fun downloadBox(
     showDialog: MutableState<Boolean>,
-    startDownloadPhoto: MutableState<Boolean>
+    startDownloadPhoto: MutableState<Boolean>,
+    viewModel: DetailsViewModel
 ) {
+    val context = LocalContext.current
+    val downloadManager = remember { context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager }
+
+    val downloadId = remember { mutableLongStateOf(0L) }
+    val progress = remember { mutableIntStateOf(0) }
+
     AlertDialog(
         onDismissRequest = { showDialog.value = false },
         text = {
@@ -230,7 +238,26 @@ fun downloadCenterBox(
                     modifier = Modifier.padding(bottom = 15.dp)
                 )
                 Divider(thickness = 1.dp, color = Color.LightGray)
-                DownloadMain(startDownloadPhoto)
+                Column(
+                ) {
+                    LinearProgressIndicator(
+                        progress = progress.intValue / 100f,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 16.dp)
+                    )
+
+                    if(startDownloadPhoto.value){
+                        downloadId.longValue = viewModel.downloadFile("https://upload.wikimedia.org/wikipedia/commons/8/80/Kwiatek.jpg", context)
+                        startDownloadPhoto.value = false
+                    }
+
+                    LaunchedEffect(downloadId.longValue){
+                        observeDownloadProgress(downloadId.longValue, downloadManager) { currentProgress ->
+                            progress.intValue = currentProgress
+                        }
+                    }
+                }
             }
         },
         confirmButton = {
@@ -252,53 +279,6 @@ fun downloadCenterBox(
         },
         modifier = Modifier.padding(16.dp)
     )
-}
-
-
-
-@Composable
-fun DownloadMain(startDownloadPhoto: MutableState<Boolean>) {
-    val context = LocalContext.current
-    val downloadManager = remember { context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager }
-
-    val downloadId = remember { mutableLongStateOf(0L) }
-    val progress = remember { mutableIntStateOf(0) }
-
-    Column(
-    ) {
-        LinearProgressIndicator(
-            progress = progress.intValue / 100f,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-        )
-
-        if(startDownloadPhoto.value){
-            downloadId.longValue = downloadFile("https://upload.wikimedia.org/wikipedia/commons/8/80/Kwiatek.jpg", context)
-            startDownloadPhoto.value = false
-        }
-
-        LaunchedEffect(downloadId.longValue){
-            observeDownloadProgress(downloadId.longValue, downloadManager) { currentProgress ->
-                progress.intValue = currentProgress
-            }
-        }
-    }
-}
-
-fun downloadFile(url: String, context: Context): Long {
-    val downloadManager = context.getSystemService(DownloadManager::class.java)
-
-    val request = DownloadManager.Request(url.toUri())
-        .setMimeType("photo/jpeg")
-        .setAllowedOverRoaming(false)
-        .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
-        .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-        .setTitle("jpeg")
-        .setDestinationInExternalPublicDir(
-            Environment.DIRECTORY_DOWNLOADS, "photo.jpeg"
-        )
-    return downloadManager.enqueue(request)
 }
 
 @OptIn(DelicateCoroutinesApi::class)
