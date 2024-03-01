@@ -1,8 +1,9 @@
-package com.example.movieapp.Home.data
+package com.example.movieapp.Home.data.room
 
 import android.content.Context
-import com.example.movieapp.Home.logic.room.AnimeDao
-import com.example.movieapp.Home.logic.room.AnimeDatabase
+import com.example.movieapp.Home.data.room.AnimeDao
+import com.example.movieapp.Home.data.room.AnimeDatabase
+import com.example.movieapp.Home.data.room.AnimeItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

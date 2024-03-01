@@ -1,4 +1,4 @@
-package com.example.movieapp.Home.ui
+package com.example.movieapp.core.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

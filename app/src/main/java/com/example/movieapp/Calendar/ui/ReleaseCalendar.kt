@@ -44,7 +44,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.example.movieapp.Calendar.data.Day
 import com.example.movieapp.Calendar.logic.CalendarViewModel
 import com.example.movieapp.R
-import com.example.movieapp.Home.ui.TopBar
+import com.example.movieapp.core.ui.TopBar
 
 @Composable
 fun ReleaseCalendar(navController: NavController) {

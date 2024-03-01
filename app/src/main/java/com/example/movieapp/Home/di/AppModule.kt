@@ -1,7 +1,7 @@
 package com.example.movieapp.Home.di
 
 import android.app.Application
-import com.example.movieapp.Home.data.AnimeRepository
+import com.example.movieapp.Home.data.room.AnimeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

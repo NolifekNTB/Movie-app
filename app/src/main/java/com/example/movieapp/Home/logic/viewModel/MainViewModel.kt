@@ -2,8 +2,8 @@ package com.example.movieapp.Home.logic.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.Home.data.AnimeItem
-import com.example.movieapp.Home.data.AnimeRepository
+import com.example.movieapp.Home.data.room.AnimeItem
+import com.example.movieapp.Home.data.room.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -17,8 +17,6 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
-    //To test ROOM
-
     /*
     val list = arrayListOf(
         AnimeItem(id = 0, "Attack on titan test", R.drawable.attackontitan, 9.9),
@@ -32,7 +30,6 @@ class MainViewModel @Inject constructor(
     }
      */
 
-    //ROOM
     fun getAnimeList(): Flow<List<AnimeItem>> {
         return repo.getAllAnime()
     }
@@ -55,7 +52,6 @@ class MainViewModel @Inject constructor(
         return repo.searchAnimeByName(query)
     }
 
-    //Search (filter)
     private val _filtersList = MutableStateFlow<List<String>>(listOf())
     val filtersList: StateFlow<List<String>> = _filtersList.asStateFlow()
 

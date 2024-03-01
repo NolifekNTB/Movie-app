@@ -1,20 +1,13 @@
-package com.example.movieapp.Home.ui.Search
+package com.example.movieapp.Home.ui.HomeScreens.Search.sortFilter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -33,41 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
-import com.example.movieapp.Home.ui.TopBar
-
-@Composable
-fun SortFilter(navController: NavController, viewModel: MainViewModel) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        TopBar(navController, "Sort & Filter")
-        FilterList(viewModel)
-    }
-}
-
-@Composable
-fun FilterList(viewModel: MainViewModel) {
-    Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(bottom = 20.dp)
-    ){
-        Section(title = "Sort", elements = arrayOf("Popularity", "Latest Release"), numCells = 2, viewModel)
-        Section(title = "Categories", elements = arrayOf("Episode", "Movie"), numCells = 2 ,viewModel)
-        Section(title = "Region", elements = arrayOf("Japan", "Korea", "China"), numCells = 3 ,viewModel)
-
-        SectionWithSeeAllButton(title = "Genre", elements = arrayOf("Action", "Slice of Life", "Magic", "Sci-Fi", "Mystery",
-            "Comedy", "Romance", "Drama"), numCells = 3, viewModel)
-        SectionWithSeeAllButton(title = "Release Year", elements = arrayOf("2022", "2021"), numCells = 2, viewModel)
-
-        Spacer(Modifier.height(10.dp))
-        ApplyResetButtons()
-    }
-}
 
 @Composable
 fun Section(title: String, elements: Array<String>, numCells: Int, viewModel: MainViewModel) {
@@ -78,7 +37,7 @@ fun Section(title: String, elements: Array<String>, numCells: Int, viewModel: Ma
         fontFamily = FontFamily.SansSerif,
         modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
     )
-    Elements(numCells, elements, viewModel)
+    SectionsElement(numCells, elements, viewModel)
 }
 
 @Composable
@@ -101,44 +60,12 @@ fun SectionWithSeeAllButton(title: String, elements: Array<String>, numCells: In
             Text(text = "See all", color = Color.Green)
         }
     }
-    Elements(numCells, elements, viewModel)
-}
-
-@Composable
-fun ApplyResetButtons() {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceAround
-    ) {
-        ApplyResetButton(text = "Reset", containerColor = Color.Green.copy(alpha = 0.2f), contentColor = Color.Green)
-        ApplyResetButton(text = "Apply", containerColor = Color.Green, contentColor = Color.White)
-    }
-}
-
-@Composable
-fun ApplyResetButton(text: String, containerColor: Color, contentColor: Color) {
-    OutlinedButton(
-        onClick = { },
-        colors = ButtonDefaults.buttonColors(
-            containerColor = containerColor,
-            contentColor = contentColor
-        ),
-        border = BorderStroke(2.dp, Color.Green)
-    ) {
-        Text(
-            text = text,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .width(135.dp)
-                .height(40.dp)
-                .padding(top = 10.dp)
-        )
-    }
+    SectionsElement(numCells, elements, viewModel)
 }
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun Elements(howManyCells: Int, names: Array<String>, viewModel: MainViewModel){
+fun SectionsElement(howManyCells: Int, names: Array<String>, viewModel: MainViewModel){
     val selected = remember { mutableStateListOf<Boolean>() }
     val selectedList by viewModel.filtersList.collectAsState(emptyList())
 
@@ -151,8 +78,6 @@ fun Elements(howManyCells: Int, names: Array<String>, viewModel: MainViewModel){
             }
         }
     }
-
-    Log.d("TAGA", "Elements: $selectedList")
 
     if(selected.size > 0){
         Row() {
@@ -180,29 +105,37 @@ fun Elements(howManyCells: Int, names: Array<String>, viewModel: MainViewModel){
     }
 }
 
+@Composable
+fun ApplyResetButtons() {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        ApplyResetButtonsItem(text = "Reset", containerColor = Color.Green.copy(alpha = 0.2f), contentColor = Color.Green)
+        ApplyResetButtonsItem(text = "Apply", containerColor = Color.Green, contentColor = Color.White)
+    }
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@Composable
+fun ApplyResetButtonsItem(text: String, containerColor: Color, contentColor: Color) {
+    OutlinedButton(
+        onClick = { },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor,
+            contentColor = contentColor
+        ),
+        border = BorderStroke(2.dp, Color.Green)
+    ) {
+        Text(
+            text = text,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .width(135.dp)
+                .height(40.dp)
+                .padding(top = 10.dp)
+        )
+    }
+}
 
 
 
