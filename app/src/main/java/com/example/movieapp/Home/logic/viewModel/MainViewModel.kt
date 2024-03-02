@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.Home.data.room.AnimeItem
 import com.example.movieapp.Home.data.room.AnimeRepository
+import com.example.movieapp.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
+
     /*
     val list = arrayListOf(
         AnimeItem(id = 0, "Attack on titan test", R.drawable.attackontitan, 9.9),
@@ -29,6 +31,7 @@ class MainViewModel @Inject constructor(
         insertALlAnime(list)
     }
      */
+
 
     fun getAnimeList(): Flow<List<AnimeItem>> {
         return repo.getAllAnime()

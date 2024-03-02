@@ -9,10 +9,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.Home.data.room.AnimeItem
-import com.example.movieapp.core.ui.TopBar
+import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun NewEpisodeReleases(navController: NavController) {
+fun NewEpisodeReleases(onClick: () -> Unit) {
     val exampleList = arrayListOf(
         AnimeItem(1, "attack", R.drawable.attackontitan, 9.2),
         AnimeItem(2, "Naruto", R.drawable.naruto, 9.3),
@@ -26,7 +26,7 @@ fun NewEpisodeReleases(navController: NavController) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar(navController, "New Episode Releases")
+        TopBar("New Episode Releases", onClick)
         ListEpisodeReleases(exampleList)
     }
 

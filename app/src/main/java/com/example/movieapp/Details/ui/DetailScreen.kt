@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.Details
+package com.example.movieapp.Details.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -50,18 +50,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.movieapp.Details.logic.DetailsViewModel
-import com.example.movieapp.Details.ui.Details.Composables.Comments
-import com.example.movieapp.Details.ui.Details.Composables.MoreLikeThis
-import com.example.movieapp.Details.ui.Details.Composables.belowTitleSection
-import com.example.movieapp.Details.ui.Details.Composables.buttonsSection
-import com.example.movieapp.Details.ui.Details.Composables.descriptionSection
-import com.example.movieapp.Details.ui.Details.Composables.titleSection
 import com.example.movieapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(navController: NavController) {
+fun DetailScreen(onClick: (String) -> Unit) {
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = SheetState(
             skipHiddenState = false,
@@ -92,17 +85,21 @@ fun DetailScreen(navController: NavController) {
                         else Color.Transparent)
                     .alpha(if(scaffoldState.bottomSheetState.isVisible) 0.5f else 1f)
             ) {
-                MainPhoto()
+                MainPhoto(){ popUpOrNextScreen ->
+                    onClick(popUpOrNextScreen)
+                }
                 Description(scaffoldState, whichState)
                 Episodes()
-                MoreLikeThisComments(navController)
+                MoreLikeThisComments(){ popUpOrNextScreen ->
+                    onClick(popUpOrNextScreen)
+                }
             }
     }
 }
 
 
 @Composable
-fun MainPhoto() {
+fun MainPhoto(onClick: (String) -> Unit) {
     Box {
         Column(
             modifier = Modifier
@@ -121,7 +118,10 @@ fun MainPhoto() {
         ){
             Icon(imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                 contentDescription = "ArrowBack",
-                tint = Color.White)
+                tint = Color.White,
+                modifier = Modifier.clickable{
+                    onClick("popUp")
+                })
             Icon(
                 painter = painterResource(R.drawable.mirror),
                 contentDescription = "ArrowBack",
@@ -230,7 +230,7 @@ fun Episodes() {
 }
 
 @Composable
-fun MoreLikeThisComments(navController: NavController) {
+fun MoreLikeThisComments(onClick: (String) -> Unit) {
     var selectedSection by remember { mutableStateOf(0) }
     val sections = listOf("More Like This", "Comments")
 
@@ -277,7 +277,9 @@ fun MoreLikeThisComments(navController: NavController) {
                 MoreLikeThis()
             }
             1 -> {
-                 Comments(navController)
+                 Comments(){ popUpOrNextScreen ->
+                     onClick(popUpOrNextScreen)
+                 }
             }
         }
     }

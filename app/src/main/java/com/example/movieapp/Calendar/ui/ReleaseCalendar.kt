@@ -44,10 +44,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.example.movieapp.Calendar.data.Day
 import com.example.movieapp.Calendar.logic.CalendarViewModel
 import com.example.movieapp.R
-import com.example.movieapp.core.ui.TopBar
+import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun ReleaseCalendar(navController: NavController) {
+fun ReleaseCalendar(onClick: () -> Unit) {
     val viewModel = CalendarViewModel()
     val days = viewModel.getDays()
 
@@ -56,7 +56,7 @@ fun ReleaseCalendar(navController: NavController) {
             .fillMaxSize()
             .background(Color.White)
     ){
-        TopBar(navController, "Release Calendar")
+        TopBar("Release Calendar", onClick)
         CalendarBar(days, viewModel)
         DateList()
         //NotFound("No Release Schedule", "Sorry, there is no anime release schedule on this date.")

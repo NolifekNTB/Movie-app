@@ -1,4 +1,4 @@
-package com.example.movieapp.core.ui
+package com.example.movieapp.core.other
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,7 +29,7 @@ import androidx.navigation.NavController
     TopBar is used in TopHitsAnime, Notification, NewEpisodeReleases, SortFilter and ReleaseCalendar
  */
 @Composable
-fun TopBar(navController: NavController, name: String) {
+fun TopBar(name: String, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,13 +38,13 @@ fun TopBar(navController: NavController, name: String) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ){
-        TopBarTitle(name, navController)
+        TopBarTitle(name, onClick)
         TopBarActionIcon(name)
     }
 }
 
 @Composable
-fun TopBarTitle(name: String, navController: NavController){
+fun TopBarTitle(name: String, onClick: () -> Unit){
     Row(verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp)){
         Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -52,7 +52,7 @@ fun TopBarTitle(name: String, navController: NavController){
             modifier = Modifier
                 .size(33.dp)
                 .clickable {
-                    navController.popBackStack()
+                    onClick()
                 })
         Text(text = name,
             fontSize = 20.sp,

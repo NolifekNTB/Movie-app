@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui
+package com.example.movieapp.Details.ui.DetailsScreens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -42,13 +42,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 
 @Composable
-fun CommentsScreen(){
+fun CommentsScreen(onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,7 +58,7 @@ fun CommentsScreen(){
                 .verticalScroll(rememberScrollState())
                 .weight(1f)
         ) {
-            TopBarComments()
+            TopBarComments(onClick)
             CommentsList()
         }
         Column(Modifier.weight(0.15f)) {
@@ -69,7 +68,7 @@ fun CommentsScreen(){
 }
 
 @Composable
-fun TopBarComments() {
+fun TopBarComments(onClick: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -77,10 +76,12 @@ fun TopBarComments() {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ){
-        Icon(
-            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = ""
-        )
+        IconButton(onClick = { onClick() }) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = ""
+            )
+        }
         Icon(
             imageVector = Icons.Default.MoreVert,
             contentDescription = ""

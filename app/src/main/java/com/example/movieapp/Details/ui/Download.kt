@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.Details
+package com.example.movieapp.Details.ui
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager

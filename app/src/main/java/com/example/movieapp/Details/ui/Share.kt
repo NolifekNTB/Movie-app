@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.Details
+package com.example.movieapp.Details.ui
 
 import android.content.ActivityNotFoundException
 import android.content.Context

@@ -12,16 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movieapp.core.ui.TopBar
+import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun Notification(navController: NavController) {
+fun Notification(onClick: () -> Unit) {
     Column(
         modifier = Modifier
            .fillMaxSize()
            .background(Color.White)
     ) {
-        TopBar(navController = navController, name = "Notification")
+        TopBar(name = "Notification", onClick)
         NotificationList()
     }
 }

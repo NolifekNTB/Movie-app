@@ -1,4 +1,4 @@
-package com.example.movieapp.core.ui
+package com.example.movieapp.core.other
 
 import  android.os.Build
 import android.os.Bundle
@@ -7,13 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.example.movieapp.BottomNavMenu.ui.BottomNavigationMenu
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
+import com.example.movieapp.core.BottomNavMenu.graphs.RootNavigationGraph
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -23,9 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Column(Modifier.fillMaxSize()) {
                 val viewModel = hiltViewModel<MainViewModel>()
-                val animeList by viewModel.getAnimeList().collectAsState(emptyList())
-
-                BottomNavigationMenu(animeList = animeList, viewModel = viewModel)
+                RootNavigationGraph(navController = rememberNavController(), viewModel)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.movieapp.Home.ui
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -28,6 +29,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -64,7 +66,7 @@ fun HomeImage(){
 }
 
 @Composable
-fun RightTop(onPlayClicked: (String) -> Unit) {
+fun RightTop(onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,10 +80,10 @@ fun RightTop(onPlayClicked: (String) -> Unit) {
                 modifier = Modifier
                     .size(35.dp)
                     .clickable {
-                        onPlayClicked("Search")
+                        onClick("Search")
                     },
                 tint = Color.White
-            )
+                )
             Spacer(Modifier.width(10.dp))
             Icon(
                 imageVector = Icons.Outlined.Notifications,
@@ -89,7 +91,7 @@ fun RightTop(onPlayClicked: (String) -> Unit) {
                 modifier = Modifier
                     .size(35.dp)
                     .clickable {
-                        onPlayClicked("Notification")
+                        onClick("Notification")
                     },
                 tint = Color.White
             )
@@ -170,7 +172,7 @@ fun LeftBottom() {
 }
 
 @Composable
-fun rowListTitle(name: String, onPlayClicked: (String) -> Unit) {
+fun rowListTitle(name: String, onClick: (String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -185,24 +187,20 @@ fun rowListTitle(name: String, onPlayClicked: (String) -> Unit) {
             fontWeight = FontWeight.SemiBold,
             textAlign = TextAlign.Left
         )
-        TextButton(
-            onClick = { /*TODO*/ }
-        ) {
             Text(
                 text = "See all",
                 modifier = Modifier
                     .padding(end = 10.dp, top = 10.dp)
                     .clickable {
-                        onPlayClicked(name)
+                        onClick(name)
                     },
                 fontSize = 15.sp,
                 color = Color.Green)
         }
     }
-}
 
 @Composable
-fun rowListItems(animeList: List<AnimeItem>) {
+fun rowListItems(animeList: List<AnimeItem>, onClick: (String) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
             items(animeList.size){ item ->
@@ -211,8 +209,14 @@ fun rowListItems(animeList: List<AnimeItem>) {
                         .height(200.dp)
                         .width(150.dp)
                         .padding(10.dp)
+                        .clickable {
+                            onClick("Details")
+                        }
                 ){
-                    rowListItemsImage(animeList[item], item, Modifier.align(Alignment.BottomStart))
+                    rowListItemsImage(
+                        animeList[item],
+                        item,
+                        Modifier.align(Alignment.BottomStart))
                 }
             }
         }

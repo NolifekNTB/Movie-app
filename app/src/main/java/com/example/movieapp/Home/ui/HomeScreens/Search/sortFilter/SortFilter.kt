@@ -14,16 +14,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
-import com.example.movieapp.core.ui.TopBar
+import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun SortFilter(navController: NavController, viewModel: MainViewModel) {
+fun SortFilter(onClick: () -> Unit, viewModel: MainViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar(navController, "Sort & Filter")
+        TopBar("Sort & Filter", onClick)
         MainContent(viewModel)
     }
 }

@@ -11,16 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import com.example.movieapp.core.ui.TopBar
+import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun TopHitsAnime(navController: NavController) {
+fun TopHitsAnime(onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ){
-        TopBar(navController, "Top Hits Anime")
+        TopBar("Top Hits Anime", onClick)
         TopHitsAnimeList()
     }
 }

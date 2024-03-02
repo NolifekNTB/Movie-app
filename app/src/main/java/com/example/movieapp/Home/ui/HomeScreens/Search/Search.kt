@@ -47,7 +47,7 @@ import kotlinx.coroutines.launch
 @HiltViewModelMap
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun Search(navController: NavController, viewModel: MainViewModel){
+fun Search(viewModel: MainViewModel, onClick: () -> Unit) {
     val text = remember { mutableStateOf("")}
     val isFocused = remember { mutableStateOf(false)}
     val searchResults = remember { mutableStateOf<List<AnimeItem>>(emptyList()) }
@@ -65,7 +65,7 @@ fun Search(navController: NavController, viewModel: MainViewModel){
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             searchBar(text, isFocused, viewModel, searchResults, Modifier.weight(1f))
-            filterButton(navController)
+            filterButton(onClick)
         }
 
         displayChoseFilters(viewModel = viewModel)
@@ -111,7 +111,7 @@ fun searchBar(
 }
 
 @Composable
-fun filterButton(navController: NavController) {
+fun filterButton(onClick: () -> Unit) {
     Card(
         modifier = Modifier.size(55.dp),
         shape = RoundedCornerShape(15.dp),
@@ -131,7 +131,7 @@ fun filterButton(navController: NavController) {
                 modifier = Modifier
                     .size(30.dp)
                     .clickable {
-                        navController.navigate("sortFilter")
+                        onClick()
                     }
             )
         }
