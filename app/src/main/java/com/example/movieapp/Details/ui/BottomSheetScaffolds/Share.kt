@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui
+package com.example.movieapp.Details.ui.BottomSheetScaffolds
 
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -20,15 +20,51 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 
 @Composable
 fun shareDisplayBox(){
-    val context = LocalContext.current
+    val intentContext = LocalContext.current
+    Column(
+        modifier = Modifier
+            .height(350.dp)
+            .padding(20.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        shareTitle(title = "Share to")
+        Divider(thickness = 1.dp, color = Color.LightGray)
+        shareElements(intentContext)
+    }
+}
 
+@Composable
+fun shareElements(context: Context){
+    Row(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        for(i in 0..3){
+           shareElementsItem(i, context)
+        }
+    }
+
+    Row(
+        Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        for(i in 4..7){
+            shareElementsItem(i, context)
+        }
+    }
+}
+
+@Composable
+fun shareElementsItem(i: Int, context: Context){
     val icons = mutableListOf(
         R.drawable.whatsapp,
         R.drawable.twitter,
@@ -39,7 +75,6 @@ fun shareDisplayBox(){
         R.drawable.wechat,
         R.drawable.tiktok,
     )
-
     val names = mutableListOf(
         "WhatsApp",
         "Twitter",
@@ -51,71 +86,22 @@ fun shareDisplayBox(){
         "TikTok",
     )
 
-    Column(
-        Modifier
-            .height(350.dp)
-            .padding(20.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Share to",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.padding(15.dp)
+    Column {
+        Image(
+            painterResource(id = icons[i]),
+            contentDescription = "",
+            modifier = Modifier
+                .size(75.dp)
+                .padding(15.dp)
+                .clickable {
+                    intentShare(context, names[i])
+                }
         )
-        Divider(thickness = 1.dp, color = Color.LightGray)
-
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            for(i in 0..3){
-                Column {
-                    Image(
-                        painterResource(id = icons[i]),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(75.dp)
-                            .padding(15.dp)
-                            .clickable {
-                                intentShare(context, names[i])
-                            }
-                    )
-                    Text(
-                        text = names[i],
-                        fontSize = 13.sp,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                }
-            }
-        }
-        Row(
-            Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            for(i in 4..7){
-                Column() {
-                    Image(
-                        painterResource(id = icons[i]),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .size(75.dp)
-                            .padding(15.dp)
-                            .clickable {
-                                intentShare(context, names[i])
-                            }
-                    )
-                    Text(
-                        text = names[i],
-                        fontSize = 13.sp,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                }
-            }
-        }
+        Text(
+            text = names[i],
+            fontSize = 13.sp,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
+        )
     }
 }
 

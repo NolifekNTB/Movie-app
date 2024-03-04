@@ -49,7 +49,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
+import com.example.movieapp.Details.ui.BottomSheetScaffolds.Download.displayDownloadBox
+import com.example.movieapp.Details.ui.BottomSheetScaffolds.Rating.giveRatingBox
+import com.example.movieapp.Details.ui.BottomSheetScaffolds.shareDisplayBox
 import com.example.movieapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,10 +69,16 @@ fun DetailScreen(onClick: (String) -> Unit) {
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetContent = {
-            if(whichState.value == "share"){
-                shareDisplayBox()
-            } else if (whichState.value == "download"){
-                displayDownloadBox(scaffoldState)
+            when (whichState.value) {
+                "share" -> {
+                    shareDisplayBox()
+                }
+                "download" -> {
+                    displayDownloadBox(scaffoldState)
+                }
+                "rating" -> {
+                    giveRatingBox(scaffoldState)
+                }
             }
         },
         sheetPeekHeight = 0.dp,
@@ -81,9 +89,10 @@ fun DetailScreen(onClick: (String) -> Unit) {
                     .verticalScroll(rememberScrollState())
                     .fillMaxSize()
                     .background(
-                        if(scaffoldState.bottomSheetState.isVisible) Color.Black
-                        else Color.Transparent)
-                    .alpha(if(scaffoldState.bottomSheetState.isVisible) 0.5f else 1f)
+                        if (scaffoldState.bottomSheetState.isVisible) Color.Black
+                        else Color.Transparent
+                    )
+                    .alpha(if (scaffoldState.bottomSheetState.isVisible) 0.5f else 1f)
             ) {
                 MainPhoto(){ popUpOrNextScreen ->
                     onClick(popUpOrNextScreen)
@@ -142,7 +151,7 @@ fun Description(
 
     Column(Modifier.background(Color.White)) {
         titleSection(scaffoldState, whichState, scope)
-        belowTitleSection()
+        belowTitleSection(scaffoldState, whichState, scope)
         buttonsSection(scaffoldState, whichState, scope)
         descriptionSection()
     }
@@ -152,7 +161,10 @@ fun Description(
 fun Episodes() {
     var expanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf("Season 1") }
-    Column(Modifier.padding(20.dp).background(Color.White)) {
+    Column(
+        Modifier
+            .padding(20.dp)
+            .background(Color.White)) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically

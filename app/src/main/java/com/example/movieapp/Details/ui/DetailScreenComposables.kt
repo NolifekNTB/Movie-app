@@ -2,6 +2,7 @@ package com.example.movieapp.Details.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -99,8 +100,13 @@ fun titleSection(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun belowTitleSection(){
+fun belowTitleSection(
+    scaffoldState: BottomSheetScaffoldState,
+    whichState: MutableState<String>,
+    scope: CoroutineScope
+) {
     Row(
         modifier = Modifier.padding(15.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -110,7 +116,14 @@ fun belowTitleSection(){
             imageVector = Icons.Default.Star,
             contentDescription = "Star",
             tint = Color.Green,
-            modifier = Modifier.padding(5.dp)
+            modifier = Modifier
+                .padding(5.dp)
+                .clickable{
+                    whichState.value = "rating"
+                    scope.launch {
+                        scaffoldState.bottomSheetState.expand()
+                    }
+                }
         )
         Text(
             text = "9.8",
