@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.movieapp.Details.ui.DetailScreen
 import com.example.movieapp.Details.ui.DetailsScreens.CommentsScreen
-import com.example.movieapp.Details.ui.VideoPlayer
+import com.example.movieapp.Details.ui.DetailsScreens.VideoPlayer
 
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
     navigation(

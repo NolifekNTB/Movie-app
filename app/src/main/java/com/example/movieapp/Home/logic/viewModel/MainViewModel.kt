@@ -19,7 +19,6 @@ class MainViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
 
-    /*
     val list = arrayListOf(
         AnimeItem(id = 0, "Attack on titan test", R.drawable.attackontitan, 9.9),
         AnimeItem(id = 1, "Naruto", R.drawable.naruto, 9.2),
@@ -30,7 +29,6 @@ class MainViewModel @Inject constructor(
         deleteAllAnime()
         insertALlAnime(list)
     }
-     */
 
 
 

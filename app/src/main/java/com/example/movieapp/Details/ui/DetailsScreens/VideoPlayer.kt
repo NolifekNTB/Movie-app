@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui
+package com.example.movieapp.Details.ui.DetailsScreens
 
 import android.app.Activity
 import android.content.pm.ActivityInfo
@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,7 +28,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.PlayerView
-import com.example.movieapp.core.other.TopBar
 
 @OptIn(UnstableApi::class)
 @Composable
