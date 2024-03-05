@@ -33,6 +33,7 @@ class MainViewModel @Inject constructor(
      */
 
 
+
     fun getAnimeList(): Flow<List<AnimeItem>> {
         return repo.getAllAnime()
     }

@@ -97,7 +97,7 @@ fun DetailScreen(onClick: (String) -> Unit) {
                 MainPhoto(){ popUpOrNextScreen ->
                     onClick(popUpOrNextScreen)
                 }
-                Description(scaffoldState, whichState)
+                Description(scaffoldState, whichState, onClick)
                 Episodes()
                 MoreLikeThisComments(){ popUpOrNextScreen ->
                     onClick(popUpOrNextScreen)
@@ -146,13 +146,14 @@ fun MainPhoto(onClick: (String) -> Unit) {
 fun Description(
     scaffoldState: BottomSheetScaffoldState,
     whichState: MutableState<String>,
+    onClick: (String) -> Unit
     ) {
     val scope = rememberCoroutineScope()
 
     Column(Modifier.background(Color.White)) {
         titleSection(scaffoldState, whichState, scope)
         belowTitleSection(scaffoldState, whichState, scope)
-        buttonsSection(scaffoldState, whichState, scope)
+        buttonsSection(scaffoldState, whichState, scope, onClick)
         descriptionSection()
     }
 }

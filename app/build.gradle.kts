@@ -56,6 +56,12 @@ android {
 }
 
 dependencies {
+    //Media3 + Exoplayer
+    implementation ("androidx.media3:media3-exoplayer:1.2.1")
+    implementation ("androidx.media3:media3-ui:1.2.1")
+    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
+
+
     //Library to convert Icons from drawable
     implementation ("com.github.ygorluizfrazao:compose-resources:1.0.0-alpha01")
 

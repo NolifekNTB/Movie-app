@@ -118,7 +118,7 @@ fun belowTitleSection(
             tint = Color.Green,
             modifier = Modifier
                 .padding(5.dp)
-                .clickable{
+                .clickable {
                     whichState.value = "rating"
                     scope.launch {
                         scaffoldState.bottomSheetState.expand()
@@ -190,12 +190,15 @@ fun belowTitleSection(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun buttonsSection(
     scaffoldState: BottomSheetScaffoldState,
     whichState: MutableState<String>,
-    scope: CoroutineScope, ) {
+    scope: CoroutineScope,
+    onClick: (String) -> Unit
+    ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -204,7 +207,7 @@ fun buttonsSection(
         verticalAlignment = Alignment.CenterVertically
     ) {
         FilledTonalButton(
-            onClick = { /*TODO*/ },
+            onClick = { onClick("videoPlayer") },
             modifier = Modifier
                 .weight(1f),
             colors = ButtonDefaults.buttonColors(
