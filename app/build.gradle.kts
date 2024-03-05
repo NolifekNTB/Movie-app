@@ -55,54 +55,61 @@ android {
     }
 }
 
+val media3 = "1.2.1"
+val exoplayerExoPlayer = "2.19.1"
+val ygorluizfrazao = "1.0.0-alpha01"
+val daggerHilt = "2.50"
+val hiltCompose = "1.1.0"
+val room = "2.6.1"
+val navigationCompose = "2.7.7"
+val material = "1.6.1"
+val coreKtx = "1.12.0"
+val runtimeKtx = "2.7.0"
+val activityCompose = "1.8.2"
+val composeBom = "2023.08.00"
+val junit = "4.13.2"
+val extJunit = "1.1.5"
+val espressoCore = "3.5.1"
+
 dependencies {
     //Media3 + Exoplayer
-    implementation ("androidx.media3:media3-exoplayer:1.2.1")
-    implementation ("androidx.media3:media3-ui:1.2.1")
-    implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
-
+    implementation ("androidx.media3:media3-exoplayer:$media3")
+    implementation ("androidx.media3:media3-ui:$media3")
+    implementation ("com.google.android.exoplayer:exoplayer:$exoplayerExoPlayer")
 
     //Library to convert Icons from drawable
-    implementation ("com.github.ygorluizfrazao:compose-resources:1.0.0-alpha01")
+    implementation ("com.github.ygorluizfrazao:compose-resources:$ygorluizfrazao")
 
     //Dagger Hilt
-    implementation ("com.google.dagger:hilt-android:2.50")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-    kapt ("com.google.dagger:hilt-compiler:2.50")
-    kapt ("androidx.hilt:hilt-compiler:1.1.0")
-    //implementation("androidx.hilt:hilt-work:1.1.0")
-    //implementation("androidx.work:work-runtime-ktx:2.9.0")
-
+    implementation ("com.google.dagger:hilt-android:$daggerHilt")
+    implementation("androidx.hilt:hilt-navigation-compose:$hiltCompose")
+    kapt ("com.google.dagger:hilt-compiler:$daggerHilt")
+    kapt ("androidx.hilt:hilt-compiler:$hiltCompose")
 
     //ROOM
-    val room_version = "2.6.1"
-
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-
-    //FasterPreview
-    implementation("io.github.vram-voskanyan.kmp:PreviewGenerator:1.0.0")
-    ksp("io.github.vram-voskanyan.kmp:PreviewGenerator:1.0.0")
+    implementation("androidx.room:room-runtime:$room")
+    annotationProcessor("androidx.room:room-compiler:$room")
+    ksp("androidx.room:room-compiler:$room")
+    implementation("androidx.room:room-ktx:$room")
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
-    implementation ("androidx.compose.material:material:1.6.1")
+    implementation("androidx.navigation:navigation-compose:$navigationCompose")
+    implementation ("androidx.compose.material:material:$material")
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation("androidx.core:core-ktx:$coreKtx")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$runtimeKtx")
+    implementation("androidx.activity:activity-compose:$activityCompose")
+    implementation(platform("androidx.compose:compose-bom:$composeBom"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    testImplementation("junit:junit:$junit")
+    androidTestImplementation("androidx.test.ext:junit:$extJunit")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espressoCore")
+    androidTestImplementation(platform("androidx.compose:compose-bom:$composeBom"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
+
