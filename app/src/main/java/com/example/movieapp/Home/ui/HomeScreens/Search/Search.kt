@@ -33,7 +33,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
 import com.example.movieapp.Home.data.room.AnimeItem
 import com.example.movieapp.Home.ui.HomeScreens.ListEpisodeReleases
@@ -156,7 +155,7 @@ fun logicBetweenSearchScreens(searchResults: MutableState<List<AnimeItem>>, isFo
     if (searchResults.value.isNotEmpty()) {
         ListEpisodeReleases(searchResults.value)
     } else if (searchResults.value.isEmpty() && isFocused.value) {
-        SearchScreensNotFound(
+        NotFound(
             "Not found",
             "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords."
         )
