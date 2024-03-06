@@ -27,7 +27,7 @@ import androidx.navigation.NavController
 /*
                             //GOAL OF THIS FUNCTION
             TopBar is used in TopHitsAnime, Notification, NewEpisodeReleases,
-                    SortFilter and ReleaseCalendar, videoPlayer
+                    SortFilter and ReleaseCalendar, videoPlayer, MyList
  */
 @Composable
 fun TopBar(name: String, onClick: () -> Unit) {
@@ -66,7 +66,8 @@ fun TopBarTitle(name: String, onClick: () -> Unit){
 @Composable
 fun TopBarActionIcon(name: String){
     val icon = when (name) {
-        "Top Hits Anime" -> Icons.Default.Search
+        "Top Hits Anime"-> Icons.Default.Search
+        "My List"-> Icons.Default.Search
         "Sort & Filter" -> Icons.Default.Add
         else -> Icons.Default.MoreVert
     }

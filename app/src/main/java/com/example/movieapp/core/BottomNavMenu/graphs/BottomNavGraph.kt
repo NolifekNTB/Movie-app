@@ -31,7 +31,9 @@ fun BottomNavGraph(navController: NavHostController, viewModel: MainViewModel) {
         }
 
         composable(route = BottomBarScreen.MyList.route) {
-            MyList()
+            MyList(){
+                navController.popBackStack()
+            }
         }
 
         composable(route = BottomBarScreen.Download.route) {
