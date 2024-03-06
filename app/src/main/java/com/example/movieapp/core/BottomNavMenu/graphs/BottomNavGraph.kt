@@ -4,13 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import com.example.movieapp.Calendar.ui.ReleaseCalendar
 import com.example.movieapp.Download.Download
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
-import com.example.movieapp.Home.ui.HomeScreen
-import com.example.movieapp.Home.ui.HomeScreens.Search.Search
-import com.example.movieapp.MyList.MyList
+import com.example.movieapp.MyList.ui.MyList
 import com.example.movieapp.Profile.Profile
 import com.example.movieapp.core.BottomNavMenu.BottomBarScreen
 
@@ -37,7 +34,9 @@ fun BottomNavGraph(navController: NavHostController, viewModel: MainViewModel) {
         }
 
         composable(route = BottomBarScreen.Download.route) {
-            Download()
+            Download(){
+                navController.popBackStack()
+            }
         }
 
         composable(route = BottomBarScreen.Profile.route) {

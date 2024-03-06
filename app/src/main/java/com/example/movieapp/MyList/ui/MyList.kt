@@ -1,4 +1,4 @@
-package com.example.movieapp.MyList
+package com.example.movieapp.MyList.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
