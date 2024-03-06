@@ -40,7 +40,7 @@ fun giveRatingBox(scaffoldState: BottomSheetScaffoldState) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        shareTitle(title = "Give Rating")
+        shareTitle(title = "Give Rating", color = Color.Black)
         Divider(thickness = 1.dp, color = Color.LightGray)
         mainContentRating()
         Divider(thickness = 1.dp, color = Color.LightGray)

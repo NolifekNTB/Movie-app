@@ -1,5 +1,6 @@
 package com.example.movieapp.core.other
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -35,7 +36,8 @@ fun TopBar(name: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .height(75.dp)
-            .padding(15.dp),
+            .padding(15.dp)
+            .background(Color.White),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ){

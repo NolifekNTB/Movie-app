@@ -34,7 +34,7 @@ fun shareDisplayBox(){
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        shareTitle(title = "Share to")
+        shareTitle(title = "Share to", color = Color.Black)
         Divider(thickness = 1.dp, color = Color.LightGray)
         shareElements(intentContext)
     }
