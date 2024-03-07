@@ -40,7 +40,9 @@ fun BottomNavGraph(navController: NavHostController, viewModel: MainViewModel) {
         }
 
         composable(route = BottomBarScreen.Profile.route) {
-            Profile()
+            Profile(){
+                navController.popBackStack()
+            }
         }
     }
 }

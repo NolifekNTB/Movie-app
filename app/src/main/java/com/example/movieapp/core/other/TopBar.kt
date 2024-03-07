@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 /*
                             //GOAL OF THIS FUNCTION
             TopBar is used in TopHitsAnime, Notification, NewEpisodeReleases,
-                    SortFilter and ReleaseCalendar, videoPlayer, MyList
+              SortFilter and ReleaseCalendar, videoPlayer, MyList, Profile
  */
 @Composable
 fun TopBar(name: String, onClick: () -> Unit) {
