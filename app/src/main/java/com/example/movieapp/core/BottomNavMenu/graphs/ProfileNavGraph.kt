@@ -24,12 +24,12 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
 
         composable(route = ProfileScreen.Subscribe.route){
             subscribe(){
-                navController.navigate(ProfileScreen.Settings.route)
+                navController.popBackStack()
             }
         }
         composable(route = ProfileScreen.Settings.route){
             settings(){
-                navController.navigate(ProfileScreen.Subscribe.route)
+                navController.popBackStack()
             }
         }
     }
