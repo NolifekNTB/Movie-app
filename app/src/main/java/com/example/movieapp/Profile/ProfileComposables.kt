@@ -1,6 +1,7 @@
 package com.example.movieapp.Profile
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -102,7 +103,7 @@ fun premiumSecondIcon(){
 }
 
 @Composable
-fun settingsRow(index: Int) {
+fun settingsRow(index: Int, onClick: (String) -> Unit){
     val name = when(index){
         0 -> "Edit Profile"
         1 -> "Notifications"
@@ -134,7 +135,10 @@ fun settingsRow(index: Int) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 20.dp),
+            .padding(bottom = 20.dp)
+            .clickable {
+                onClick("settings")
+            },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

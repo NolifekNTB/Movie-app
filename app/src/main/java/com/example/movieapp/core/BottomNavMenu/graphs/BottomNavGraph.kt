@@ -18,7 +18,6 @@ fun BottomNavGraph(navController: NavHostController, viewModel: MainViewModel) {
         route = Graph.BOTTOM,
         startDestination = Graph.HOME
     ) {
-
         homeNavGraph(navController = navController, viewModel = viewModel)
 
         composable(route = BottomBarScreen.ReleaseCalendar.route) {
@@ -39,11 +38,7 @@ fun BottomNavGraph(navController: NavHostController, viewModel: MainViewModel) {
             }
         }
 
-        composable(route = BottomBarScreen.Profile.route) {
-            Profile(){
-                navController.popBackStack()
-            }
-        }
+        profileNavGraph(navController = navController)
     }
 }
 

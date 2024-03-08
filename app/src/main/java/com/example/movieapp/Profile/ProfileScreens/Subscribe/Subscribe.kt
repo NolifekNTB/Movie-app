@@ -1,0 +1,14 @@
+package com.example.movieapp.Profile.ProfileScreens.Subscribe
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+
+@Composable
+fun subscribe(onClick: () -> Unit) {
+    Column(Modifier.fillMaxSize()) {
+        Text(text = "Subscribe")
+    }
+}

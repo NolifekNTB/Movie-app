@@ -20,7 +20,6 @@ import com.example.movieapp.Home.logic.viewModel.MainViewModel
 @Composable
 fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
     val animeList by viewModel.getAnimeList().collectAsState(emptyList())
-    Log.d("testowanko", animeList.toString())
 
     Column(
         modifier = Modifier

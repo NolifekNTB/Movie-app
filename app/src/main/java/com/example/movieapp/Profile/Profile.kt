@@ -3,6 +3,7 @@ package com.example.movieapp.Profile
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,16 +35,20 @@ import com.example.movieapp.R
 import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun Profile(onClick: () -> Unit) {
+fun Profile(onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) { 
-        TopBar(name = "Profile") { onClick() }
+        TopBar(name = "Profile") { }
         ImageInformation()
-        BuyPremium()
-        Settings()
+        BuyPremium(){ where ->
+            onClick(where)
+        }
+        Settings(){ where ->
+            onClick(where)
+        }
     }
 }
 
@@ -63,7 +68,7 @@ fun ImageInformation(){
 }
 
 @Composable
-fun BuyPremium(){
+fun BuyPremium(onClick: (String) -> Unit){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,7 +83,14 @@ fun BuyPremium(){
             border = BorderStroke(2.dp, Color.Green),
             shape = RoundedCornerShape(25.dp)
         ){
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(15.dp)){
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .padding(15.dp)
+                    .clickable {
+                        onClick("premium")
+                    }
+            ){
                 Row(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
@@ -94,14 +106,16 @@ fun BuyPremium(){
 }
 
 @Composable
-fun Settings(){
+fun Settings(onClick: (String) -> Unit){
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(20.dp, 0.dp)
     ){
         repeat(9){ index ->
-            settingsRow(index)
+            settingsRow(index){where ->
+                onClick(where)
+            }
         }
     }
 }
