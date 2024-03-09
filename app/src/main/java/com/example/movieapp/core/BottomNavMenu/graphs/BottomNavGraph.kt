@@ -8,7 +8,6 @@ import com.example.movieapp.Calendar.ui.ReleaseCalendar
 import com.example.movieapp.Download.Download
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
 import com.example.movieapp.MyList.ui.MyList
-import com.example.movieapp.Profile.Profile
 import com.example.movieapp.core.BottomNavMenu.BottomBarScreen
 
 @Composable

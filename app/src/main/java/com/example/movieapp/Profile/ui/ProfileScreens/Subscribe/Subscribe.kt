@@ -1,4 +1,4 @@
-package com.example.movieapp.Profile.ProfileScreens.Subscribe
+package com.example.movieapp.Profile.ui.ProfileScreens.Subscribe
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -35,7 +35,7 @@ import com.example.movieapp.R
 import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun subscribe(onClick: () -> Unit) {
+fun subscribe(onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -43,11 +43,17 @@ fun subscribe(onClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        TopBar(name = "") { onClick() }
+        TopBar(name = "") {
+            onClick("back")
+        }
         title()
-        premiumBox("monthly")
+        premiumBox("monthly"){where ->
+            onClick(where)
+        }
         Spacer(modifier = Modifier.height(15.dp))
-        premiumBox("yearly")
+        premiumBox("yearly"){where ->
+            onClick(where)
+        }
     }
 }
 
@@ -78,7 +84,7 @@ fun title(){
 }
 
 @Composable
-fun premiumBox(monthOrYearly: String){
+fun premiumBox(monthOrYearly: String, onClick: (String) -> Unit){
     val price = if (monthOrYearly == "monthly") "$9.99" else "$99.99"
     val monthYear = if (monthOrYearly == "monthly") "/Monthly" else "/Yearly"
 
@@ -87,7 +93,7 @@ fun premiumBox(monthOrYearly: String){
             .size(350.dp, 300.dp)
             .padding(top = 15.dp)
             .clickable {
-                       //TODO
+                onClick("next")
             },
         border = BorderStroke(2.dp, Color.Green),
         shape = RoundedCornerShape(25.dp),

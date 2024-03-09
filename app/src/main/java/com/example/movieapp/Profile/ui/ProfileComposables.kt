@@ -1,4 +1,4 @@
-package com.example.movieapp.Profile
+package com.example.movieapp.Profile.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

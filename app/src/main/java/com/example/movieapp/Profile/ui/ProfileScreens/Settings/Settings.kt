@@ -1,4 +1,4 @@
-package com.example.movieapp.Profile.ProfileScreens.Settings
+package com.example.movieapp.Profile.ui.ProfileScreens.Settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

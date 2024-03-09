@@ -4,9 +4,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.example.movieapp.Profile.Profile
-import com.example.movieapp.Profile.ProfileScreens.Settings.settings
-import com.example.movieapp.Profile.ProfileScreens.Subscribe.subscribe
+import com.example.movieapp.Profile.ui.Profile
+import com.example.movieapp.Profile.ui.ProfileScreens.Settings.settings
+import com.example.movieapp.Profile.ui.ProfileScreens.Subscribe.Payment.payment
+import com.example.movieapp.Profile.ui.ProfileScreens.Subscribe.subscribe
 
 fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
     navigation(
@@ -23,13 +24,22 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
         }
 
         composable(route = ProfileScreen.Subscribe.route){
-            subscribe(){
-                navController.popBackStack()
+            subscribe(){where ->
+                when(where){
+                    "back" -> navController.popBackStack()
+                    "next" -> navController.navigate("payment")
+                }
             }
         }
         composable(route = ProfileScreen.Settings.route){
             settings(){
                 navController.popBackStack()
+            }
+        }
+
+        composable(route = "payment"){
+            payment(){
+                //TODO
             }
         }
     }
