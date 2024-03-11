@@ -29,7 +29,7 @@ import androidx.navigation.NavController
                             //GOAL OF THIS FUNCTION
             TopBar is used in TopHitsAnime, Notification, NewEpisodeReleases,
               SortFilter and ReleaseCalendar, videoPlayer, MyList, Profile,
-                 Subscribe, payment, addNewCard
+                 Subscribe, payment, addNewCard, reviewSummary
  */
 @Composable
 fun TopBar(name: String, onClick: () -> Unit) {
@@ -79,7 +79,7 @@ fun TopBarActionIcon(name: String){
     Icon(
         imageVector = icon,
         contentDescription = null,
-        tint = if (name == "Sort & Filter") Color.White
+        tint = if (name == "Sort & Filter" || name == "ReviewSummary") Color.White
         else if (name == "") Color.White
         else Color.Black,
         modifier = Modifier.size(35.dp)

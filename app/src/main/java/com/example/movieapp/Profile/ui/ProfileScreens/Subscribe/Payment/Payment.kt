@@ -1,5 +1,6 @@
 package com.example.movieapp.Profile.ui.ProfileScreens.Subscribe.Payment
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -36,16 +38,10 @@ import com.example.movieapp.Profile.logic.ProfileViewModel
 import com.example.movieapp.R
 import com.example.movieapp.core.other.TopBar
 
-@Preview(showBackground = true)
 @Composable
-fun paymentPreview() {
-    val onCLick = { name: String ->}
-    payment(onCLick)
-}
-
-@Composable
-fun payment(onClick: (String) -> Unit) {
-    val viewModel = ProfileViewModel()
+fun payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
+    val cardNumber = viewModel.cardValue.collectAsState().value
+    Log.d("testowanie123", cardNumber)
 
     Column(
         modifier = Modifier
@@ -65,10 +61,24 @@ fun payment(onClick: (String) -> Unit) {
             paymentMethods("PayPal", viewModel)
             paymentMethods("GooglePay", viewModel)
             paymentMethods("ApplePay", viewModel)
-            addNewCard()
-            Continue()
+            if(cardNumber.length >= 1){
+                paymentMethods(cardNumber, viewModel)
+            }
+            addNewCard(){where ->
+                onClick(where)
+            }
         }
-
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(20.dp, 20.dp),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Bottom
+        ) {
+            Continue(){where ->
+                onClick(where)
+            }
+        }
     }
 }
 
@@ -79,12 +89,13 @@ fun paymentMethods(name: String, viewModel: ProfileViewModel) {
         "PayPal" -> icon = R.drawable.paypal
         "GooglePay" -> icon = R.drawable.google
         "ApplePay" -> icon = R.drawable.apple
+        else -> icon = R.drawable.mastercard
     }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .size(150.dp)
+            .size(100.dp)
             .padding(0.dp, 10.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.LightGray
@@ -121,15 +132,17 @@ fun paymentMethods(name: String, viewModel: ProfileViewModel) {
 }
 
 @Composable
-fun addNewCard(){
+fun addNewCard(onClick: (String) -> Unit){
     Spacer(modifier = Modifier.height(20.dp))
     FilledTonalButton(
-        onClick = { },
+        onClick = { onClick("addNewCard") },
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0x2500FF00),
             contentColor = Color(0xFF00FF00)
         ),
-        modifier = Modifier.fillMaxWidth().height(50.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(text = "Add new card")
@@ -138,21 +151,21 @@ fun addNewCard(){
 }
 
 @Composable
-fun Continue(){
-    Spacer(modifier = Modifier.height(133.dp))
+fun Continue(onClick: (String) -> Unit){
     FilledTonalButton(
-        onClick = { },
+        onClick = { onClick("continue") },
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFF00FF00),
             contentColor = Color.White
         ),
-        modifier = Modifier.fillMaxWidth().height(50.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(text = "Continue")
         }
     }
-
 }
 
 

@@ -12,4 +12,13 @@ class ProfileViewModel: ViewModel() {
         _clickedMethod.value = name
     }
 
+    private val _cardValue = MutableStateFlow("")
+    val cardValue = _cardValue.asStateFlow()
+
+
+    fun collectValue(text: String) {
+        if (text.length > 10) {
+            _cardValue.value = text
+        }
+    }
 }
