@@ -1,5 +1,7 @@
 package com.example.movieapp.Profile.logic
 
+import android.util.Log
+import androidx.compose.ui.util.fastJoinToString
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,8 +19,9 @@ class ProfileViewModel: ViewModel() {
 
 
     fun collectValue(text: String) {
-        if (text.length > 10) {
-            _cardValue.value = text
+        if (text.length == 16) {
+            val maskedString = "**** **** **** " + text.takeLast(4)
+            _cardValue.value = maskedString
         }
     }
 }

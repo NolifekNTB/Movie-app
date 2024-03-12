@@ -36,7 +36,6 @@ import com.example.movieapp.core.other.TopBar
 @Composable
 fun payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
     val cardNumber = viewModel.cardValue.collectAsState().value
-    Log.d("testowanie123", cardNumber)
 
     Column(
         modifier = Modifier

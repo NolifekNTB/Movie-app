@@ -25,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,17 +36,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.movieapp.Profile.logic.ProfileViewModel
 import com.example.movieapp.R
 import com.example.movieapp.core.other.TopBar
 
-@Preview
 @Composable
-fun reviewSummaryPreview(onClick: () -> Unit = {}) {
-    reviewSummary { onClick() }
-}
-
-@Composable
-fun reviewSummary(onClick: () -> Unit) {
+fun reviewSummary(viewModel: ProfileViewModel, onClick: () -> Unit) {
     val openDialog = remember {
         mutableStateOf(false)
     }
@@ -66,7 +62,7 @@ fun reviewSummary(onClick: () -> Unit) {
         }
         premiumBox(monthOrYearly = "monthly"){_ -> }
         review()
-        card()
+        card(viewModel)
         confirmButton(openDialog)
         Spacer(modifier = Modifier.height(20.dp))
     }
@@ -109,7 +105,9 @@ fun oneRow(name: String, price: String){
 }
 
 @Composable
-fun card() {
+fun card(viewModel: ProfileViewModel) {
+    val cardNumber = viewModel.cardValue.collectAsState().value
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -139,7 +137,7 @@ fun card() {
                         contentDescription = "",
                         modifier = Modifier.size(50.dp))
                     Text(
-                        text = "7819 1209 1241",
+                        text = cardNumber,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold,
                         modifier = Modifier.padding(start = 10.dp))

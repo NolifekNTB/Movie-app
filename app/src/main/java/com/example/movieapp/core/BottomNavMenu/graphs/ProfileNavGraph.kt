@@ -69,8 +69,10 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
             }
         }
 
-        composable(route = "reviewSummary"){
-            reviewSummary(){
+        composable(route = "reviewSummary"){ entry ->
+            val viewModel = entry.sharedViewModel<ProfileViewModel>(navController)
+
+            reviewSummary(viewModel){
                 navController.popBackStack()
             }
         }

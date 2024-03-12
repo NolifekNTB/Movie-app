@@ -15,18 +15,18 @@ sealed class BottomBarScreen(
 ) {
     data object Home : BottomBarScreen(
         route = "HOME",
-        title = "HOME",
+        title = "Home",
         icon = IconResource.fromImageVector(Icons.Default.Home)
     )
 
     data object ReleaseCalendar : BottomBarScreen(
         route = "Calendar",
-        title = "Calendar",
+        title = "Release Calendar",
         icon = IconResource.fromImageVector(Icons.Default.DateRange)
     )
     data object MyList : BottomBarScreen(
         route = "MyList",
-        title = "MyList",
+        title = "My List",
         icon = IconResource.fromImageVector(Icons.AutoMirrored.Filled.List)
     )
     data object Download : BottomBarScreen(
@@ -37,7 +37,7 @@ sealed class BottomBarScreen(
 
     data object Profile : BottomBarScreen(
         route = "PROFILE",
-        title = "PROFILE",
+        title = "Profile",
         icon = IconResource.fromImageVector(Icons.Default.Person)
     )
 }

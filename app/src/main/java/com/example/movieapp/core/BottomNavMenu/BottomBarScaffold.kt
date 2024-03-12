@@ -11,6 +11,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -47,7 +50,10 @@ fun BottomBar(navController: NavHostController) {
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
-        BottomNavigation {
+        BottomNavigation(
+            backgroundColor = Color.White,
+            contentColor = Color.DarkGray
+        ) {
             screens.forEach { screen ->
                 AddItem(
                     screen = screen,
@@ -67,7 +73,11 @@ fun RowScope.AddItem(
 ) {
     BottomNavigationItem(
         label = {
-            Text(text = screen.title)
+            Text(
+                text = screen.title,
+                fontSize = 8.sp,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1)
         },
         icon = {
             Icon(
