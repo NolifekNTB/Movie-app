@@ -33,7 +33,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -105,7 +104,7 @@ fun itemMainContent(){
                 .size(150.dp, 125.dp)
         ){
             Image(
-                painter = painterResource(id = R.drawable.attackontitan),
+                painter = painterResource(id = R.drawable.home_attackontitan),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth)
         }

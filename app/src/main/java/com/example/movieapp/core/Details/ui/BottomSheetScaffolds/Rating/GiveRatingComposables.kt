@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.BottomSheetScaffolds.Rating
+package com.example.movieapp.core.Details.ui.BottomSheetScaffolds.Rating
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

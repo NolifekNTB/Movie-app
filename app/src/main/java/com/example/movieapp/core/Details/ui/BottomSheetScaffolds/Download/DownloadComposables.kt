@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.BottomSheetScaffolds.Download
+package com.example.movieapp.core.Details.ui.BottomSheetScaffolds.Download
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager
@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.Details.logic.DetailsViewModel
+import com.example.movieapp.core.Details.logic.DetailsViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay

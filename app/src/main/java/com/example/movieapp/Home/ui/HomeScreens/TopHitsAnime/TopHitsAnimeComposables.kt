@@ -41,7 +41,7 @@ fun TopHitsAnimeListImage(item: Int) {
     ) {
         Card() {
             Image(
-                painter = painterResource(id = R.drawable.attackontitan),
+                painter = painterResource(id = R.drawable.home_attackontitan),
                 contentDescription = "mainPhoto",
                 alpha = 0.85f
             )

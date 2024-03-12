@@ -48,7 +48,7 @@ fun DownloadListItem(scaffoldState: BottomSheetScaffoldState, scope: CoroutineSc
                 .size(150.dp, 125.dp)
         ){
             Image(
-                painter = painterResource(id = R.drawable.attackontitan),
+                painter = painterResource(id = R.drawable.home_attackontitan),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth)
         }
@@ -88,7 +88,7 @@ fun DownloadListItem(scaffoldState: BottomSheetScaffoldState, scope: CoroutineSc
                 }
                 if(shouldShow){
                     Icon(
-                        painter = painterResource(id = R.drawable.trash),
+                        painter = painterResource(id = R.drawable.download_trash),
                         contentDescription = "trashIcon",
                         tint = Color.Green,
                         modifier = Modifier

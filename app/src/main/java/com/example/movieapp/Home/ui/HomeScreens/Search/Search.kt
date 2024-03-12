@@ -124,7 +124,7 @@ fun filterButton(onClick: () -> Unit) {
             modifier = Modifier.fillMaxSize()
         ){
             Icon(
-                painter = painterResource(id = R.drawable.slider),
+                painter = painterResource(id = R.drawable.search_slider),
                 contentDescription = null,
                 tint = Color(0xFFDDFCC8),
                 modifier = Modifier

@@ -35,7 +35,7 @@ fun NotificationImage() {
             .size(150.dp, 125.dp)
     ){
         Image(
-            painter = painterResource(id = R.drawable.attackontitan),
+            painter = painterResource(id = R.drawable.home_attackontitan),
             contentDescription = null,
             contentScale = ContentScale.FillWidth
         )

@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.logic
+package com.example.movieapp.core.Details.logic
 
 import android.app.DownloadManager
 import android.content.Context

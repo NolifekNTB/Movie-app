@@ -5,9 +5,6 @@ import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import br.com.frazo.compose_resources.IconResource
 import com.example.movieapp.R
 
@@ -35,7 +32,7 @@ sealed class BottomBarScreen(
     data object Download : BottomBarScreen(
         route = "Download",
         title = "Download",
-        icon = IconResource.fromDrawableResource(R.drawable.download)
+        icon = IconResource.fromDrawableResource(R.drawable.profile_download)
     )
 
     data object Profile : BottomBarScreen(

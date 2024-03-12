@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.BottomSheetScaffolds.Rating
+package com.example.movieapp.core.Details.ui.BottomSheetScaffolds.Rating
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,9 +24,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.Details.logic.DetailsViewModel
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.scaffoldSheetButtons
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.shareTitle
+import com.example.movieapp.core.Details.logic.DetailsViewModel
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.scaffoldSheetButtons
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.shareTitle
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

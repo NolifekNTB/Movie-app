@@ -1,6 +1,5 @@
 package com.example.movieapp.Home.ui
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -29,10 +28,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,7 +54,7 @@ private val ButtonHeight = 35.dp
 @Composable
 fun HomeImage(){
     Image(
-        painter = painterResource(id = R.drawable.demon_slayer),
+        painter = painterResource(id = R.drawable.home_demonslayer),
         contentDescription = "mainPhoto",
         modifier = Modifier.height(MainPhotoHeight),
         contentScale = ContentScale.Crop,

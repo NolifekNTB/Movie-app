@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui
+package com.example.movieapp.core.Details.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -248,7 +248,7 @@ fun buttonsSection(
             contentPadding = PaddingValues(5.dp)
         ) {
             Icon(
-                painter = painterResource(R.drawable.download),
+                painter = painterResource(R.drawable.profile_download),
                 contentDescription = "",
                 tint = Color.Green
             )
@@ -281,7 +281,7 @@ fun MoreLikeThis() {
             ){
                 Box(){
                     Image(
-                        painter = painterResource(R.drawable.attackontitan),
+                        painter = painterResource(R.drawable.home_attackontitan),
                         contentDescription = "mainPhoto",
                         contentScale = ContentScale.FillWidth
                     )
@@ -349,7 +349,7 @@ fun Comments(onClick: (String) -> Unit) {
                     shape = CircleShape
                 ) {
                     Image(
-                        painter = painterResource(R.drawable.profile),
+                        painter = painterResource(R.drawable.detail_profile),
                         contentDescription = "",
                         contentScale = ContentScale.FillBounds
                     )

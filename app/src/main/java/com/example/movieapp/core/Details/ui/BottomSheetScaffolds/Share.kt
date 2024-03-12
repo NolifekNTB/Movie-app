@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.BottomSheetScaffolds
+package com.example.movieapp.core.Details.ui.BottomSheetScaffolds
 
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -66,14 +66,14 @@ fun shareElements(context: Context){
 @Composable
 fun shareElementsItem(i: Int, context: Context){
     val icons = mutableListOf(
-        R.drawable.whatsapp,
-        R.drawable.twitter,
-        R.drawable.facebook,
-        R.drawable.instagram,
-        R.drawable.yahoo,
-        R.drawable.message,
-        R.drawable.wechat,
-        R.drawable.tiktok,
+        R.drawable.share_whatsapp,
+        R.drawable.share_twitter,
+        R.drawable.share_facebook,
+        R.drawable.share_instagram,
+        R.drawable.share_yahoo,
+        R.drawable.share_message,
+        R.drawable.share_wechat,
+        R.drawable.share_tiktok,
     )
     val names = mutableListOf(
         "WhatsApp",

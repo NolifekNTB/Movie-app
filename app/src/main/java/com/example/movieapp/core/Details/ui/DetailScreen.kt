@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui
+package com.example.movieapp.core.Details.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -49,9 +49,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.Download.displayDownloadBox
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.Rating.giveRatingBox
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.shareDisplayBox
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.Download.displayDownloadBox
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.Rating.giveRatingBox
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.shareDisplayBox
 import com.example.movieapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -115,7 +115,7 @@ fun MainPhoto(onClick: (String) -> Unit) {
                 .fillMaxWidth()
                 .height(300.dp)) {
             Image(
-                painter = painterResource(R.drawable.demon_slayer),
+                painter = painterResource(R.drawable.home_demonslayer),
                 contentDescription = "MainPhoto",
                 contentScale = ContentScale.FillHeight)
         }
@@ -132,7 +132,7 @@ fun MainPhoto(onClick: (String) -> Unit) {
                     onClick("popUp")
                 })
             Icon(
-                painter = painterResource(R.drawable.mirror),
+                painter = painterResource(R.drawable.detail_mirorr),
                 contentDescription = "ArrowBack",
                 tint = Color.White,
                 modifier = Modifier.size(20.dp, 30.dp))
@@ -224,7 +224,7 @@ fun Episodes() {
                     ){
                         Card(){
                             Image(
-                                painter = painterResource(R.drawable.attackontitan),
+                                painter = painterResource(R.drawable.home_attackontitan),
                                 contentDescription = "",
                                 contentScale = ContentScale.FillWidth
                             )

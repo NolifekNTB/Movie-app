@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -16,13 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
@@ -51,7 +44,7 @@ fun profileImage(){
     ){
         Box(){
             Image(
-                painter = painterResource(id = R.drawable.profilephoto),
+                painter = painterResource(id = R.drawable.profile_profilephoto),
                 contentDescription = "Profile Photo",
                 contentScale = ContentScale.Crop
             )
@@ -118,16 +111,16 @@ fun settingsRow(index: Int, onClick: (String) -> Unit){
     }
 
     val icon = when(index){
-        0 -> R.drawable.person
-        1 -> R.drawable.notification
-        2 -> R.drawable.download
-        3 -> R.drawable.security
-        4 -> R.drawable.language
-        5 -> R.drawable.darkmode
-        6 -> R.drawable.help
-        7 -> R.drawable.privacy
-        8 -> R.drawable.logout
-        else -> R.drawable.person
+        0 -> R.drawable.profile_person
+        1 -> R.drawable.profile_notification
+        2 -> R.drawable.profile_download
+        3 -> R.drawable.profile_person_security
+        4 -> R.drawable.profile_langauge
+        5 -> R.drawable.profile_darkmode
+        6 -> R.drawable.profile_help
+        7 -> R.drawable.profile_privacy
+        8 -> R.drawable.profile_logout
+        else -> R.drawable.profile_person
     }
 
     var checked by remember { mutableStateOf(true) }

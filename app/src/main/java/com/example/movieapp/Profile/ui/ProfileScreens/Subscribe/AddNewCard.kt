@@ -15,20 +15,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
-import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,19 +32,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.Profile.logic.ProfileViewModel
 import com.example.movieapp.R
 import com.example.movieapp.core.other.TopBar
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 
 @Composable
@@ -64,7 +55,7 @@ fun addNewCard(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
                 .background(Color.White)
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             BankCard()
             Divider()
@@ -75,6 +66,7 @@ fun addNewCard(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
                 Spacer(modifier = Modifier.width(15.dp))
                 Field("CVV", Modifier.weight(0.5f), viewModel)
             }
+            Spacer(modifier = Modifier.height(200.dp))
             AddNewCard(){where ->
                 onClick(where)
             }
@@ -92,7 +84,7 @@ fun BankCard(){
         shape = RoundedCornerShape(15.dp)
     ){
         Image(
-            painter = painterResource(id = R.drawable.visa),
+            painter = painterResource(id = R.drawable.addnewcard_visa),
             contentDescription = "cardImage",
             contentScale = ContentScale.Crop
         )
@@ -153,7 +145,7 @@ fun Field(name: String, modifier: Modifier, viewModel: ProfileViewModel){
             )
             if(name == "Expiry Date"){
                 Icon(
-                    painter = painterResource(id = R.drawable.calendar),
+                    painter = painterResource(id = R.drawable.addnewcard_calendar),
                     contentDescription = "calendarIcon",
                     modifier = Modifier.padding(end = 15.dp))
             }
@@ -163,7 +155,6 @@ fun Field(name: String, modifier: Modifier, viewModel: ProfileViewModel){
 
 @Composable
 fun AddNewCard(onClick: (String) -> Unit){
-    Spacer(modifier = Modifier.height(133.dp))
     FilledTonalButton(
         onClick = { onClick("add") },
         colors = ButtonDefaults.buttonColors(

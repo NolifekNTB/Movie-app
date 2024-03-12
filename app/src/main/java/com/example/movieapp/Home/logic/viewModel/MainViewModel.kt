@@ -20,10 +20,10 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
 
     val list = arrayListOf(
-        AnimeItem(id = 0, "Attack on titan test", R.drawable.attackontitan, 9.9),
-        AnimeItem(id = 1, "Naruto", R.drawable.naruto, 9.2),
-        AnimeItem(id = 2, "Dragon ball", R.drawable.demon_slayer, 8.2),
-        AnimeItem(id = 3, "Cos innego", R.drawable.attackontitan, 8.4),
+        AnimeItem(id = 0, "Attack on titan test", R.drawable.home_attackontitan, 9.9),
+        AnimeItem(id = 1, "Naruto", R.drawable.home_naruto, 9.2),
+        AnimeItem(id = 2, "Dragon ball", R.drawable.home_demonslayer, 8.2),
+        AnimeItem(id = 3, "Cos innego", R.drawable.home_attackontitan, 8.4),
     )
     init {
         deleteAllAnime()

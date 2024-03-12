@@ -1,6 +1,5 @@
-package com.example.movieapp.Details.ui.BottomSheetScaffolds.Download
+package com.example.movieapp.core.Details.ui.BottomSheetScaffolds.Download
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,9 +33,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.Details.logic.DetailsViewModel
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.scaffoldSheetButtons
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.shareTitle
+import com.example.movieapp.core.Details.logic.DetailsViewModel
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.scaffoldSheetButtons
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.shareTitle
 import com.example.movieapp.R
 
 
@@ -103,7 +102,7 @@ fun imageItem(item: Int) {
                     .background(if (selectedEpisodes.contains(item)) Color.Black else Color.Transparent)
                     .alpha(if (selectedEpisodes.contains(item)) 0.3f else 1f)){
                 Image(
-                    painter = painterResource(id = R.drawable.attackontitan),
+                    painter = painterResource(id = R.drawable.home_attackontitan),
                     contentDescription = null,
                     contentScale = ContentScale.FillWidth,
                     modifier = Modifier.clickable

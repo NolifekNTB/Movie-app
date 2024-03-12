@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.DetailsScreens
+package com.example.movieapp.core.Details.ui.DetailsScreens
 
 import android.app.Activity
 import android.content.pm.ActivityInfo

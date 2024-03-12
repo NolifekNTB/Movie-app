@@ -1,4 +1,4 @@
-package com.example.movieapp.Details.ui.DetailsScreens
+package com.example.movieapp.core.Details.ui.DetailsScreens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -109,7 +109,7 @@ fun CommentsList() {
                         shape = CircleShape
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.profile),
+                            painter = painterResource(R.drawable.detail_profile),
                             contentDescription = "",
                             contentScale = ContentScale.FillBounds
                         )

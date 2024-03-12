@@ -109,7 +109,7 @@ fun premiumBox(monthOrYearly: String, onClick: (String) -> Unit){
                 verticalArrangement = Arrangement.Center
             ) {
                 Icon(
-                    painter = painterResource(id = R.drawable.crown),
+                    painter = painterResource(id = R.drawable.subscribe_crown),
                     contentDescription = null,
                     tint = Color.Green,
                     modifier = Modifier

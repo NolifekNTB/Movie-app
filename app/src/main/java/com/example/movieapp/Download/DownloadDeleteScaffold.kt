@@ -25,9 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.Download.downloadBox
-import com.example.movieapp.Details.ui.BottomSheetScaffolds.shareTitle
-import com.example.movieapp.Details.ui.buttonsSection
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.Download.downloadBox
+import com.example.movieapp.core.Details.ui.BottomSheetScaffolds.shareTitle
+import com.example.movieapp.core.Details.ui.buttonsSection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
