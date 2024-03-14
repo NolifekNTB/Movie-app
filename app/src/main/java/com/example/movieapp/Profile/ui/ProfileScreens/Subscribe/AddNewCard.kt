@@ -55,7 +55,7 @@ fun addNewCard(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
                 .background(Color.White)
                 .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.Top
         ) {
             BankCard()
             Divider()
@@ -66,7 +66,6 @@ fun addNewCard(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
                 Spacer(modifier = Modifier.width(15.dp))
                 Field("CVV", Modifier.weight(0.5f), viewModel)
             }
-            Spacer(modifier = Modifier.height(200.dp))
             AddNewCard(){where ->
                 onClick(where)
             }
@@ -155,18 +154,23 @@ fun Field(name: String, modifier: Modifier, viewModel: ProfileViewModel){
 
 @Composable
 fun AddNewCard(onClick: (String) -> Unit){
-    FilledTonalButton(
-        onClick = { onClick("add") },
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF00FF00),
-            contentColor = Color.White
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp)
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom
     ) {
-        Box(contentAlignment = Alignment.Center) {
-            Text(text = "Add")
+        FilledTonalButton(
+            onClick = { onClick("add") },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFF00FF00),
+                contentColor = Color.White
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                Text(text = "Add")
+            }
         }
     }
 }

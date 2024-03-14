@@ -22,10 +22,7 @@ fun CircleButton(name: String, viewModel: ProfileViewModel){
     Card(
         shape = RoundedCornerShape(15.dp),
         modifier = Modifier
-            .size(20.dp)
-            .clickable {
-                viewModel.whichMethodIsClicked(name)
-            },
+            .size(20.dp),
         colors = CardDefaults.cardColors(
             containerColor = if(clicked == name) Color.Green else Color.White
         ),

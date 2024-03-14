@@ -13,11 +13,8 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,7 +26,12 @@ import androidx.compose.ui.unit.sp
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
 
 @Composable
-fun Section(title: String, elements: Array<String>, numCells: Int, viewModel: MainViewModel) {
+fun Section(
+    title: String,
+    elements: Array<String>,
+    numCells: Int,
+    viewModel: MainViewModel
+) {
     Text(
         text = title,
         fontSize = 18.sp,
@@ -41,7 +43,12 @@ fun Section(title: String, elements: Array<String>, numCells: Int, viewModel: Ma
 }
 
 @Composable
-fun SectionWithSeeAllButton(title: String, elements: Array<String>, numCells: Int, viewModel: MainViewModel) {
+fun SectionWithSeeAllButton(
+    title: String,
+    elements: Array<String>,
+    numCells: Int,
+    viewModel: MainViewModel
+) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -65,61 +72,74 @@ fun SectionWithSeeAllButton(title: String, elements: Array<String>, numCells: In
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun SectionsElement(howManyCells: Int, names: Array<String>, viewModel: MainViewModel){
-    val selected = remember { mutableStateListOf<Boolean>() }
+fun SectionsElement(
+    howManyCells: Int,
+    elements: Array<String>,
+    viewModel: MainViewModel
+){
     val selectedList by viewModel.filtersList.collectAsState(emptyList())
 
-    LaunchedEffect(selectedList){
-        for(i in names.indices){
-            if(selectedList.contains(names[i])){
-                selected.add(true)
-            } else {
-                selected.add(false)
-            }
-        }
-    }
-
-    if(selected.size > 0){
-        Row() {
-            repeat(howManyCells){ item->
-                OutlinedButton(
-                    onClick = {selected[item] = !selected[item];
-                        if(selected[item]) viewModel.updateList(names[item])
-                        else viewModel.removeFromList(names[item])
-                    },
-                    modifier = Modifier.padding(3.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selected[item]) Color.Green
-                        else Color.White,
-                    ),
-                    border = BorderStroke(2.dp, Color.Green)
-                ) {
-                    Text(
-                        text = names[item],
-                        color = if (selected[item]) Color.White
-                        else Color.Green
-                    )
-                }
+    Row() {
+        repeat(howManyCells){ item->
+            val selected = selectedList.contains(elements[item])
+            OutlinedButton(
+                onClick = {
+                    if(selected){
+                        viewModel.remove(elements[item])
+                    } else {
+                        viewModel.add(elements[item])
+                    }
+                },
+                modifier = Modifier.padding(3.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (selected) Color.Green
+                    else Color.White,
+                ),
+                border = BorderStroke(2.dp, Color.Green)
+            ) {
+                Text(
+                    text = elements[item],
+                    color = if (selected) Color.White
+                    else Color.Green
+                )
             }
         }
     }
 }
 
+
 @Composable
-fun ApplyResetButtons() {
+fun ApplyResetButtons(viewModel: MainViewModel, onClick: () -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
-        ApplyResetButtonsItem(text = "Reset", containerColor = Color.Green.copy(alpha = 0.2f), contentColor = Color.Green)
-        ApplyResetButtonsItem(text = "Apply", containerColor = Color.Green, contentColor = Color.White)
+        ApplyResetButtonsItem(
+            text = "Reset",
+            containerColor = Color.Green.copy(alpha = 0.2f),
+            contentColor = Color.Green,
+            onClick = {viewModel.resetFilters()})
+        ApplyResetButtonsItem(
+            text = "Apply",
+            containerColor = Color.Green,
+            contentColor = Color.White,
+            onClick = {
+                viewModel.applyFilters(true)
+                onClick()
+            }
+        )
     }
 }
 
 @Composable
-fun ApplyResetButtonsItem(text: String, containerColor: Color, contentColor: Color) {
+fun ApplyResetButtonsItem(
+    text: String,
+    containerColor: Color,
+    contentColor: Color,
+    onClick: () -> Unit
+) {
     OutlinedButton(
-        onClick = { },
+        onClick = onClick,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,
             contentColor = contentColor

@@ -1,6 +1,7 @@
 package com.example.movieapp.Home.ui.HomeScreens.Search
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,7 @@ import com.example.movieapp.R
 import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -64,9 +66,8 @@ fun Search(viewModel: MainViewModel, onClick: () -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             searchBar(text, isFocused, viewModel, searchResults, Modifier.weight(1f))
-            filterButton(onClick)
+            filterButton(onClick, viewModel)
         }
-
         displayChoseFilters(viewModel = viewModel)
         logicBetweenSearchScreens(searchResults, isFocused)
     }
@@ -110,7 +111,7 @@ fun searchBar(
 }
 
 @Composable
-fun filterButton(onClick: () -> Unit) {
+fun filterButton(onClick: () -> Unit, viewModel: MainViewModel) {
     Card(
         modifier = Modifier.size(55.dp),
         shape = RoundedCornerShape(15.dp),
@@ -130,7 +131,8 @@ fun filterButton(onClick: () -> Unit) {
                 modifier = Modifier
                     .size(30.dp)
                     .clickable {
-                        onClick()
+                        onClick();
+                        viewModel.applyFilters(false)
                     }
             )
         }
@@ -139,12 +141,16 @@ fun filterButton(onClick: () -> Unit) {
 
 @Composable
 fun displayChoseFilters(viewModel: MainViewModel) {
-    val list by viewModel.filtersList.collectAsState(emptyList())
+    val list = viewModel.filtersList.collectAsState(emptyList()).value
+    val isApply = viewModel.applyFilters.collectAsState().value
+    Log.d("testowo", isApply.toString())
 
-    if (list.isNotEmpty()) {
-        LazyRow() {
-            items(list.size) { item ->
-                choseFilter(list[item])
+    if (isApply) {
+        if (list.isNotEmpty()) {
+            LazyRow() {
+                items(list.size) { item ->
+                    choseFilter(list[item])
+                }
             }
         }
     }

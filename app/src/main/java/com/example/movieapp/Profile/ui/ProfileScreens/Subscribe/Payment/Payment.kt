@@ -1,8 +1,8 @@
 package com.example.movieapp.Profile.ui.ProfileScreens.Subscribe.Payment
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -78,6 +78,7 @@ fun payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
 
 @Composable
 fun paymentMethods(name: String, viewModel: ProfileViewModel) {
+
     var icon = 0
     when(name){
         "PayPal" -> icon = R.drawable.payment_paypal
@@ -90,7 +91,10 @@ fun paymentMethods(name: String, viewModel: ProfileViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .size(100.dp)
-            .padding(0.dp, 10.dp),
+            .padding(0.dp, 10.dp)
+            .clickable {
+                viewModel.whichMethodIsClicked(name)
+            },
         colors = CardDefaults.cardColors(
             containerColor = Color.LightGray
         ),

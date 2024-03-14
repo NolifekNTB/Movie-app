@@ -57,16 +57,23 @@ class MainViewModel @Inject constructor(
     private val _filtersList = MutableStateFlow<List<String>>(listOf())
     val filtersList: StateFlow<List<String>> = _filtersList.asStateFlow()
 
-    fun updateList(s: String) {
-        val currentList = _filtersList.value.toMutableList()
-        currentList.add(s)
-        _filtersList.value = currentList
+    private val _applyFilters: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val applyFilters: StateFlow<Boolean> = _applyFilters.asStateFlow()
+
+    fun remove(element: String){
+        _filtersList.value -= element
     }
 
-    fun removeFromList(s: String) {
-        val currentList = _filtersList.value.toMutableList()
-        currentList.remove(s)
-        _filtersList.value = currentList
+    fun add(element: String){
+        _filtersList.value += element
+    }
+
+    fun resetFilters(){
+        _filtersList.value = listOf()
+    }
+
+    fun applyFilters(value: Boolean){
+        _applyFilters.value = value
     }
 }
 

@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -24,27 +26,47 @@ fun SortFilter(onClick: () -> Unit, viewModel: MainViewModel) {
             .background(Color.White)
     ) {
         TopBar("Sort & Filter", onClick)
-        MainContent(viewModel)
+        MainContent(viewModel){onClick()}
     }
 }
 
 @Composable
-fun MainContent(viewModel: MainViewModel) {
+fun MainContent(viewModel: MainViewModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
             .padding(bottom = 20.dp)
     ){
-        Section(title = "Sort", elements = arrayOf("Popularity", "Latest Release"), numCells = 2, viewModel)
-        Section(title = "Categories", elements = arrayOf("Episode", "Movie"), numCells = 2 ,viewModel)
-        Section(title = "Region", elements = arrayOf("Japan", "Korea", "China"), numCells = 3 ,viewModel)
+        Section(
+            title = "Sort",
+            elements = arrayOf("Popularity", "Latest Release"),
+            numCells = 2,
+            viewModel = viewModel)
+        Section(
+            title = "Categories",
+            elements = arrayOf("Episode", "Movie"),
+            numCells = 2 ,
+            viewModel = viewModel)
+        Section(
+            title = "Region",
+            elements = arrayOf("Japan", "Korea", "China"),
+            numCells = 3 ,
+            viewModel = viewModel)
 
-        SectionWithSeeAllButton(title = "Genre", elements = arrayOf("Action", "Slice of Life", "Magic", "Sci-Fi", "Mystery",
-            "Comedy", "Romance", "Drama"), numCells = 3, viewModel)
-        SectionWithSeeAllButton(title = "Release Year", elements = arrayOf("2022", "2021"), numCells = 2, viewModel)
+        SectionWithSeeAllButton(
+            title = "Genre",
+            elements = arrayOf("Action", "Slice of Life", "Magic", "Sci-Fi", "Mystery",
+            "Comedy", "Romance", "Drama"),
+            numCells = 3,
+            viewModel = viewModel)
+        SectionWithSeeAllButton(
+            title = "Release Year",
+            elements = arrayOf("2022", "2021"),
+            numCells = 2,
+            viewModel = viewModel)
 
-        Spacer(Modifier.height(10.dp))
-        ApplyResetButtons()
+        Spacer(modifier = Modifier.height(10.dp))
+        ApplyResetButtons(viewModel = viewModel){onClick()}
     }
 }
 
