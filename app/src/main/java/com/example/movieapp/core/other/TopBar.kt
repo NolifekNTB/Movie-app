@@ -72,6 +72,7 @@ fun TopBarActionIcon(name: String){
         "Top Hits Anime"-> Icons.Default.Search
         "My List"-> Icons.Default.Search
         "Download"-> Icons.Default.Search
+        "New Episode Releases"-> Icons.Default.Search
         "Sort & Filter" -> Icons.Default.Add
         else -> Icons.Default.MoreVert
     }

@@ -29,6 +29,7 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
                 when(where){
                     "premium" -> navController.navigate(ProfileScreen.Subscribe.route)
                     "settings" -> navController.navigate(ProfileScreen.Settings.route)
+                    "back" -> navController.popBackStack()
                 }
             }
         }
@@ -54,6 +55,7 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
                 when(where){
                     "addNewCard" -> navController.navigate("addNewCard")
                     "continue" -> navController.navigate("reviewSummary")
+                    "back" -> navController.popBackStack()
                 }
             }
         }

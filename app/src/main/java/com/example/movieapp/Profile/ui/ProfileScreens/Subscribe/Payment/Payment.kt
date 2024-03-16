@@ -34,7 +34,7 @@ import com.example.movieapp.R
 import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
+    fun payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
     val cardNumber = viewModel.cardValue.collectAsState().value
 
     Column(
@@ -42,9 +42,7 @@ fun payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar(name = "Payment") {
-            onClick("back")
-        }
+        TopBar(name = "Payment") { onClick("back") }
         Column(
             modifier = Modifier.padding(20.dp, 0.dp),
             horizontalAlignment = Alignment.Start,
