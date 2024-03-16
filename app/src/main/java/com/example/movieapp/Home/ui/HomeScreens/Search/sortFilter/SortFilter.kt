@@ -9,17 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.movieapp.Home.logic.viewModel.MainViewModel
+import com.example.movieapp.Home.ui.HomeScreens.Search.logic.SearchViewModel
 import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun SortFilter(onClick: () -> Unit, viewModel: MainViewModel) {
+fun SortFilter(onClick: () -> Unit, viewModel: SearchViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -31,7 +28,7 @@ fun SortFilter(onClick: () -> Unit, viewModel: MainViewModel) {
 }
 
 @Composable
-fun MainContent(viewModel: MainViewModel, onClick: () -> Unit) {
+fun MainContent(viewModel: SearchViewModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())

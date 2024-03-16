@@ -25,7 +25,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,21 +33,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.Home.logic.viewModel.MainViewModel
 import com.example.movieapp.Home.data.room.AnimeItem
 import com.example.movieapp.Home.ui.HomeScreens.ListEpisodeReleases
+import com.example.movieapp.Home.ui.HomeScreens.Search.logic.SearchViewModel
 import com.example.movieapp.R
 import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @HiltViewModelMap
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun Search(viewModel: MainViewModel, onClick: () -> Unit) {
+fun Search(viewModel: SearchViewModel, onClick: () -> Unit) {
     val text = remember { mutableStateOf("")}
     val isFocused = remember { mutableStateOf(false)}
     val searchResults = remember { mutableStateOf<List<AnimeItem>>(emptyList()) }
@@ -77,7 +75,7 @@ fun Search(viewModel: MainViewModel, onClick: () -> Unit) {
 fun searchBar(
     text: MutableState<String>,
     isFocused: MutableState<Boolean>,
-    viewModel: MainViewModel,
+    viewModel: SearchViewModel,
     searchResults: MutableState<List<AnimeItem>>,
     modifier: Modifier = Modifier
 ) {
@@ -111,7 +109,7 @@ fun searchBar(
 }
 
 @Composable
-fun filterButton(onClick: () -> Unit, viewModel: MainViewModel) {
+fun filterButton(onClick: () -> Unit, viewModel: SearchViewModel) {
     Card(
         modifier = Modifier.size(55.dp),
         shape = RoundedCornerShape(15.dp),
@@ -140,7 +138,7 @@ fun filterButton(onClick: () -> Unit, viewModel: MainViewModel) {
 }
 
 @Composable
-fun displayChoseFilters(viewModel: MainViewModel) {
+fun displayChoseFilters(viewModel: SearchViewModel) {
     val list = viewModel.filtersList.collectAsState(emptyList()).value
     val isApply = viewModel.applyFilters.collectAsState().value
     Log.d("testowo", isApply.toString())

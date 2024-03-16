@@ -23,14 +23,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.Home.logic.viewModel.MainViewModel
+import com.example.movieapp.Home.ui.HomeScreens.Search.logic.SearchViewModel
 
 @Composable
 fun Section(
     title: String,
     elements: Array<String>,
     numCells: Int,
-    viewModel: MainViewModel
+    viewModel: SearchViewModel
 ) {
     Text(
         text = title,
@@ -47,7 +47,7 @@ fun SectionWithSeeAllButton(
     title: String,
     elements: Array<String>,
     numCells: Int,
-    viewModel: MainViewModel
+    viewModel: SearchViewModel
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -75,7 +75,7 @@ fun SectionWithSeeAllButton(
 fun SectionsElement(
     howManyCells: Int,
     elements: Array<String>,
-    viewModel: MainViewModel
+    viewModel: SearchViewModel
 ){
     val selectedList by viewModel.filtersList.collectAsState(emptyList())
 
@@ -109,7 +109,7 @@ fun SectionsElement(
 
 
 @Composable
-fun ApplyResetButtons(viewModel: MainViewModel, onClick: () -> Unit) {
+fun ApplyResetButtons(viewModel: SearchViewModel, onClick: () -> Unit) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround

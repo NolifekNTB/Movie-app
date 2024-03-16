@@ -55,6 +55,8 @@ android {
     }
 }
 
+val retrofit = "2.9.0"
+val okHttp = "4.12.0"
 val media3 = "1.2.1"
 val exoplayerExoPlayer = "2.19.1"
 val ygorluizfrazao = "1.0.0-alpha01"
@@ -72,6 +74,12 @@ val extJunit = "1.1.5"
 val espressoCore = "3.5.1"
 
 dependencies {
+    //Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:$retrofit")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofit")
+    implementation ("com.squareup.okhttp3:okhttp:$okHttp")
+    implementation ("com.squareup.okhttp3:logging-interceptor:$okHttp")
+
     //Media3 + Exoplayer
     implementation ("androidx.media3:media3-exoplayer:$media3")
     implementation ("androidx.media3:media3-ui:$media3")
