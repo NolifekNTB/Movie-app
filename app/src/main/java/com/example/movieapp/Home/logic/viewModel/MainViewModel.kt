@@ -7,13 +7,10 @@ import com.example.movieapp.Home.data.retrofit.AnimeData
 import com.example.movieapp.Home.data.retrofit.RetrofitInstance
 import com.example.movieapp.Home.data.room.AnimeItem
 import com.example.movieapp.Home.data.room.AnimeRepository
-import com.example.movieapp.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,29 +18,34 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
-
-    /*
     var postData = MutableStateFlow<AnimeData?>(null)
-
     private val api = RetrofitInstance.createApi()
+
+    init {
+        /* val exampleAnimeList = mutableListOf<AnimeItem>()
+         val photo = "https://static.wikia.nocookie.net/naruto/images/d/d6/Naruto_Part_I.png/revision/latest/scale-to-width-down/1200?cb=20210223094656"
+         exampleAnimeList.add(AnimeItem(name = "Naruto", image = photo, rating = 9.5))
+         exampleAnimeList.add(AnimeItem(name = "One Piece", image = photo, rating = 9.5))
+         exampleAnimeList.add(AnimeItem(name = "Dragon Ball", image = photo, rating = 9.5))
+         deleteAllAnime()
+         insertALlAnime(exampleAnimeList)
+         */
+        fetchPost()
+    }
 
     fun fetchPost() {
         viewModelScope.launch {
-            try{
-                val post = api.getPost()
-                postData.value = post
-            } catch (e: Exception){
-                Log.d("testowanie", "fetchPost: $e")
-            }
+            val response = api.getPost()
+            postData.value = response
+
+         sendDataToRoom()
         }
     }
 
     fun sendDataToRoom(){
-        if(postData.value == null){
-            return
-        }
+        if(postData.value == null) return
+
         val animeItemList = mapAnimeDataToAnimeItem(postData.value!!)
-        Log.d("testowanie", "map $animeItemList")
         insertALlAnime(animeItemList)
     }
 
@@ -53,26 +55,15 @@ class MainViewModel @Inject constructor(
             // Assuming 'data' contains the necessary fields for AnimeItem
             val animeItem = AnimeItem(
                 name = data.title,
-                image = R.drawable.home_naruto,
-                //image = data.images.jpg.image_url.toInt(), // Assuming 'image' is an Int representing a resource ID
+                image = data.images.jpg.image_url,
                 rating = data.score
             )
             animeItemList.add(animeItem)
         }
+        Log.d("testowanie", "mapAnimeDataToAnimeItem -> $animeItemList")
         return animeItemList
     }
 
-
-     */
-        init {
-            val exampleAnimeList = mutableListOf<AnimeItem>()
-            exampleAnimeList.add(AnimeItem(name = "Naruto", image = R.drawable.home_naruto, rating = 9.5))
-            exampleAnimeList.add(AnimeItem(name = "One Piece", image = R.drawable.home_naruto, rating = 9.5))
-            exampleAnimeList.add(AnimeItem(name = "Dragon Ball", image = R.drawable.home_naruto, rating = 9.5))
-
-            deleteAllAnime()
-            insertALlAnime(exampleAnimeList)
-        }
 
 
     fun getAnimeList(): Flow<List<AnimeItem>> {
@@ -92,36 +83,6 @@ class MainViewModel @Inject constructor(
             )
         }
     }
-
-
-/*
-    suspend fun searchAllAnime(query: String): List<AnimeItem> {
-        return repo.searchAnimeByName(query)
-    }
-    private val _filtersList = MutableStateFlow<List<String>>(listOf())
-
-    val filtersList: StateFlow<List<String>> = _filtersList.asStateFlow()
-    private val _applyFilters: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
-    val applyFilters: StateFlow<Boolean> = _applyFilters.asStateFlow()
-
-    fun remove(element: String){
-        _filtersList.value -= element
-    }
-
-    fun add(element: String){
-        _filtersList.value += element
-    }
-
-    fun resetFilters(){
-        _filtersList.value = listOf()
-    }
-
-    fun applyFilters(value: Boolean){
-        _applyFilters.value = value
-    }
-
- */
 }
 
 

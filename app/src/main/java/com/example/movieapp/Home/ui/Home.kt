@@ -19,10 +19,9 @@ import com.example.movieapp.Home.logic.viewModel.MainViewModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
-//    viewModel.fetchPost()
-//    viewModel.sendDataToRoom()
-//    val postData by viewModel.postData.collectAsState()
-//    Log.d("testowanie", "postData" + postData.toString())
+    val postData by viewModel.postData.collectAsState()
+    Log.d("testowanie", "postData " + postData.toString())
+
     val animeList by viewModel.getAnimeList().collectAsState(emptyList())
 
     Column(

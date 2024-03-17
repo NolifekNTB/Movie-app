@@ -42,6 +42,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.movieapp.Home.data.room.AnimeItem
 import com.example.movieapp.R
 
@@ -223,11 +224,12 @@ fun rowListItems(animeList: List<AnimeItem>, onClick: (String) -> Unit) {
 @Composable
 fun rowListItemsImage(itemAnime: AnimeItem, index: Int, modifier: Modifier){
     Card(){
-        Image(
-            painter = painterResource(itemAnime.image),
-            contentDescription = "mainPhoto",
+        AsyncImage(
+            model = itemAnime.image,
+            contentDescription = "image",
             alpha = AlphaValue,
-            contentScale = ContentScale.FillHeight
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
     }
     Card(

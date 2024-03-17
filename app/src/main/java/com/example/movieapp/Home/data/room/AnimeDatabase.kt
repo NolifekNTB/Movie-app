@@ -1,11 +1,12 @@
 package com.example.movieapp.Home.data.room
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [AnimeItem::class], version = 1)
+@Database(entities = [AnimeItem::class], version = 2)
 abstract class AnimeDatabase : RoomDatabase() {
     abstract fun animedao(): AnimeDao
 
@@ -17,7 +18,8 @@ abstract class AnimeDatabase : RoomDatabase() {
                 db = Room.databaseBuilder(
                     context,
                     AnimeDatabase::class.java, "anime-database.db"
-                ).build()
+                )
+                    .build()
             }
 
             return db!!

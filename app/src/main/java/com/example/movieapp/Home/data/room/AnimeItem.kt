@@ -8,6 +8,6 @@ import com.example.movieapp.R
 data class AnimeItem(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val name: String,
-    val image: Int,
+    val image: String,
     val rating: Double
 )

@@ -30,4 +30,5 @@ interface AnimeDao {
 
     @Query("SELECT * FROM anime WHERE name LIKE '%' || :searchQuery || '%'")
     suspend fun searchAnimeByName(searchQuery: String): List<AnimeItem>
+
 }

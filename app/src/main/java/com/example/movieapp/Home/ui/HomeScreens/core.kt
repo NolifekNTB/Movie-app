@@ -18,11 +18,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.movieapp.Home.data.room.AnimeItem
 
 
@@ -47,9 +49,11 @@ fun ListEpisodeReleases(animeList: List<AnimeItem>) {
 fun EpisodeItem(episode: AnimeItem) {
     Box(){
         Card(){
-            Image(
-                painter = painterResource(id = episode.image),
-                contentDescription = "")
+            AsyncImage(
+                model = "https://static.wikia.nocookie.net/naruto/images/d/d6/Naruto_Part_I.png/revision/latest/scale-to-width-down/1200?cb=20210223094656",
+                contentDescription = "image",
+                contentScale = ContentScale.FillHeight
+            )
         }
         EpisodeRating()
     }

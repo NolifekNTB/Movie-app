@@ -55,6 +55,7 @@ android {
     }
 }
 
+val coil = "2.6.0"
 val retrofit = "2.9.0"
 val okHttp = "4.12.0"
 val media3 = "1.2.1"
@@ -74,6 +75,9 @@ val extJunit = "1.1.5"
 val espressoCore = "3.5.1"
 
 dependencies {
+    //Coil
+    implementation("io.coil-kt:coil-compose:$coil")
+
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:$retrofit")
     implementation ("com.squareup.retrofit2:converter-gson:$retrofit")

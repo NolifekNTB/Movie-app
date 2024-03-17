@@ -6,12 +6,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitInstance {
     const val BASE_URL = "https://api.jikan.moe/"
 
-    fun createApi(): JsonPlaceholderApi {
+    fun createApi(): AnimeApi {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofit.create(JsonPlaceholderApi::class.java)
+        return retrofit.create(AnimeApi::class.java)
     }
 }
