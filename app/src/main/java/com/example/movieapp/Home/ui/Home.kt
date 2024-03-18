@@ -13,16 +13,19 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.movieapp.Home.data.room.AnimeItem
+import com.example.movieapp.Home.data.room.AnimeItemNewSeasons
+import com.example.movieapp.Home.data.room.AnimeItemTopHits
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
-    val postData by viewModel.postData.collectAsState()
+    val postData by viewModel.topHitsAnimeData.collectAsState()
     Log.d("testowanie", "postData " + postData.toString())
 
     val animeList by viewModel.getAnimeList().collectAsState(emptyList())
+    val animeListNewSeasons by viewModel.getAnimeListNewSeasons().collectAsState(emptyList())
+
 
     Column(
         modifier = Modifier
@@ -36,7 +39,7 @@ fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
         RowList("Top Hits Anime", animeList) { direction ->
             onClick(direction)
         }
-        RowList("New Episodes Releases", animeList){ direction ->
+        RowListNewSeasons("New Seasons Releases", animeListNewSeasons){ direction ->
             onClick(direction)
         }
     }
@@ -57,7 +60,7 @@ fun ImageHome(onClick: (String) -> Unit) {
 
 
 @Composable
-fun RowList(name: String, animeList: List<AnimeItem>, onClick: (String) -> Unit){
+fun RowList(name: String, animeList: List<AnimeItemTopHits>, onClick: (String) -> Unit){
     rowListTitle(name){ direction ->
         onClick(direction)
     }
@@ -65,6 +68,19 @@ fun RowList(name: String, animeList: List<AnimeItem>, onClick: (String) -> Unit)
         onClick(direction)
     }
 }
+
+@Composable
+fun RowListNewSeasons(name: String, animeList: List<AnimeItemNewSeasons>, onClick: (String) -> Unit){
+    rowListTitle(name){ direction ->
+        onClick(direction)
+    }
+    rowListItemsNewSeasons(animeList){ direction ->
+        onClick(direction)
+    }
+}
+
+
+
 
 
 

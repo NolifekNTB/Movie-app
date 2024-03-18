@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -12,13 +11,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
 import com.example.movieapp.Home.ui.HomeScreen
-import com.example.movieapp.Home.ui.HomeScreens.NewEpisodeReleases
+import com.example.movieapp.Home.ui.HomeScreens.NewSeasonsReleases
 import com.example.movieapp.Home.ui.HomeScreens.Notification.Notification
 import com.example.movieapp.Home.ui.HomeScreens.Search.Search
 import com.example.movieapp.Home.ui.HomeScreens.Search.logic.SearchViewModel
 import com.example.movieapp.Home.ui.HomeScreens.Search.sortFilter.SortFilter
 import com.example.movieapp.Home.ui.HomeScreens.TopHitsAnime.TopHitsAnime
-import com.example.movieapp.Profile.logic.ProfileViewModel
 import com.example.movieapp.core.BottomNavMenu.BottomBarScreen
 
 fun NavGraphBuilder.homeNavGraph(navController: NavHostController, viewModel: MainViewModel) {
@@ -61,9 +59,9 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, viewModel: Ma
         }
 
         composable(route = "New Episodes Releases"){
-            NewEpisodeReleases {
-                navController.popBackStack()
-            }
+            NewSeasonsReleases (
+                onClick = { navController.popBackStack() }
+            )
         }
 
         detailsNavGraph(navController = navController)

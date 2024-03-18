@@ -33,7 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.Home.data.room.AnimeItem
+import com.example.movieapp.Home.data.room.AnimeItemTopHits
 import com.example.movieapp.Home.ui.HomeScreens.ListEpisodeReleases
 import com.example.movieapp.Home.ui.HomeScreens.Search.logic.SearchViewModel
 import com.example.movieapp.R
@@ -49,7 +49,7 @@ import kotlinx.coroutines.launch
 fun Search(viewModel: SearchViewModel, onClick: () -> Unit) {
     val text = remember { mutableStateOf("")}
     val isFocused = remember { mutableStateOf(false)}
-    val searchResults = remember { mutableStateOf<List<AnimeItem>>(emptyList()) }
+    val searchResults = remember { mutableStateOf<List<AnimeItemTopHits>>(emptyList()) }
 
     Column(
         modifier = Modifier
@@ -76,7 +76,7 @@ fun searchBar(
     text: MutableState<String>,
     isFocused: MutableState<Boolean>,
     viewModel: SearchViewModel,
-    searchResults: MutableState<List<AnimeItem>>,
+    searchResults: MutableState<List<AnimeItemTopHits>>,
     modifier: Modifier = Modifier
 ) {
     OutlinedTextField(
@@ -155,7 +155,7 @@ fun displayChoseFilters(viewModel: SearchViewModel) {
 }
 
 @Composable
-fun logicBetweenSearchScreens(searchResults: MutableState<List<AnimeItem>>, isFocused: MutableState<Boolean>) {
+fun logicBetweenSearchScreens(searchResults: MutableState<List<AnimeItemTopHits>>, isFocused: MutableState<Boolean>) {
     if (searchResults.value.isNotEmpty()) {
         ListEpisodeReleases(searchResults.value)
     } else if (searchResults.value.isEmpty() && isFocused.value) {

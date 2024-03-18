@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    const val BASE_URL = "https://api.jikan.moe/"
+    const val BASE_URL = "https://api.jikan.moe/v4/"
 
     fun createApi(): AnimeApi {
         val retrofit = Retrofit.Builder()

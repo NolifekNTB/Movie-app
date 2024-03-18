@@ -1,7 +1,7 @@
 package com.example.movieapp.Home.ui.HomeScreens.Search.logic
 
 import androidx.lifecycle.ViewModel
-import com.example.movieapp.Home.data.room.AnimeItem
+import com.example.movieapp.Home.data.room.AnimeItemTopHits
 import com.example.movieapp.Home.data.room.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ class SearchViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
 
-    suspend fun searchAllAnime(query: String): List<AnimeItem> {
+    suspend fun searchAllAnime(query: String): List<AnimeItemTopHits> {
         return repo.searchAnimeByName(query)
     }
     private val _filtersList = MutableStateFlow<List<String>>(listOf())

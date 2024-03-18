@@ -1,6 +1,5 @@
 package com.example.movieapp.Home.ui.HomeScreens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,20 +18,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.movieapp.Home.data.room.AnimeItem
+import com.example.movieapp.Home.data.room.AnimeItemTopHits
 
 
 /*
             This Composable is used in search screen and NewEpisodeReleases screen
  */
 @Composable
-fun ListEpisodeReleases(animeList: List<AnimeItem>) {
+fun ListEpisodeReleases(animeList: List<AnimeItemTopHits>) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(10.dp),
@@ -46,7 +44,7 @@ fun ListEpisodeReleases(animeList: List<AnimeItem>) {
 }
 
 @Composable
-fun EpisodeItem(episode: AnimeItem) {
+fun EpisodeItem(episode: AnimeItemTopHits) {
     Box(){
         Card(){
             AsyncImage(

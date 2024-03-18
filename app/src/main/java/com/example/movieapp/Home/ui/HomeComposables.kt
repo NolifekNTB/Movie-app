@@ -43,7 +43,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.movieapp.Home.data.room.AnimeItem
+import com.example.movieapp.Home.data.room.AnimeItemNewSeasons
+import com.example.movieapp.Home.data.room.AnimeItemTopHits
 import com.example.movieapp.R
 
 private val MainPhotoHeight = 300.dp
@@ -198,7 +199,7 @@ fun rowListTitle(name: String, onClick: (String) -> Unit) {
     }
 
 @Composable
-fun rowListItems(animeList: List<AnimeItem>, onClick: (String) -> Unit) {
+fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
             items(animeList.size){ item ->
@@ -222,7 +223,31 @@ fun rowListItems(animeList: List<AnimeItem>, onClick: (String) -> Unit) {
 }
 
 @Composable
-fun rowListItemsImage(itemAnime: AnimeItem, index: Int, modifier: Modifier){
+fun rowListItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (String) -> Unit) {
+    LazyRow(){
+        if(animeList.isNotEmpty()){
+            items(animeList.size){ item ->
+                Box(
+                    modifier = Modifier
+                        .height(200.dp)
+                        .width(150.dp)
+                        .padding(10.dp)
+                        .clickable {
+                            onClick("Details")
+                        }
+                ){
+                    rowListItemsImageNewSeasons(
+                        animeList[item],
+                        item,
+                        Modifier.align(Alignment.BottomStart))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun rowListItemsImage(itemAnime: AnimeItemTopHits, index: Int, modifier: Modifier){
     Card(){
         AsyncImage(
             model = itemAnime.image,
@@ -261,6 +286,50 @@ fun rowListItemsImage(itemAnime: AnimeItem, index: Int, modifier: Modifier){
         fontSize = 33.sp,
         color = Color.White)
 }
+
+@Composable
+fun rowListItemsImageNewSeasons(itemAnime: AnimeItemNewSeasons, index: Int, modifier: Modifier){
+    Card(){
+        AsyncImage(
+            model = itemAnime.image,
+            contentDescription = "image",
+            alpha = AlphaValue,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+    Card(
+        modifier = Modifier
+            .padding(top = 10.dp, start = 10.dp)
+            .size(30.dp, 20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Green,
+            contentColor = Color.White
+        ),
+        shape = RoundedCornerShape(corner = CornerSize(5.dp))
+    ){
+        Box(
+            Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ){
+            Text(
+                text = "${itemAnime.rating}",
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold)
+        }
+    }
+    Text(
+        text = index.toString(),
+        modifier = modifier
+            .padding(bottom = 10.dp, start = 10.dp),
+        textAlign = TextAlign.Left,
+        fontSize = 33.sp,
+        color = Color.White)
+}
+
+
+
 
 
 
