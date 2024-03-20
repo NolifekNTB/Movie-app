@@ -1,6 +1,9 @@
 package com.example.movieapp.Home.logic.viewModel
 
+import android.net.http.HttpException
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresExtension
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.Home.data.retrofit.AnimeData
@@ -13,57 +16,47 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val repo: AnimeRepository,
+    private val repoTopHits: AnimeRepository,
     private val repoNewSeasons: AnimeRepositoryNewSeasons
 ): ViewModel() {
     private val api = RetrofitInstance.createApi()
-    var topHitsAnimeData = MutableStateFlow<AnimeData?>(null)
-    var newSeasonsData = MutableStateFlow<AnimeData?>(null)
 
     init {
-        /* val exampleAnimeList = mutableListOf<AnimeItem>()
-         val photo = "https://static.wikia.nocookie.net/naruto/images/d/d6/Naruto_Part_I.png/revision/latest/scale-to-width-down/1200?cb=20210223094656"
-         exampleAnimeList.add(AnimeItem(name = "Naruto", image = photo, rating = 9.5))
-         exampleAnimeList.add(AnimeItem(name = "One Piece", image = photo, rating = 9.5))
-         exampleAnimeList.add(AnimeItem(name = "Dragon Ball", image = photo, rating = 9.5))
-         deleteAllAnime()
-         insertALlAnime(exampleAnimeList)
-         */
-        deleteAllAnime()
         fetchPost()
     }
 
     fun fetchPost() {
         viewModelScope.launch {
-            val response = api.getPost()
-            topHitsAnimeData.value = response
+            try{
+                val topHitsFromDb = repoTopHits.getAllAnime().first()
+                val newSeasonsFromDb = repoNewSeasons.getAllAnime().first()
 
-            val responseSecond = api.getPostNewSeasons()
-            newSeasonsData.value = responseSecond
-
-         sendDataToRoom()
+                Log.d("testowanie", "fetchPost -> $topHitsFromDb")
+                if (topHitsFromDb.isEmpty()) {
+                    val responseTopHits = api.getTopHits()
+                    insertTopHits(mapRetrofitToRoomTopHits(responseTopHits))
+                }
+                if(newSeasonsFromDb.isEmpty()){
+                    val responseNewSeasons = api.getNewSeasons()
+                    insertNewSeasons(mapRetrofitToRoomNewSeasons(responseNewSeasons))
+                }
+            } catch (e: Exception){
+                Log.e("codeDebugging", "fetchPost -> $e")
+            }
         }
     }
 
-    fun sendDataToRoom(){
-        if(topHitsAnimeData.value == null || newSeasonsData.value == null) return
-
-        val animeItemList = mapAnimeDataToAnimeItem(topHitsAnimeData.value!!)
-        insertALlAnime(animeItemList)
-
-        val animeItemListNewSeasons = mapAnimeDataToNewSeasons(newSeasonsData.value!!)
-        insertALlAnimeNewSeasons(animeItemListNewSeasons)
-    }
-
-    fun mapAnimeDataToAnimeItem(animeData: AnimeData): List<AnimeItemTopHits> {
+    private fun mapRetrofitToRoomTopHits(animeData: AnimeData): List<AnimeItemTopHits> {
         val animeItemList = mutableListOf<AnimeItemTopHits>()
         animeData.data.forEach { data ->
-            // Assuming 'data' contains the necessary fields for AnimeItem
             val animeItem = AnimeItemTopHits(
                 name = data.title,
                 image = data.images.jpg.image_url,
@@ -71,14 +64,12 @@ class MainViewModel @Inject constructor(
             )
             animeItemList.add(animeItem)
         }
-        Log.d("testowanie", "mapAnimeDataToAnimeItem -> $animeItemList")
         return animeItemList
     }
 
-    fun mapAnimeDataToNewSeasons(animeData: AnimeData): List<AnimeItemNewSeasons> {
+    private fun mapRetrofitToRoomNewSeasons(animeData: AnimeData): List<AnimeItemNewSeasons> {
         val animeItemList = mutableListOf<AnimeItemNewSeasons>()
         animeData.data.forEach { data ->
-            // Assuming 'data' contains the necessary fields for AnimeItem
             val animeItem = AnimeItemNewSeasons(
                 name = data.title,
                 image = data.images.jpg.image_url,
@@ -86,39 +77,44 @@ class MainViewModel @Inject constructor(
             )
             animeItemList.add(animeItem)
         }
-        Log.d("testowanie", "mapAnimeDataToAnimeItem -> $animeItemList")
         return animeItemList
     }
 
 
-    fun getAnimeList(): Flow<List<AnimeItemTopHits>> {
-        return repo.getAllAnime()
+    fun getListTopHits(): Flow<List<AnimeItemTopHits>> {
+        return repoTopHits.getAllAnime()
     }
 
-    fun deleteAllAnime() {
+    private fun deleteTopHits() {
         CoroutineScope(viewModelScope.coroutineContext).launch{
-            repo.deleteALlAnime()
+            repoTopHits.deleteALlAnime()
         }
     }
 
-    fun insertALlAnime(animeList: List<AnimeItemTopHits>) {
+    private fun insertTopHits(animeList: List<AnimeItemTopHits>) {
         CoroutineScope(viewModelScope.coroutineContext).launch{
-            repo.insertAllAnime(
+            repoTopHits.insertAllAnime(
                 animeList
             )
         }
     }
 
-    fun insertALlAnimeNewSeasons(animeList: List<AnimeItemNewSeasons>) {
+    fun getListNewSeasons(): Flow<List<AnimeItemNewSeasons>> {
+        return repoNewSeasons.getAllAnime()
+    }
+
+    private fun deleteNewSeasons(){
+        CoroutineScope(viewModelScope.coroutineContext).launch{
+            repoNewSeasons.deleteALlAnime()
+        }
+    }
+
+    private fun insertNewSeasons(animeList: List<AnimeItemNewSeasons>) {
         CoroutineScope(viewModelScope.coroutineContext).launch{
             repoNewSeasons.insertAllAnime(
                 animeList
             )
         }
-    }
-
-    fun getAnimeListNewSeasons(): Flow<List<AnimeItemNewSeasons>> {
-        return repoNewSeasons.getAllAnime()
     }
 
 }

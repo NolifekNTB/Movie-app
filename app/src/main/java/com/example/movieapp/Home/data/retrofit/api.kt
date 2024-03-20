@@ -4,8 +4,8 @@ import retrofit2.http.GET
 
 interface AnimeApi {
     @GET("top/anime")
-    suspend fun getPost(): AnimeData
+    suspend fun getTopHits(): AnimeData
 
     @GET("seasons/upcoming")
-    suspend fun getPostNewSeasons(): AnimeData
+    suspend fun getNewSeasons(): AnimeData
 }

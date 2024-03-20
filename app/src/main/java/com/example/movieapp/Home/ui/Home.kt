@@ -1,7 +1,6 @@
 package com.example.movieapp.Home.ui
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,12 +19,8 @@ import com.example.movieapp.Home.logic.viewModel.MainViewModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
-    val postData by viewModel.topHitsAnimeData.collectAsState()
-    Log.d("testowanie", "postData " + postData.toString())
-
-    val animeList by viewModel.getAnimeList().collectAsState(emptyList())
-    val animeListNewSeasons by viewModel.getAnimeListNewSeasons().collectAsState(emptyList())
-
+    val animeList by viewModel.getListTopHits().collectAsState(emptyList())
+    val animeListNewSeasons by viewModel.getListNewSeasons().collectAsState(emptyList())
 
     Column(
         modifier = Modifier
