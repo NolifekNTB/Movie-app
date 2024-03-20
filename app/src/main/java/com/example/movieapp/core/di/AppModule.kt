@@ -1,8 +1,9 @@
-package com.example.movieapp.Home.di
+package com.example.movieapp.core.di
 
 import android.app.Application
-import com.example.movieapp.Home.data.room.AnimeRepository
-import com.example.movieapp.Home.data.room.AnimeRepositoryNewSeasons
+import com.example.movieapp.Home.data.room.topHits.AnimeRepository
+import com.example.movieapp.Home.data.room.newSeasons.AnimeRepositoryNewSeasons
+import com.example.movieapp.MyList.data.AnimeRepositoryMyList
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +24,11 @@ object AppModule {
     @Singleton
     fun provideContextNewSeasons(app: Application): AnimeRepositoryNewSeasons {
         return AnimeRepositoryNewSeasons(app.applicationContext)
+    }
+
+    @Provides
+    @Singleton
+    fun provideContextMyList(app: Application): AnimeRepositoryMyList {
+        return AnimeRepositoryMyList(app.applicationContext)
     }
 }

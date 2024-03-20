@@ -12,8 +12,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.movieapp.Home.data.room.AnimeItemNewSeasons
-import com.example.movieapp.Home.data.room.AnimeItemTopHits
+import com.example.movieapp.Home.data.room.newSeasons.AnimeItemNewSeasons
+import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -28,7 +28,7 @@ fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        ImageHome(){ direction ->
+        ImageHome(viewModel){ direction ->
             onClick(direction)
         }
         RowList("Top Hits Anime", animeList) { direction ->
@@ -42,13 +42,13 @@ fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
 }
 
 @Composable
-fun ImageHome(onClick: (String) -> Unit) {
+fun ImageHome(viewModel: MainViewModel, onClick: (String) -> Unit) {
     Box {
         HomeImage()
         RightTop(){ direction ->
             onClick(direction)
         }
-        LeftBottom()
+        LeftBottom(viewModel)
     }
 }
 

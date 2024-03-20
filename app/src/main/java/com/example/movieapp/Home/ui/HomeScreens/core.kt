@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.movieapp.Home.data.room.AnimeItemTopHits
+import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
 
 
 /*
@@ -48,7 +48,7 @@ fun EpisodeItem(episode: AnimeItemTopHits) {
     Box(){
         Card(){
             AsyncImage(
-                model = "https://static.wikia.nocookie.net/naruto/images/d/d6/Naruto_Part_I.png/revision/latest/scale-to-width-down/1200?cb=20210223094656",
+                model = episode.image,
                 contentDescription = "image",
                 contentScale = ContentScale.FillHeight
             )

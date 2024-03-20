@@ -1,15 +1,7 @@
-package com.example.movieapp.Home.data.room
+package com.example.movieapp.Home.data.room.newSeasons
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
-@Entity(tableName = "anime")
-data class AnimeItemTopHits(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val name: String,
-    val image: String,
-    val rating: Double
-)
 
 @Entity(tableName = "animeNewSeasons")
 data class AnimeItemNewSeasons(

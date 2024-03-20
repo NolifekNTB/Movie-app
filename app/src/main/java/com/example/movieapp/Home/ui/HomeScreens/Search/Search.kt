@@ -33,7 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.Home.data.room.AnimeItemTopHits
+import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
 import com.example.movieapp.Home.ui.HomeScreens.ListEpisodeReleases
 import com.example.movieapp.Home.ui.HomeScreens.Search.logic.SearchViewModel
 import com.example.movieapp.R

@@ -4,12 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.example.movieapp.Home.data.room.AnimeItemTopHits
-import com.example.movieapp.Home.logic.viewModel.MainViewModel
+import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
 import com.example.movieapp.core.other.TopBar
 
 @Composable

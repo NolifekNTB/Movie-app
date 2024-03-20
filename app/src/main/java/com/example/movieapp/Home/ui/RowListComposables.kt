@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.movieapp.Home.data.room.AnimeItemNewSeasons
-import com.example.movieapp.Home.data.room.AnimeItemTopHits
+import com.example.movieapp.Home.data.room.newSeasons.AnimeItemNewSeasons
+import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
 
 private const val AlphaValue = 0.85f
 

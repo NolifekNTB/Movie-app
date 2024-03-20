@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.movieapp.Home.logic.viewModel.MainViewModel
 import com.example.movieapp.R
 
 private val MainPhotoHeight = 300.dp
@@ -88,7 +89,7 @@ fun RightTop(onClick: (String) -> Unit) {
 }
 
 @Composable
-fun LeftBottom() {
+fun LeftBottom(viewModel: MainViewModel) {
     Column(
         modifier = Modifier
             .height(MainPhotoHeight)
@@ -139,7 +140,7 @@ fun LeftBottom() {
             Spacer(
                 modifier = Modifier.width(10.dp))
             OutlinedButton(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.addAnimeToMyList() },
                 modifier = Modifier
                     .size(ButtonWidth, ButtonHeight),
                 border = BorderStroke(2.dp, Color.White),

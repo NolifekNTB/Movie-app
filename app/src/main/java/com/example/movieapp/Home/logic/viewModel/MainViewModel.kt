@@ -1,25 +1,19 @@
 package com.example.movieapp.Home.logic.viewModel
 
-import android.net.http.HttpException
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresExtension
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.Home.data.retrofit.AnimeData
 import com.example.movieapp.Home.data.retrofit.RetrofitInstance
-import com.example.movieapp.Home.data.room.AnimeItemNewSeasons
-import com.example.movieapp.Home.data.room.AnimeItemTopHits
-import com.example.movieapp.Home.data.room.AnimeRepository
-import com.example.movieapp.Home.data.room.AnimeRepositoryNewSeasons
+import com.example.movieapp.Home.data.room.newSeasons.AnimeItemNewSeasons
+import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
+import com.example.movieapp.Home.data.room.topHits.AnimeRepository
+import com.example.movieapp.Home.data.room.newSeasons.AnimeRepositoryNewSeasons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
-import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel

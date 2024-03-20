@@ -1,8 +1,8 @@
 package com.example.movieapp.Home.ui.HomeScreens.Search.logic
 
 import androidx.lifecycle.ViewModel
-import com.example.movieapp.Home.data.room.AnimeItemTopHits
-import com.example.movieapp.Home.data.room.AnimeRepository
+import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
+import com.example.movieapp.Home.data.room.topHits.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
