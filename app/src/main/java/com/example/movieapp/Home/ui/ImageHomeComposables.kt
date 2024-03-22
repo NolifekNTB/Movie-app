@@ -44,6 +44,9 @@ import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 import com.example.movieapp.core.MyList.data.AnimeItemMyList
 import com.example.movieapp.core.MyList.logic.ListViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private val MainPhotoHeight = 300.dp
 private const val AlphaValue = 0.85f
@@ -98,7 +101,7 @@ fun RightTop(onClick: (String) -> Unit) {
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun LeftBottom(sharedViewModel: ListViewModel) {
+fun LeftBottom(sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .height(MainPhotoHeight)
@@ -126,7 +129,7 @@ fun LeftBottom(sharedViewModel: ListViewModel) {
             modifier = Modifier.padding(top = 10.dp)
         ) {
             FilledTonalButton(
-                onClick = { /*TODO*/ },
+                onClick = { onClick("PLAYER") },
                 modifier = Modifier
                     .size(ButtonWidth, ButtonHeight),
                 colors = ButtonDefaults.buttonColors(
@@ -157,12 +160,10 @@ fun LeftBottom(sharedViewModel: ListViewModel) {
             )
 
             var isCheck by remember { mutableStateOf(false) }
-            var item = animeItem
+            Log.d("sprawdzarka", isCheck.toString())
+            var item = AnimeItemMyList(0, "", "", 0.0)
             LaunchedEffect(Unit) {
                 isCheck = sharedViewModel.searchAllAnime("Demon Slayer").isNotEmpty()
-            }
-            LaunchedEffect(isCheck) {
-                if(isCheck) item = sharedViewModel.searchAllAnime("Demon Slayer").first()
             }
 
             OutlinedButton(
@@ -170,7 +171,10 @@ fun LeftBottom(sharedViewModel: ListViewModel) {
                     if (!isCheck) {
                         sharedViewModel.insertAnimeItem(animeItem)
                     } else {
-                        sharedViewModel.deleteAnimeItem(item)
+                        CoroutineScope(Dispatchers.IO).launch {
+                            item = sharedViewModel.searchAllAnime("Demon Slayer").first()
+                            sharedViewModel.deleteAnimeItem(item)
+                        }
                     }
                     isCheck = !isCheck
                           },

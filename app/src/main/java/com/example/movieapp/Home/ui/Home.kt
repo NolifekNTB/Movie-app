@@ -49,7 +49,7 @@ fun ImageHome(sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
         RightTop(){ direction ->
             onClick(direction)
         }
-        LeftBottom(sharedViewModel)
+        LeftBottom(sharedViewModel, onClick)
     }
 }
 

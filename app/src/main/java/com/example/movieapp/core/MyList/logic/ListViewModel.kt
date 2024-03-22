@@ -20,7 +20,7 @@ class ListViewModel @Inject constructor(
 ): ViewModel() {
 
     init{
-        deleteMyList()
+
     }
 
     fun getListMyList(): Flow<List<AnimeItemMyList>> {
