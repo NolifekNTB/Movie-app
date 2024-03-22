@@ -1,5 +1,6 @@
-package com.example.movieapp.MyList.ui
+package com.example.movieapp.core.MyList.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,13 +12,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
 import com.example.movieapp.Home.ui.HomeScreens.ListEpisodeReleases
-import com.example.movieapp.MyList.data.AnimeItemMyList
-import com.example.movieapp.MyList.logic.ListViewModel
+import com.example.movieapp.Home.ui.HomeScreens.Search.NotFound
+import com.example.movieapp.core.MyList.data.AnimeItemMyList
+import com.example.movieapp.core.MyList.logic.ListViewModel
 import com.example.movieapp.core.other.TopBar
 
 @Composable
-fun MyList(onClick: () -> Unit) {
-   val viewModel = hiltViewModel<ListViewModel>()
+fun MyList(viewModel: ListViewModel, onClick: () -> Unit) {
    val animeList by viewModel.getListMyList().collectAsState(emptyList())
 
     Column(
@@ -26,9 +27,12 @@ fun MyList(onClick: () -> Unit) {
             .background(Color.White)
     ){
         TopBar(name = "My List") { onClick() }
-//        NotFound(title = "Your list is empty", text = "It seems that you haven't added" +
-//                "any anime to the list")
-        ListEpisodeReleases(animeList = fromMyListToTopHits(animeList))
+        if(animeList.isEmpty()){
+            NotFound(title = "Your list is empty", text = "It seems that you haven't added" +
+                    "any anime to the list")
+        } else {
+            ListEpisodeReleases(animeList = fromMyListToTopHits(animeList))
+        }
     }
 }
 

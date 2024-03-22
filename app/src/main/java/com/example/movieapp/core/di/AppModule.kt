@@ -3,7 +3,7 @@ package com.example.movieapp.core.di
 import android.app.Application
 import com.example.movieapp.Home.data.room.topHits.AnimeRepository
 import com.example.movieapp.Home.data.room.newSeasons.AnimeRepositoryNewSeasons
-import com.example.movieapp.MyList.data.AnimeRepositoryMyList
+import com.example.movieapp.core.MyList.data.AnimeRepositoryMyList
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

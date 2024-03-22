@@ -1,4 +1,4 @@
-package com.example.movieapp.MyList.data
+package com.example.movieapp.core.MyList.data
 
 import androidx.room.Dao
 import androidx.room.Delete

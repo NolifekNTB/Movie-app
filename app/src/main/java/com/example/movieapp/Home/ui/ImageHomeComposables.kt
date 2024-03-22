@@ -1,5 +1,7 @@
 package com.example.movieapp.Home.ui
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -24,6 +26,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,8 +41,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.Home.logic.viewModel.MainViewModel
 import com.example.movieapp.R
+import com.example.movieapp.core.MyList.data.AnimeItemMyList
+import com.example.movieapp.core.MyList.logic.ListViewModel
 
 private val MainPhotoHeight = 300.dp
 private const val AlphaValue = 0.85f
@@ -88,8 +96,9 @@ fun RightTop(onClick: (String) -> Unit) {
     }
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun LeftBottom(viewModel: MainViewModel) {
+fun LeftBottom(sharedViewModel: ListViewModel) {
     Column(
         modifier = Modifier
             .height(MainPhotoHeight)
@@ -139,14 +148,38 @@ fun LeftBottom(viewModel: MainViewModel) {
             }
             Spacer(
                 modifier = Modifier.width(10.dp))
+
+            val animeItem = AnimeItemMyList(
+                id = 0,
+                name = "Demon slayer: Kimetsu no Yaiba",
+                image = "https://m.media-amazon.com/images/I/71bWTsDKuGL._AC_UF894,1000_QL80_.jpg",
+                rating = 8.2
+            )
+
+            var isCheck by remember { mutableStateOf(false) }
+            var item = animeItem
+            LaunchedEffect(Unit) {
+                isCheck = sharedViewModel.searchAllAnime("Demon Slayer").isNotEmpty()
+            }
+            LaunchedEffect(isCheck) {
+                if(isCheck) item = sharedViewModel.searchAllAnime("Demon Slayer").first()
+            }
+
             OutlinedButton(
-                onClick = { viewModel.addAnimeToMyList() },
+                onClick = {
+                    if (!isCheck) {
+                        sharedViewModel.insertAnimeItem(animeItem)
+                    } else {
+                        sharedViewModel.deleteAnimeItem(item)
+                    }
+                    isCheck = !isCheck
+                          },
                 modifier = Modifier
                     .size(ButtonWidth, ButtonHeight),
-                border = BorderStroke(2.dp, Color.White),
+                border = BorderStroke(if(!isCheck) 2.dp else 0.dp, Color.White),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = Color.Transparent,
-                    contentColor = Color.White
+                    containerColor = if(!isCheck) Color.Transparent else Color.Green,
+                    contentColor = if(!isCheck) Color.White else Color.White
                 ),
                 contentPadding = PaddingValues(5.dp)
             ) {

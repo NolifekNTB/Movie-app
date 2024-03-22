@@ -1,4 +1,4 @@
-package com.example.movieapp.MyList.data
+package com.example.movieapp.core.MyList.data
 
 import android.content.Context
 import com.example.movieapp.Home.data.room.newSeasons.AnimeDaoNewSeasons
@@ -35,8 +35,7 @@ class AnimeRepositoryMyList(context: Context): AnimeDaoMyList {
         return daoMyList.getAllAnime()
     }
 
-    override suspend fun searchAnimeByName(searchQuery: String): List<AnimeItemMyList> = withContext(
-        Dispatchers.IO){
+    override suspend fun searchAnimeByName(searchQuery: String): List<AnimeItemMyList> = withContext(Dispatchers.IO) {
         return@withContext daoMyList.searchAnimeByName(searchQuery)
     }
 }

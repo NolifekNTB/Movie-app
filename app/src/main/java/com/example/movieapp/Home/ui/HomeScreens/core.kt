@@ -53,12 +53,12 @@ fun EpisodeItem(episode: AnimeItemTopHits) {
                 contentScale = ContentScale.FillHeight
             )
         }
-        EpisodeRating()
+        EpisodeRating(episode.rating)
     }
 }
 
 @Composable
-fun EpisodeRating() {
+fun EpisodeRating(rating: Double) {
     Card(
         modifier = Modifier
             .padding(top = 10.dp, start = 10.dp)
@@ -74,7 +74,7 @@ fun EpisodeRating() {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "9.8",
+                text = "$rating",
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold

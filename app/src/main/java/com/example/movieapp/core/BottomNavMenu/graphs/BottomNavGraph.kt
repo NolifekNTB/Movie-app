@@ -7,17 +7,18 @@ import androidx.navigation.compose.composable
 import com.example.movieapp.Calendar.ui.ReleaseCalendar
 import com.example.movieapp.Download.Download
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
-import com.example.movieapp.MyList.ui.MyList
+import com.example.movieapp.core.MyList.logic.ListViewModel
+import com.example.movieapp.core.MyList.ui.MyList
 import com.example.movieapp.core.BottomNavMenu.BottomBarScreen
 
 @Composable
-fun BottomNavGraph(navController: NavHostController, viewModel: MainViewModel) {
+fun BottomNavGraph(navController: NavHostController, viewModel: ListViewModel) {
     NavHost(
         navController = navController,
         route = Graph.BOTTOM,
         startDestination = Graph.HOME
     ) {
-        homeNavGraph(navController = navController, viewModel = viewModel)
+        homeNavGraph(navController = navController, viewModel)
 
         composable(route = BottomBarScreen.ReleaseCalendar.route) {
             ReleaseCalendar(){
@@ -26,7 +27,7 @@ fun BottomNavGraph(navController: NavHostController, viewModel: MainViewModel) {
         }
 
         composable(route = BottomBarScreen.MyList.route) {
-            MyList(){
+            MyList(viewModel){
                 navController.popBackStack()
             }
         }

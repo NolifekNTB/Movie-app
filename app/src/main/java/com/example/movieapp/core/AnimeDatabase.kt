@@ -8,8 +8,8 @@ import com.example.movieapp.Home.data.room.topHits.AnimeDao
 import com.example.movieapp.Home.data.room.newSeasons.AnimeDaoNewSeasons
 import com.example.movieapp.Home.data.room.newSeasons.AnimeItemNewSeasons
 import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
-import com.example.movieapp.MyList.data.AnimeDaoMyList
-import com.example.movieapp.MyList.data.AnimeItemMyList
+import com.example.movieapp.core.MyList.data.AnimeDaoMyList
+import com.example.movieapp.core.MyList.data.AnimeItemMyList
 
 @Database(
     entities = [

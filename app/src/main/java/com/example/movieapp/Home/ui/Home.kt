@@ -15,12 +15,13 @@ import androidx.compose.ui.graphics.Color
 import com.example.movieapp.Home.data.room.newSeasons.AnimeItemNewSeasons
 import com.example.movieapp.Home.data.room.topHits.AnimeItemTopHits
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
+import com.example.movieapp.core.MyList.logic.ListViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
-    val animeList by viewModel.getListTopHits().collectAsState(emptyList())
-    val animeListNewSeasons by viewModel.getListNewSeasons().collectAsState(emptyList())
+fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
+    val animeList by mainViewModel.getListTopHits().collectAsState(emptyList())
+    val animeListNewSeasons by mainViewModel.getListNewSeasons().collectAsState(emptyList())
 
     Column(
         modifier = Modifier
@@ -28,7 +29,7 @@ fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        ImageHome(viewModel){ direction ->
+        ImageHome(sharedViewModel){ direction ->
             onClick(direction)
         }
         RowList("Top Hits Anime", animeList) { direction ->
@@ -42,13 +43,13 @@ fun HomeScreen(viewModel: MainViewModel, onClick: (String) -> Unit) {
 }
 
 @Composable
-fun ImageHome(viewModel: MainViewModel, onClick: (String) -> Unit) {
+fun ImageHome(sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
     Box {
         HomeImage()
         RightTop(){ direction ->
             onClick(direction)
         }
-        LeftBottom(viewModel)
+        LeftBottom(sharedViewModel)
     }
 }
 

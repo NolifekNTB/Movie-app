@@ -17,16 +17,19 @@ import com.example.movieapp.Home.ui.HomeScreens.Search.Search
 import com.example.movieapp.Home.ui.HomeScreens.Search.logic.SearchViewModel
 import com.example.movieapp.Home.ui.HomeScreens.Search.sortFilter.SortFilter
 import com.example.movieapp.Home.ui.HomeScreens.TopHitsAnime.TopHitsAnime
+import com.example.movieapp.core.MyList.logic.ListViewModel
 import com.example.movieapp.core.BottomNavMenu.BottomBarScreen
 
-fun NavGraphBuilder.homeNavGraph(navController: NavHostController, viewModel: MainViewModel) {
+fun NavGraphBuilder.homeNavGraph(navController: NavHostController, listViewModel: ListViewModel) {
     navigation(
         route = Graph.HOME,
         startDestination = BottomBarScreen.Home.route
     ){
-        composable(route = BottomBarScreen.Home.route) {
+        composable(route = BottomBarScreen.Home.route) {entry ->
+            val mainViewModel = entry.sharedViewModelSearch<MainViewModel>(navController)
             HomeScreen(
-                viewModel = viewModel,
+                mainViewModel = mainViewModel,
+                sharedViewModel = listViewModel,
                 onClick = { direction ->
                     navController.navigate(direction)
                 })

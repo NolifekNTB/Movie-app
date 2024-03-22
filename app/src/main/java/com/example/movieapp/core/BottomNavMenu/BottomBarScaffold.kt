@@ -21,12 +21,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.Home.logic.viewModel.MainViewModel
+import com.example.movieapp.core.MyList.logic.ListViewModel
 import com.example.movieapp.core.BottomNavMenu.graphs.BottomNavGraph
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun BottomBarScaffold(
-    viewModel: MainViewModel,
+    viewModel: ListViewModel,
     navController: NavHostController = rememberNavController()
 ) {
     Scaffold(
