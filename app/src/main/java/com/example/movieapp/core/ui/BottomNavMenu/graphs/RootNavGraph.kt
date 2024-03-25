@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.movieapp.features.MyList.domain.ListViewModel
 import com.example.movieapp.core.ui.BottomNavMenu.BottomBarScaffold
+import com.example.movieapp.shared.SharedViewModel
 
 @Composable
-fun RootNavigationGraph(navController: NavHostController, viewModel: ListViewModel) {
+fun RootNavigationGraph(navController: NavHostController, viewModel: SharedViewModel) {
     NavHost(
         navController = navController,
         route = Graph.ROOT,

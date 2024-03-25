@@ -4,14 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.movieapp.features.MyList.domain.ListViewModel
 import com.example.movieapp.features.MyList.ui.MyList
 import com.example.movieapp.core.ui.BottomNavMenu.BottomBarScreen
 import com.example.movieapp.features.Calendar.ui.ReleaseCalendar
 import com.example.movieapp.features.Download.Download
+import com.example.movieapp.shared.SharedViewModel
 
 @Composable
-fun BottomNavGraph(navController: NavHostController, viewModel: ListViewModel) {
+fun BottomNavGraph(navController: NavHostController, viewModel: SharedViewModel) {
     NavHost(
         navController = navController,
         route = Graph.BOTTOM,

@@ -63,7 +63,7 @@ fun rowListTitle(name: String, onClick: (String) -> Unit) {
 fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
-            items(animeList.size){ item ->
+            items(10){ item ->
                 Box(
                     modifier = Modifier
                         .height(200.dp)
@@ -87,7 +87,7 @@ fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String) -> Unit) {
 fun rowListItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (String) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
-            items(animeList.size){ item ->
+            items(10){ item ->
                 Box(
                     modifier = Modifier
                         .height(200.dp)

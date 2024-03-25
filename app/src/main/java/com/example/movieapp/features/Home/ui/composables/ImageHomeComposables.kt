@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemMyList
-import com.example.movieapp.features.MyList.domain.ListViewModel
+import com.example.movieapp.shared.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -101,7 +101,7 @@ fun RightTop(onClick: (String) -> Unit) {
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun LeftBottom(sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
+fun LeftBottom(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .height(MainPhotoHeight)
@@ -160,7 +160,6 @@ fun LeftBottom(sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
             )
 
             var isCheck by remember { mutableStateOf(false) }
-            Log.d("sprawdzarka", isCheck.toString())
             var item = AnimeItemMyList(0, "", "", 0.0)
             LaunchedEffect(Unit) {
                 isCheck = sharedViewModel.searchAllAnime("Demon Slayer").isNotEmpty()

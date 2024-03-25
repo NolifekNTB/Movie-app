@@ -24,27 +24,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.movieapp.R
+import com.example.movieapp.core.database.entities.AnimeItemTopHits
 
 @Composable
-fun TopHitsAnimeListImage(item: Int) {
+fun TopHitsAnimeListImage(item: AnimeItemTopHits, modifier: Modifier) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .height(200.dp)
             .padding(10.dp)
     ) {
         Card() {
-            Image(
-                painter = painterResource(id = R.drawable.home_attackontitan),
-                contentDescription = "mainPhoto",
-                alpha = 0.85f
-            )
+            AsyncImage(
+                model = item.image ,
+                contentDescription = "itemPhoto",
+                alpha = 0.85f,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize())
         }
         Card(
             modifier = Modifier
@@ -61,7 +66,7 @@ fun TopHitsAnimeListImage(item: Int) {
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    "9.8",
+                    "${item.rating}",
                     textAlign = TextAlign.Center,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.SemiBold
@@ -69,7 +74,7 @@ fun TopHitsAnimeListImage(item: Int) {
             }
         }
         Text(
-            text = "$item",
+            text = "${item.id}",
             modifier = Modifier
                 .align(Alignment.BottomStart)
                 .padding(bottom = 10.dp, start = 10.dp),
@@ -81,12 +86,12 @@ fun TopHitsAnimeListImage(item: Int) {
 }
 
 @Composable
-fun TopHitsAnimeListDetails() {
+fun TopHitsAnimeListDetails(item: AnimeItemTopHits, modifier: Modifier) {
     Column(
-        modifier = Modifier.padding(start = 15.dp, end = 25.dp)
+        modifier = modifier.padding(start = 15.dp, end = 25.dp)
     ) {
         Text(
-            text = "Attack on Titan Final Season Part 2",
+            text = item.name,
             modifier = Modifier
                 .width(200.dp),
             overflow = TextOverflow.Ellipsis,

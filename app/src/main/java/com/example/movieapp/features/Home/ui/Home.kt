@@ -21,11 +21,11 @@ import com.example.movieapp.features.Home.ui.composables.RightTop
 import com.example.movieapp.features.Home.ui.composables.rowListItems
 import com.example.movieapp.features.Home.ui.composables.rowListItemsNewSeasons
 import com.example.movieapp.features.Home.ui.composables.rowListTitle
-import com.example.movieapp.features.MyList.domain.ListViewModel
+import com.example.movieapp.shared.SharedViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
+fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
     val animeList by mainViewModel.getListTopHits().collectAsState(emptyList())
     val animeListNewSeasons by mainViewModel.getListNewSeasons().collectAsState(emptyList())
 
@@ -49,7 +49,7 @@ fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: ListViewModel, onC
 }
 
 @Composable
-fun ImageHome(sharedViewModel: ListViewModel, onClick: (String) -> Unit) {
+fun ImageHome(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
     Box {
         HomeImage()
         RightTop(){ direction ->

@@ -12,12 +12,12 @@ import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.features.Home.ui.Search.ui.NotFound
 import com.example.movieapp.features.Home.ui.composables.ListEpisodeReleases
-import com.example.movieapp.features.MyList.domain.ListViewModel
+import com.example.movieapp.shared.SharedViewModel
 import com.example.movieapp.shared.TopBar
 
 @Composable
-fun MyList(viewModel: ListViewModel, onClick: () -> Unit) {
-   val animeList by viewModel.getListMyList().collectAsState(emptyList())
+fun MyList(viewModel: SharedViewModel, onClick: () -> Unit) {
+    val animeList by viewModel.getListMyList().collectAsState(emptyList())
 
     Column(
         modifier = Modifier

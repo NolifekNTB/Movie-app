@@ -9,7 +9,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.movieapp.features.MyList.domain.ListViewModel
 import com.example.movieapp.core.ui.BottomNavMenu.BottomBarScreen
 import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeScreen
@@ -19,8 +18,9 @@ import com.example.movieapp.features.Home.ui.Search.domain.SearchViewModel
 import com.example.movieapp.features.Home.ui.Search.ui.Search
 import com.example.movieapp.features.Home.ui.Search.ui.sortFilter.SortFilter
 import com.example.movieapp.features.Home.ui.TopHitsAnime.TopHitsAnime
+import com.example.movieapp.shared.SharedViewModel
 
-fun NavGraphBuilder.homeNavGraph(navController: NavHostController, listViewModel: ListViewModel) {
+fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewModel: SharedViewModel) {
     navigation(
         route = Graph.HOME,
         startDestination = BottomBarScreen.Home.route
@@ -29,7 +29,7 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, listViewModel
             val mainViewModel = entry.sharedViewModelSearch<MainViewModel>(navController)
             HomeScreen(
                 mainViewModel = mainViewModel,
-                sharedViewModel = listViewModel,
+                sharedViewModel = sharedViewModel,
                 onClick = { direction ->
                     navController.navigate(direction)
                 })
@@ -55,13 +55,14 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, listViewModel
             )
         }
 
-        composable(route = "Top Hits Anime"){
-            TopHitsAnime {
+        composable(route = "Top Hits Anime"){entry ->
+            val mainViewModel = entry.sharedViewModelSearch<MainViewModel>(navController)
+            TopHitsAnime(mainViewModel) {
                 navController.popBackStack()
             }
         }
 
-        composable(route = "New Episodes Releases"){
+        composable(route = "New Seasons Releases"){
             NewSeasonsReleases (
                 onClick = { navController.popBackStack() }
             )
