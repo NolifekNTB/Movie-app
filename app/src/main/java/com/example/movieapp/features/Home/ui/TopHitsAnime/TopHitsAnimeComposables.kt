@@ -1,5 +1,6 @@
 package com.example.movieapp.features.Home.ui.TopHitsAnime
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -99,11 +100,10 @@ fun TopHitsAnimeListDetails(item: AnimeItemTopHits, modifier: Modifier) {
             fontWeight = FontWeight.SemiBold
         )
         Spacer(modifier = Modifier.height(8.dp))
-        Text(text = "2022 | Japan")
+        Text(text = if(item.year > 0) "${item.year} | Japan" else "Japan")
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "Genre: Action fiction, Dark fantasy, Apocalyptic, " +
-                    "Drama, Shonen, Manga",
+            text = "Genre: ${item.genres.joinToString { it.name }}",
             overflow = TextOverflow.Ellipsis,
             maxLines = 2
         )

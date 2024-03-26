@@ -41,7 +41,9 @@ fun fromMyListToTopHits(animeList: List<AnimeItemMyList>): List<AnimeItemTopHits
             id = i.id,
             name = i.name,
             image = i.image,
-            rating = i.rating
+            rating = i.rating,
+            year = 2024,
+            genres = emptyList()
         )
         list.add(anime)
     }

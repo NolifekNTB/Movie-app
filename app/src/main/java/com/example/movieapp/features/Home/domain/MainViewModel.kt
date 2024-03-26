@@ -32,13 +32,12 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             try{
                 val topHitsFromDb = repoTopHits.getAllAnime().first()
-                val newSeasonsFromDb = repoNewSeasons.getAllAnime().first()
-
-                Log.d("testowanie", "fetchPost -> $topHitsFromDb")
                 if (topHitsFromDb.isEmpty()) {
                     val responseTopHits = apiTopHits.getTopHits()
                     insertTopHits(mapRetrofitToRoomTopHits(responseTopHits))
                 }
+
+                val newSeasonsFromDb = repoNewSeasons.getAllAnime().first()
                 if(newSeasonsFromDb.isEmpty()){
                     val responseNewSeasons = apiNewSeasons.getNewSeasons()
                     insertNewSeasons(mapRetrofitToRoomNewSeasons(responseNewSeasons))
@@ -55,7 +54,9 @@ class MainViewModel @Inject constructor(
             val animeItem = AnimeItemTopHits(
                 name = data.title,
                 image = data.images.jpg.image_url,
-                rating = data.score
+                rating = data.score,
+                year = data.year,
+                genres = data.genres
             )
             animeItemList.add(animeItem)
         }

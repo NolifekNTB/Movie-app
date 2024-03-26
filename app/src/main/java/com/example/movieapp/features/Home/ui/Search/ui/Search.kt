@@ -141,7 +141,6 @@ fun filterButton(onClick: () -> Unit, viewModel: SearchViewModel) {
 fun displayChoseFilters(viewModel: SearchViewModel) {
     val list = viewModel.filtersList.collectAsState(emptyList()).value
     val isApply = viewModel.applyFilters.collectAsState().value
-    Log.d("testowo", isApply.toString())
 
     if (isApply) {
         if (list.isNotEmpty()) {

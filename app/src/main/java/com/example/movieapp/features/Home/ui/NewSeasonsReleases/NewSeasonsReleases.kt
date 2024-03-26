@@ -14,11 +14,11 @@ import com.example.movieapp.shared.TopBar
 fun NewSeasonsReleases(onClick: () -> Unit) {
     val image = "https://static.wikia.nocookie.net/naruto/images/d/d6/Naruto_Part_I.png/revision/latest/scale-to-width-down/1200?cb=20210223094656"
     val exampleList = arrayListOf(
-        AnimeItemTopHits(1, "attack", image, 9.2),
-        AnimeItemTopHits(2, "Naruto", image, 9.3),
-        AnimeItemTopHits(3, "Dragon Ball", image, 9.5),
-        AnimeItemTopHits(4, "Death Note", image, 9.1),
-        AnimeItemTopHits(5, "One Piece", image, 9.4),
+        AnimeItemTopHits(1, "attack", image, 9.2, 2024, emptyList()),
+        AnimeItemTopHits(2, "Naruto", image, 9.3, 2024, emptyList()),
+        AnimeItemTopHits(3, "Dragon Ball", image, 9.5, 2024, emptyList()),
+        AnimeItemTopHits(4, "Death Note", image, 9.1, 2024, emptyList()),
+        AnimeItemTopHits(5, "One Piece", image, 9.4, 2024, emptyList()),
         )
 
     Column(
