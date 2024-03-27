@@ -26,8 +26,8 @@ fun BottomNavGraph(navController: NavHostController, viewModel: SharedViewModel)
         }
 
         composable(route = BottomBarScreen.MyList.route) {
-            MyList(viewModel){
-                navController.popBackStack()
+            MyList(viewModel){ where ->
+                if(where == "Back") navController.popBackStack()
             }
         }
 
