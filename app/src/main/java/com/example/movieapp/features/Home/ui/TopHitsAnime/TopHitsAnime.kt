@@ -53,15 +53,15 @@ fun TopHitsAnime(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel,
             searchTopHitsBar(searchResults, mainViewModel)
         }
         if(animeList.isNotEmpty() && !searchBarVisible) {
-            TopHitsAnimeList(animeList)
+            TopHitsAnimeList(animeList, sharedViewModel)
         } else if(searchResults.value.isNotEmpty() && searchBarVisible){
-            TopHitsAnimeList(searchResults.value)
+            TopHitsAnimeList(searchResults.value, sharedViewModel)
         }
     }
 }
 
 @Composable
-fun TopHitsAnimeList(animeList: List<AnimeItemTopHits>) {
+fun TopHitsAnimeList(animeList: List<AnimeItemTopHits>, sharedViewModel: SharedViewModel) {
     LazyColumn(){
         items(animeList.size){ item ->
             Row(
@@ -69,7 +69,7 @@ fun TopHitsAnimeList(animeList: List<AnimeItemTopHits>) {
                 horizontalArrangement = Arrangement.Start
             ) {
                 TopHitsAnimeListImage(animeList[item], Modifier.weight(0.5f))
-                TopHitsAnimeListDetails(animeList[item], Modifier.weight(1f))
+                TopHitsAnimeListDetails(animeList[item], Modifier.weight(1f), sharedViewModel)
             }
         }
     }

@@ -152,6 +152,7 @@ fun LeftBottom(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
             Spacer(
                 modifier = Modifier.width(10.dp))
 
+            //MyList add start ->
             val animeItem = AnimeItemMyList(
                 id = 0,
                 name = "Demon slayer: Kimetsu no Yaiba",
@@ -192,6 +193,7 @@ fun LeftBottom(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
                 )
                 Text("My list")
             }
+            //MyList add end <--
         }
     }
 }
