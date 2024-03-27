@@ -22,7 +22,7 @@ fun ReleaseCalendar(onClick: () -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ){
-        TopBar("Release Calendar", onClick)
+        TopBar("Release Calendar"){_ -> onClick()}
         CalendarBar(days, viewModel)
         DateList()
         //NotFound("No Release Schedule", "Sorry, there is no anime release schedule on this date.")

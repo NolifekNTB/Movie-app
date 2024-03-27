@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Search.ui.sortFilter
+package com.example.movieapp.features.Home.ui.Search.sortFilter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.features.Home.ui.Search.domain.SearchViewModel
+import com.example.movieapp.features.Home.domain.SearchViewModel
 import com.example.movieapp.shared.TopBar
 
 @Composable
@@ -22,7 +22,7 @@ fun SortFilter(onClick: () -> Unit, viewModel: SearchViewModel) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar("Sort & Filter", onClick)
+        TopBar("Sort & Filter"){_ -> onClick()}
         MainContent(viewModel){onClick()}
     }
 }

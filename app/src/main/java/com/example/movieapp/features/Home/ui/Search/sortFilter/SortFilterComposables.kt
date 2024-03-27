@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Search.ui.sortFilter
+package com.example.movieapp.features.Home.ui.Search.sortFilter
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Home.ui.Search.domain.SearchViewModel
+import com.example.movieapp.features.Home.domain.SearchViewModel
 
 @Composable
 fun Section(

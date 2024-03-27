@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +32,7 @@ import androidx.compose.ui.unit.sp
                  Subscribe, payment, addNewCard, reviewSummary
  */
 @Composable
-fun TopBar(name: String, onClick: () -> Unit) {
+fun TopBar(name: String, onClick: (String) -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,13 +42,17 @@ fun TopBar(name: String, onClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ){
-        TopBarTitle(name, onClick)
-        TopBarActionIcon(name)
+        TopBarTitle(name) {what ->
+            onClick(what)
+        }
+        TopBarActionIcon(name){what ->
+            onClick(what)
+        }
     }
 }
 
 @Composable
-fun TopBarTitle(name: String, onClick: () -> Unit){
+fun TopBarTitle(name: String, onClick: (String) -> Unit){
     Row(verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(10.dp)){
         Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -55,7 +60,7 @@ fun TopBarTitle(name: String, onClick: () -> Unit){
             modifier = Modifier
                 .size(33.dp)
                 .clickable {
-                    onClick()
+                    onClick("Back")
                 })
         Text(text = name,
             fontSize = 20.sp,
@@ -66,7 +71,7 @@ fun TopBarTitle(name: String, onClick: () -> Unit){
 }
 
 @Composable
-fun TopBarActionIcon(name: String){
+fun TopBarActionIcon(name: String, onClick: (String) -> Unit){
     val icon = when (name) {
         "Top Hits Anime"-> Icons.Default.Search
         "My List"-> Icons.Default.Search
@@ -76,12 +81,14 @@ fun TopBarActionIcon(name: String){
         else -> Icons.Default.MoreVert
     }
 
-    Icon(
-        imageVector = icon,
-        contentDescription = null,
-        tint = if (name == "Sort & Filter" || name == "ReviewSummary") Color.White
-        else if (name == "") Color.White
-        else Color.Black,
-        modifier = Modifier.size(35.dp)
-    )
+    IconButton(onClick = { onClick("Icon") }) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = if (name == "Sort & Filter" || name == "ReviewSummary") Color.White
+            else if (name == "") Color.White
+            else Color.Black,
+            modifier = Modifier.size(35.dp)
+        )
+    }
 }

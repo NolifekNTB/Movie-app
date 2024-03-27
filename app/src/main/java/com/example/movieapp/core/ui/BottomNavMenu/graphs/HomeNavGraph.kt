@@ -1,5 +1,6 @@
 package com.example.movieapp.core.ui.BottomNavMenu.graphs
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -14,9 +15,9 @@ import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeScreen
 import com.example.movieapp.features.Home.ui.NewSeasonsReleases.NewSeasonsReleases
 import com.example.movieapp.features.Home.ui.Notification.Notification
-import com.example.movieapp.features.Home.ui.Search.domain.SearchViewModel
-import com.example.movieapp.features.Home.ui.Search.ui.Search
-import com.example.movieapp.features.Home.ui.Search.ui.sortFilter.SortFilter
+import com.example.movieapp.features.Home.domain.SearchViewModel
+import com.example.movieapp.features.Home.ui.Search.Search
+import com.example.movieapp.features.Home.ui.Search.sortFilter.SortFilter
 import com.example.movieapp.features.Home.ui.TopHitsAnime.TopHitsAnime
 import com.example.movieapp.shared.SharedViewModel
 
@@ -57,8 +58,8 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewMod
 
         composable(route = "Top Hits Anime"){entry ->
             val mainViewModel = entry.sharedViewModelSearch<MainViewModel>(navController)
-            TopHitsAnime(mainViewModel) {
-                navController.popBackStack()
+            TopHitsAnime(mainViewModel, sharedViewModel) {what ->
+                if(what == "Back") navController.popBackStack()
             }
         }
 

@@ -113,6 +113,10 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    suspend fun searchAllAnime(query: String): List<AnimeItemTopHits> {
+        return repoTopHits.searchAnimeByName(query)
+    }
+
 }
 
 

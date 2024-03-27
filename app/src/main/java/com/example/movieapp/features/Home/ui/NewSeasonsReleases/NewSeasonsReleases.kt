@@ -26,7 +26,7 @@ fun NewSeasonsReleases(onClick: () -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar("New Seasons Releases", onClick)
+        TopBar("New Seasons Releases"){_ -> onClick() }
         ListEpisodeReleases(exampleList)
     }
 

@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Search.domain
+package com.example.movieapp.features.Home.domain
 
 import androidx.lifecycle.ViewModel
 import com.example.movieapp.core.database.entities.AnimeItemTopHits

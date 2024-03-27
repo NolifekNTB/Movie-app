@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.features.Home.ui.Search.ui.NotFound
+import com.example.movieapp.features.Home.ui.Search.NotFound
 import com.example.movieapp.features.Home.ui.composables.ListEpisodeReleases
 import com.example.movieapp.shared.SharedViewModel
 import com.example.movieapp.shared.TopBar

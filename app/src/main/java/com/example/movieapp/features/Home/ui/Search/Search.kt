@@ -1,7 +1,6 @@
-package com.example.movieapp.features.Home.ui.Search.ui
+package com.example.movieapp.features.Home.ui.Search
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -35,7 +34,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.features.Home.ui.Search.domain.SearchViewModel
+import com.example.movieapp.features.Home.domain.SearchViewModel
 import com.example.movieapp.features.Home.ui.composables.ListEpisodeReleases
 import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
 import kotlinx.coroutines.CoroutineScope
