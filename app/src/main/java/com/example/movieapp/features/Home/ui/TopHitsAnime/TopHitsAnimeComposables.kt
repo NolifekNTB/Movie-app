@@ -124,7 +124,7 @@ fun TopHitsAnimeListDetails(item: AnimeItemTopHits, modifier: Modifier, sharedVi
         var isCheck by remember { mutableStateOf(false) }
         var itemToDelete = AnimeItemMyList(0, "", "", 0.0)
 
-        LaunchedEffect(Unit) {
+        LaunchedEffect(currentItem) {
             isCheck = sharedViewModel.searchAllAnime(item.name).isNotEmpty()
         }
 
@@ -142,7 +142,7 @@ fun TopHitsAnimeListDetails(item: AnimeItemTopHits, modifier: Modifier, sharedVi
                       },
             modifier = Modifier
                 .size(125.dp, 40.dp),
-            border = BorderStroke(if(!isCheck) 2.dp else 1.dp, Color.Green),
+            border = BorderStroke(if(!isCheck) 2.dp else 2.dp, Color.Green),
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = if(!isCheck) Color.Green else Color.Transparent,
                 contentColor = if(!isCheck) Color.White else Color.Green

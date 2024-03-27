@@ -1,5 +1,6 @@
 package com.example.movieapp.shared
 
+import androidx.compose.foundation.layout.FlowColumnScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.core.database.entities.AnimeItemMyList
@@ -7,6 +8,7 @@ import com.example.movieapp.features.MyList.data.AnimeRepositoryMyList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,6 +17,11 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val repoMyList: AnimeRepositoryMyList
 ): ViewModel() {
+
+    init {
+        //deleteMyList()
+    }
+
     fun getListMyList(): Flow<List<AnimeItemMyList>> {
         return repoMyList.getAllAnime()
     }

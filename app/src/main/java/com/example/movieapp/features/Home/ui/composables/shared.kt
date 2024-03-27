@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CornerSize
@@ -50,7 +51,8 @@ fun EpisodeItem(episode: AnimeItemTopHits) {
             AsyncImage(
                 model = episode.image,
                 contentDescription = "image",
-                contentScale = ContentScale.FillHeight
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(250.dp, 250.dp)
             )
         }
         EpisodeRating(episode.rating)
