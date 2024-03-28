@@ -1,7 +1,6 @@
 package com.example.movieapp.features.Calendar.ui
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,17 +31,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.R
+import coil.compose.AsyncImage
+import com.example.movieapp.core.database.entities.AnimeItemTopHits
+import com.example.movieapp.features.Calendar.data.Day
+import com.example.movieapp.features.Calendar.domain.CalendarViewModel
+import java.time.LocalTime
 
 @Composable
-fun DayItem(day: com.example.movieapp.features.Calendar.data.Day, viewModel: com.example.movieapp.features.Calendar.domain.CalendarViewModel) {
+fun DayItem(day: Day, viewModel: CalendarViewModel) {
     val whichDayIsSelected = viewModel.clickedDay.collectAsState().value
+    val isSelected = whichDayIsSelected == day
 
     Box(
         modifier = Modifier
@@ -53,37 +56,39 @@ fun DayItem(day: com.example.movieapp.features.Calendar.data.Day, viewModel: com
         Card(shape = RoundedCornerShape(15.dp),
             border = BorderStroke(1.dp, Color.LightGray),
             colors = CardDefaults.cardColors(
-                containerColor = if (whichDayIsSelected == day) Color.Green else Color.White
+                containerColor = if (isSelected) Color.Green else Color.White
             )
         ){
-            Column(
-                Modifier.padding(8.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
+            Column(modifier = Modifier.padding(8.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+            ) {
                 Text(text = day.dayOfWeek, fontSize = 12.sp,
-                    color = if (whichDayIsSelected == day) Color.White else Color.DarkGray)
+                    color = if (isSelected) Color.White else Color.DarkGray)
                 Text(text = day.date.toString(), fontSize = 16.sp,
-                    color = if (whichDayIsSelected == day) Color.White else Color.DarkGray)
+                    color = if (isSelected) Color.White else Color.DarkGray)
             }
         }
     }
 }
 
 @Composable
-fun dateListItem(index: Int){
-    upperTime()
-    itemMainContent()
-    currentTimeDivider(index)
+fun dateListItem(topHitsElement: AnimeItemTopHits, element: Int) {
+    upperTime(element)
+    itemMainContent(topHitsElement)
+    currentTimeDivider(topHitsElement, element)
 }
 
 @Composable
-fun upperTime(){
+fun upperTime(element: Int){
+    val currentTime = LocalTime.now()
+
     Column(
         modifier = Modifier
             .padding(start = 15.dp, top = 5.dp)
     ){
         Text(
-            text = "12:00",
+            text = "${currentTime.hour+element}:${currentTime.minute}",
             fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold
         )
@@ -91,25 +96,25 @@ fun upperTime(){
 }
 
 @Composable
-fun itemMainContent(){
+fun itemMainContent(topHitsElement: AnimeItemTopHits){
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
     ){
-        Card(
-            modifier = Modifier
-                .size(150.dp, 125.dp)
-        ){
-            Image(
-                painter = painterResource(id = R.drawable.home_attackontitan),
-                contentDescription = null,
-                contentScale = ContentScale.FillWidth)
+        Card(){
+            AsyncImage(
+                model = topHitsElement.image,
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .size(150.dp, 125.dp)
+            )
         }
         Column(
             modifier = Modifier.padding(top = 10.dp, start = 20.dp)
         ) {
-            Text(text = "Attack on titan",
+            Text(text = topHitsElement.name,
                 modifier = Modifier
                     .width(125.dp),
                 fontSize = 20.sp,
@@ -133,7 +138,8 @@ fun itemMainContent(){
                     onClick = {  },
                     modifier = Modifier.padding(3.dp),
                     colors = ButtonDefaults.buttonColors(
-                        Color.Green
+                        containerColor = Color.Transparent,
+                        contentColor = Color.White
                     ),
                     border = BorderStroke(3.dp, Color.Green),
                     contentPadding = PaddingValues(3.dp)
@@ -152,8 +158,10 @@ fun itemMainContent(){
 }
 
 @Composable
-fun currentTimeDivider(index: Int){
-    if(index == 1){
+fun currentTimeDivider(topHitsElement: AnimeItemTopHits, element: Int){
+    val currentTime = LocalTime.now()
+
+    if(element == 1){
         Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
@@ -169,7 +177,7 @@ fun currentTimeDivider(index: Int){
                     .clip(RoundedCornerShape(5.dp))
             )
             Text(
-                text = "Current time - 10:21",
+                text = "Current time - ${currentTime.hour}:${currentTime.minute}",
                 modifier = Modifier
                     .padding(10.dp, 0.dp),
                 fontStyle = FontStyle.Italic
