@@ -19,8 +19,10 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.LocalTextStyle
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
@@ -49,12 +51,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.movieapp.R
+import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -63,15 +70,16 @@ import kotlinx.coroutines.launch
 fun titleSection(
     scaffoldState: BottomSheetScaffoldState,
     whichState: MutableState<String>,
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    title: String
 ) {
     Row(
-        modifier = Modifier.padding(top = 20.dp, start = 20.dp, end = 20.dp),
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ){
         Text(
-            text = "Demon Slayer: (Kimetsu no Yaiba)",
+            text = title,
             fontSize = 20.sp,
             fontWeight = FontWeight.SemiBold,
             maxLines = 1,
@@ -105,7 +113,8 @@ fun titleSection(
 fun belowTitleSection(
     scaffoldState: BottomSheetScaffoldState,
     whichState: MutableState<String>,
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    animeItem: AnimeItemTopHits
 ) {
     Row(
         modifier = Modifier.padding(15.dp),
@@ -126,68 +135,40 @@ fun belowTitleSection(
                 }
         )
         Text(
-            text = "9.8",
+            text = animeItem.rating.toString(),
             color = Color.Green,
             modifier = Modifier.padding(5.dp)
         )
         Text(
-            text = "2022",
+            text = if(animeItem.year == 0) "-" else animeItem.year.toString(),
             fontSize = 15.sp,
             modifier = Modifier.padding(end = 15.dp, start = 15.dp)
         )
-        Card(
-            border = BorderStroke(2.dp, Color.Green),
-            colors = CardDefaults.cardColors(
-                contentColor = Color.Green,
-                containerColor = Color.White
-            ),
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier
-                .width(40.dp)
-        ){
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text("13+", Modifier.padding(5.dp))
-            }
-        }
-        Spacer(modifier = Modifier.width(10.dp))
-        Card(
-            border = BorderStroke(2.dp, Color.Green),
-            colors = CardDefaults.cardColors(
-                contentColor = Color.Green,
-                containerColor = Color.White
-            ),
-            shape = RoundedCornerShape(8.dp),
-            modifier = Modifier
-                .width(80.dp)
-        ){
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text("Japan", Modifier.padding(6.dp))
-            }
-        }
-        Spacer(modifier = Modifier.width(10.dp))
-        Card(
-            border = BorderStroke(2.dp, Color.Green),
-            colors = CardDefaults.cardColors(
-                contentColor = Color.Green,
-                containerColor = Color.White
-            ),
-            shape = RoundedCornerShape(8 .dp),
-            modifier = Modifier.width(80.dp)
-        ){
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text("Subtitle", Modifier.padding(6.dp))
-            }
+       for(i in 0..animeItem.genres.size-1){
+           genreBox(name = animeItem.genres[i].name.toString())
+       }
+    }
+}
+
+@Composable
+fun genreBox(name: String){
+    Card(
+        border = BorderStroke(2.dp, Color.Green),
+        colors = CardDefaults.cardColors(
+            contentColor = Color.Green,
+            containerColor = Color.White
+        ),
+        shape = RoundedCornerShape(8 .dp),
+        modifier = Modifier.width(80.dp)
+    ){
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(name, Modifier.padding(6.dp), maxLines = 1)
         }
     }
+    Spacer(modifier = Modifier.width(10.dp))
 }
 
 
@@ -258,32 +239,67 @@ fun buttonsSection(
 }
 
 @Composable
-fun descriptionSection(){
+fun DescriptionSection(animeItem: AnimeItemTopHits) {
+    var isExpanded by remember { mutableStateOf(false) }
+
+    val displayText = if (!isExpanded && animeItem.description.length > 100) {
+        "${animeItem.description.take(110).trim()}... "
+    } else if (!isExpanded) {
+        animeItem.description
+    } else {
+        "${animeItem.description} View Less"
+    }
+
+    val annotatedString = buildAnnotatedString {
+        append(displayText)
+        if (animeItem.description.length > 100 || isExpanded) {
+            pushStringAnnotation(tag = "ACTION", annotation = "action")
+            withStyle(style = SpanStyle(color = Color.Green, fontWeight = FontWeight.Bold)) {
+                append(if (isExpanded) "View Less" else "View More")
+            }
+            pop()
+        }
+    }
+
     Column(Modifier.padding(20.dp)) {
-        Text("Genre: Action, Adventure, Sci-Fi, Fantasy, Shounen")
+        Row {
+            Text("Genre: ")
+            animeItem.genres.forEach {
+                Text(it.name)
+                Spacer(Modifier.width(5.dp))
+            }
+        }
         Spacer(Modifier.height(10.dp))
-        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-                "Fusce tristique ullamcorper orci id dignissim. Cras vestibulum " +
-                "tortor a arcu posuere tempus. In vulputate, nisl quis pharetra",
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 3)
+
+        ClickableText(
+            text = annotatedString,
+            onClick = { offset ->
+                val annotation = annotatedString.getStringAnnotations("ACTION", offset, offset).firstOrNull()
+                if (annotation != null) {
+                    isExpanded = !isExpanded
+                }
+            },
+            style = LocalTextStyle.current.copy(color = Color.Black)
+        )
     }
 }
 
 @Composable
-fun MoreLikeThis() {
+fun MoreLikeThis(animeList: List<AnimeItemTopHits>) {
     LazyRow() {
-        items(3){
+        items(animeList.size){item ->
             Card(
                 modifier = Modifier
                     .size(150.dp, 250.dp)
                     .padding(5.dp)
             ){
                 Box(){
-                    Image(
-                        painter = painterResource(R.drawable.home_attackontitan),
-                        contentDescription = "mainPhoto",
-                        contentScale = ContentScale.FillWidth
+                    AsyncImage(
+                        model = animeList[item].image,
+                        contentDescription = "animePhoto",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .fillMaxSize()
                     )
                     Card(
                         modifier = Modifier
@@ -300,7 +316,7 @@ fun MoreLikeThis() {
                             contentAlignment = Alignment.Center
                         ){
                             Text(
-                                text = "8.8",
+                                text = animeList[item].rating.toString(),
                                 textAlign = TextAlign.Center,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.SemiBold

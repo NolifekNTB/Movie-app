@@ -8,6 +8,8 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.core.database.entities.AnimeItemMyList
+import com.example.movieapp.core.database.entities.AnimeItemTopHits
+import com.example.movieapp.features.Home.data.AnimeRepository
 import com.example.movieapp.features.MyList.data.AnimeRepositoryMyList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -19,8 +21,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
-    private val repoMyList: AnimeRepositoryMyList
+    private val repoMyList: AnimeRepositoryMyList,
+    private val repoTopHis: AnimeRepository
 ): ViewModel() {
+    //TopHits
+    fun getTopHits(): Flow<List<AnimeItemTopHits>> {
+        return repoTopHis.getAllAnime()
+    }
+
     //MyList
     private fun insertListMyList(animeMyList: AnimeItemMyList){
         CoroutineScope(viewModelScope.coroutineContext).launch{

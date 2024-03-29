@@ -1,6 +1,6 @@
 package com.example.movieapp.features.Details
 
-import android.util.Log
+import  android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,6 +35,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,24 +51,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.movieapp.features.Details.bottomSheets.Download.displayDownloadBox
 import com.example.movieapp.features.Details.bottomSheets.Rating.giveRatingBox
 import com.example.movieapp.features.Details.bottomSheets.shareDisplayBox
 import com.example.movieapp.R
+import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.features.Details.composables.Comments
+import com.example.movieapp.features.Details.composables.DescriptionSection
 import com.example.movieapp.features.Details.composables.MoreLikeThis
 import com.example.movieapp.features.Details.composables.belowTitleSection
 import com.example.movieapp.features.Details.composables.buttonsSection
-import com.example.movieapp.features.Details.composables.descriptionSection
 import com.example.movieapp.features.Details.composables.titleSection
 import com.example.movieapp.shared.SharedViewModel
+import org.jetbrains.annotations.Async
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(viewModel: SharedViewModel, id: Int, onClick: (String) -> Unit) {
-    if(id != null){
-        Log.d("testowanie", "id w details $id")
-    }
+    val animeList = viewModel.getTopHits().collectAsState(emptyList()).value
+
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = SheetState(
             skipHiddenState = false,
@@ -105,13 +108,14 @@ fun DetailScreen(viewModel: SharedViewModel, id: Int, onClick: (String) -> Unit)
                     )
                     .alpha(if (scaffoldState.bottomSheetState.isVisible) 0.5f else 1f)
             ) {
-                MainPhoto(){ popUpOrNextScreen ->
-                    onClick(popUpOrNextScreen)
-                }
-                Description(scaffoldState, whichState, onClick)
-                Episodes()
-                MoreLikeThisComments(){ popUpOrNextScreen ->
-                    onClick(popUpOrNextScreen)
+                if(animeList.isNotEmpty()){
+                     MainPhoto(animeList[id-1]){ popUpOrNextScreen ->
+                            onClick(popUpOrNextScreen)
+                    }
+                    Description(scaffoldState, whichState, animeList[id-1], onClick)
+                    MoreLikeThisComments(animeList, animeList[id-1]){ popUpOrNextScreen ->
+                        onClick(popUpOrNextScreen)
+                    }
                 }
             }
     }
@@ -119,16 +123,18 @@ fun DetailScreen(viewModel: SharedViewModel, id: Int, onClick: (String) -> Unit)
 
 
 @Composable
-fun MainPhoto(onClick: (String) -> Unit) {
+fun MainPhoto(animeItem: AnimeItemTopHits, onClick: (String) -> Unit) {
     Box {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(300.dp)) {
-            Image(
-                painter = painterResource(R.drawable.home_demonslayer),
-                contentDescription = "MainPhoto",
-                contentScale = ContentScale.FillHeight)
+            AsyncImage(
+                model = animeItem.image,
+                contentDescription = "animePhoto",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxWidth()
+            )
         }
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -157,104 +163,21 @@ fun MainPhoto(onClick: (String) -> Unit) {
 fun Description(
     scaffoldState: BottomSheetScaffoldState,
     whichState: MutableState<String>,
+    animeItem: AnimeItemTopHits,
     onClick: (String) -> Unit
     ) {
     val scope = rememberCoroutineScope()
 
     Column(Modifier.background(Color.White)) {
-        titleSection(scaffoldState, whichState, scope)
-        belowTitleSection(scaffoldState, whichState, scope)
+        titleSection(scaffoldState, whichState, scope, animeItem.name)
+        belowTitleSection(scaffoldState, whichState, scope, animeItem)
         buttonsSection(scaffoldState, whichState, scope, onClick)
-        descriptionSection()
+        DescriptionSection(animeItem)
     }
 }
 
 @Composable
-fun Episodes() {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedText by remember { mutableStateOf("Season 1") }
-    Column(
-        Modifier
-            .padding(20.dp)
-            .background(Color.White)) {
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Episodes",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-            // Dropdown menu
-            Box(){
-                TextButton(
-                    onClick = { expanded = true },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentSize(align = Alignment.TopEnd)
-                ) {
-                    Text(selectedText, color = Color.Green)
-                    Icon(
-                        imageVector = Icons.Default.KeyboardArrowDown,
-                        contentDescription = "",
-                        tint = Color.Green
-                    )
-                }
-                DropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    DropdownMenuItem(onClick = {
-                        selectedText = "Season 1"
-                        expanded = false
-                    }) {
-                        Text("Season 1")
-                    }
-                    DropdownMenuItem(onClick = {
-                        selectedText = "Season 2"
-                        expanded = false
-                    }) {
-                        Text("Season 2")
-                    }
-                    DropdownMenuItem(onClick = {
-                        selectedText = "Season 3"
-                        expanded = false
-                    }) {
-                        Text("Season 3")
-                    }
-                }
-            }
-        }
-        LazyRow(){
-            items(5){item ->
-                    Box(
-                        modifier = Modifier
-                            .size(133.dp, 125.dp)
-                            .padding(end = 10.dp)
-                    ){
-                        Card(){
-                            Image(
-                                painter = painterResource(R.drawable.home_attackontitan),
-                                contentDescription = "",
-                                contentScale = ContentScale.FillWidth
-                            )
-                        }
-                        Text(
-                            text = "Episode $item",
-                            color = Color.White,
-                            modifier = Modifier
-                                .align(Alignment.BottomStart)
-                                .padding(start = 10.dp, bottom = 10.dp)
-                        )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun MoreLikeThisComments(onClick: (String) -> Unit) {
+fun MoreLikeThisComments(animeList: List<AnimeItemTopHits>, animeItem: AnimeItemTopHits, onClick: (String) -> Unit) {
     var selectedSection by remember { mutableStateOf(0) }
     val sections = listOf("More Like This", "Comments")
 
@@ -295,10 +218,10 @@ fun MoreLikeThisComments(onClick: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Content of the selected section
+        val filteredList = filterAnimeList(animeList, animeItem)
         when (selectedSection) {
             0 -> {
-                MoreLikeThis()
+                MoreLikeThis(filteredList)
             }
             1 -> {
                  Comments(){ popUpOrNextScreen ->
@@ -308,3 +231,22 @@ fun MoreLikeThisComments(onClick: (String) -> Unit) {
         }
     }
 }
+
+
+fun filterAnimeList(animeList: List<AnimeItemTopHits>, animeItem: AnimeItemTopHits): List<AnimeItemTopHits> {
+    return animeList.filter { it.id != animeItem.id && it.genres.any { genre -> animeItem.genres.contains(genre) } }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
