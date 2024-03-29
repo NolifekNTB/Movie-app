@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.ui.composables
+package com.example.movieapp.features.Details.composables
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

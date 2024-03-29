@@ -1,76 +1,54 @@
-package com.example.movieapp.features.Download.scaffolds
+package com.example.movieapp.features.Details.bottomSheets
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Details.ui.bottomSheets.shareTitle
-import com.example.movieapp.features.Download.composables.DownloadListItem
-import kotlinx.coroutines.CoroutineScope
+import com.example.movieapp.features.Details.bottomSheets.Download.downloadBox
+import com.example.movieapp.shared.SharedViewModel
 import kotlinx.coroutines.launch
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DownloadDeleteScaffold(scaffoldState: BottomSheetScaffoldState, scope: CoroutineScope) {
-    Column(
-        modifier = Modifier
-            .height(425.dp)
-            .padding(20.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        shareTitle(title = "Delete", color = Color.Red)
-        Divider(thickness = 1.dp, color = Color.LightGray)
-        DownloadDescription()
-        DownloadDeleteContent(scaffoldState, scope)
-        Divider(thickness = 1.dp, color = Color.LightGray)
-        DownloadDeleteButtons(scaffoldState, scope)
-    }
-}
-
-@Composable
-fun DownloadDescription(){
+fun shareTitle(title: String, color: Color) {
     Text(
-        text = "Are you sure you want to delete this download?",
+        text = title,
         fontSize = 20.sp,
+        color = color,
         fontWeight = FontWeight.SemiBold,
-        textAlign = TextAlign.Center,
-        modifier = Modifier.padding(top = 10.dp)
+        modifier = Modifier.padding(15.dp)
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DownloadDeleteContent(scaffoldState: BottomSheetScaffoldState, scope: CoroutineScope) {
-    DownloadListItem(
-        scaffoldState = scaffoldState,
-        scope = scope,
-        shouldShow = false)
-}
+fun scaffoldSheetButtons(
+    scaffoldState: BottomSheetScaffoldState,
+    viewModel: SharedViewModel,
+    type: String
+) {
+    val scope = rememberCoroutineScope()
+    val showDialog = remember { mutableStateOf(false) }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DownloadDeleteButtons(scaffoldState: BottomSheetScaffoldState, scope: CoroutineScope){
-    Row(modifier = Modifier.padding(top = 10.dp)) {
+    val startDownloadPhoto = remember {
+        mutableStateOf(false)
+    }
+
+    Row {
         FilledTonalButton(
             onClick = {
                 scope.launch {
@@ -98,6 +76,10 @@ fun DownloadDeleteButtons(scaffoldState: BottomSheetScaffoldState, scope: Corout
         FilledTonalButton(
             onClick = {
                 scope.launch { scaffoldState.bottomSheetState.hide() };
+                if(type == "download"){
+                    showDialog.value = true;
+                    startDownloadPhoto.value = true
+                }
             },
             modifier = Modifier
                 .weight(1f),
@@ -108,7 +90,7 @@ fun DownloadDeleteButtons(scaffoldState: BottomSheetScaffoldState, scope: Corout
             contentPadding = PaddingValues(5.dp)
         ) {
             Text(
-                text = "Yes, delete",
+                text = if(type == "Download") "Download" else "Submit",
                 modifier = Modifier
                     .padding(start = 3.dp),
                 fontSize = 15.sp,
@@ -116,5 +98,8 @@ fun DownloadDeleteButtons(scaffoldState: BottomSheetScaffoldState, scope: Corout
             )
         }
     }
+    if(showDialog.value){
+        downloadBox(showDialog, startDownloadPhoto, viewModel)
+    }
 }
-
+   

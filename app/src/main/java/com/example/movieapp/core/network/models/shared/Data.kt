@@ -7,5 +7,6 @@ data class Data(
     val images: Images,
     val score: Double,
     val year: Int,
-    val genres: List<Genre>
+    val genres: List<Genre>,
+    val synopsis: String
 )

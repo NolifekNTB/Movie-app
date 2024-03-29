@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.ui.bottomSheets.Download
+package com.example.movieapp.features.Details.bottomSheets.Download
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager
@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Details.domain.DetailsViewModel
+import com.example.movieapp.shared.SharedViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 fun downloadBox(
     showDialog: MutableState<Boolean>,
     startDownloadPhoto: MutableState<Boolean>,
-    viewModel: DetailsViewModel
+    viewModel: SharedViewModel
 ) {
     val context = LocalContext.current
     val downloadManager = remember { context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager }

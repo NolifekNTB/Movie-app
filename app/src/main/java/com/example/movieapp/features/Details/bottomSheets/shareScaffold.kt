@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.ui.bottomSheets
+package com.example.movieapp.features.Details.bottomSheets
 
 import android.content.ActivityNotFoundException
 import android.content.Context

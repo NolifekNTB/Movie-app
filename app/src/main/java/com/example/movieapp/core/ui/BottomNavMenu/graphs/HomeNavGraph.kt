@@ -31,8 +31,8 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewMod
             HomeScreen(
                 mainViewModel = mainViewModel,
                 sharedViewModel = sharedViewModel,
-                onClick = { direction ->
-                    navController.navigate(direction)
+                onClick = { direction, id ->
+                    navController.navigate("$direction/$id")
                 })
         }
 
@@ -68,8 +68,6 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewMod
                 onClick = { navController.popBackStack() }
             )
         }
-
-        detailsNavGraph(navController = navController)
     }
 }
 

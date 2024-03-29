@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.core.network.RetrofitInstance
-import com.example.movieapp.core.network.models.shared.AnimeData
+import com.example.movieapp.core.network.models.AnimeData
 import com.example.movieapp.features.Home.data.AnimeRepository
 import com.example.movieapp.features.Home.data.AnimeRepositoryNewSeasons
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -56,7 +56,8 @@ class MainViewModel @Inject constructor(
                 image = data.images.jpg.image_url,
                 rating = data.score,
                 year = data.year,
-                genres = data.genres
+                genres = data.genres,
+                description = data.synopsis
             )
             animeItemList.add(animeItem)
         }

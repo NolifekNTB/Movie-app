@@ -22,9 +22,6 @@ fun ReleaseCalendar(onClick: () -> Unit) {
     val viewModel = hiltViewModel<CalendarViewModel>()
     val days = viewModel.daysOfTheWeek.collectAsState().value
 
-    if(days.isNotEmpty()){
-        Log.d("testowanie", days[2].toString())
-    }
 
     Column(
         modifier = Modifier

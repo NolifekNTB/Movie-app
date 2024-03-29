@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.ui.screens
+package com.example.movieapp.features.Details.screens
 
 import android.app.Activity
 import android.content.pm.ActivityInfo

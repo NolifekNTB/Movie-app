@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.ui.screens
+package com.example.movieapp.features.Details.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

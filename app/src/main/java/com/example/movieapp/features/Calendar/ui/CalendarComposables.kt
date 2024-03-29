@@ -62,6 +62,7 @@ fun DayItem(day: Day, viewModel: CalendarViewModel) {
             Column(modifier = Modifier.padding(8.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
+
             ) {
                 Text(text = day.dayOfWeek, fontSize = 12.sp,
                     color = if (isSelected) Color.White else Color.DarkGray)

@@ -1,5 +1,6 @@
 package com.example.movieapp.features.Home.ui.composables
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -60,7 +61,7 @@ fun rowListTitle(name: String, onClick: (String) -> Unit) {
     }
 
 @Composable
-fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String) -> Unit) {
+fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String, Int) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
             items(10){ item ->
@@ -70,7 +71,7 @@ fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String) -> Unit) {
                         .width(150.dp)
                         .padding(10.dp)
                         .clickable {
-                            onClick("Details")
+                            onClick("details", animeList[item].id)
                         }
                 ){
                     rowListItemsImage(

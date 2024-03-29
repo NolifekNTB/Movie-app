@@ -1,6 +1,10 @@
 package com.example.movieapp.shared
 
+import android.app.DownloadManager
+import android.content.Context
+import android.os.Environment
 import androidx.compose.foundation.layout.FlowColumnScope
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.core.database.entities.AnimeItemMyList
@@ -17,9 +21,11 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val repoMyList: AnimeRepositoryMyList
 ): ViewModel() {
-
-    init {
-        //deleteMyList()
+    //MyList
+    private fun insertListMyList(animeMyList: AnimeItemMyList){
+        CoroutineScope(viewModelScope.coroutineContext).launch{
+            repoMyList.insertAnime(animeMyList)
+        }
     }
 
     fun getListMyList(): Flow<List<AnimeItemMyList>> {
@@ -29,12 +35,6 @@ class SharedViewModel @Inject constructor(
     fun insertAnimeItem(item: AnimeItemMyList){
         CoroutineScope(viewModelScope.coroutineContext).launch {
             repoMyList.insertAnime(item)
-        }
-    }
-
-    private fun insertListMyList(animeMyList: AnimeItemMyList){
-        CoroutineScope(viewModelScope.coroutineContext).launch{
-            repoMyList.insertAnime(animeMyList)
         }
     }
 
@@ -53,4 +53,37 @@ class SharedViewModel @Inject constructor(
     suspend fun searchAllAnime(query: String): List<AnimeItemMyList> {
         return repoMyList.searchAnimeByName(query)
     }
+
+    //Details
+    fun downloadFile(url: String, context: Context): Long {
+        val downloadManager = context.getSystemService(DownloadManager::class.java)
+
+        val request = DownloadManager.Request(url.toUri())
+            .setMimeType("photo/jpeg")
+            .setAllowedOverRoaming(false)
+            .setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            .setTitle("jpeg")
+            .setDestinationInExternalPublicDir(
+                Environment.DIRECTORY_DOWNLOADS, "photo.jpeg"
+            )
+        return downloadManager.enqueue(request)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

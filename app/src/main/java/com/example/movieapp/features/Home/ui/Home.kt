@@ -25,7 +25,7 @@ import com.example.movieapp.shared.SharedViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
+fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel, onClick: (String, Int) -> Unit) {
     val animeList by mainViewModel.getListTopHits().collectAsState(emptyList())
     val animeListNewSeasons by mainViewModel.getListNewSeasons().collectAsState(emptyList())
 
@@ -36,13 +36,13 @@ fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel, o
             .background(Color.White)
     ) {
         ImageHome(sharedViewModel){ direction ->
-            onClick(direction)
+            onClick(direction, 0)
         }
-        RowList("Top Hits Anime", animeList) { direction ->
-            onClick(direction)
+        RowList("Top Hits Anime", animeList) { direction, id ->
+            onClick(direction, id)
         }
         RowListNewSeasons("New Seasons Releases", animeListNewSeasons){ direction ->
-            onClick(direction)
+            onClick(direction, 0)
         }
     }
 
@@ -62,12 +62,12 @@ fun ImageHome(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
 
 
 @Composable
-fun RowList(name: String, animeList: List<AnimeItemTopHits>, onClick: (String) -> Unit){
+fun RowList(name: String, animeList: List<AnimeItemTopHits>, onClick: (String, Int) -> Unit){
     rowListTitle(name){ direction ->
-        onClick(direction)
+        onClick(direction, 0)
     }
-    rowListItems(animeList){ direction ->
-        onClick(direction)
+    rowListItems(animeList){ direction, id ->
+        onClick(direction, id)
     }
 }
 

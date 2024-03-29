@@ -20,14 +20,4 @@ object RetrofitInstance {
     val animeApiTopHits: AnimeApiTopHits by lazy {
         retrofit.create(AnimeApiTopHits::class.java)
     }
-
-    /*fun createApi(): AnimeApiTopHits {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        return retrofit.create(AnimeApiTopHits::class.java)
-    }
-     */
 }

@@ -1,5 +1,6 @@
-package com.example.movieapp.features.Details.ui
+package com.example.movieapp.features.Details
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -49,20 +50,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Details.ui.bottomSheets.Download.displayDownloadBox
-import com.example.movieapp.features.Details.ui.bottomSheets.Rating.giveRatingBox
-import com.example.movieapp.features.Details.ui.bottomSheets.shareDisplayBox
+import com.example.movieapp.features.Details.bottomSheets.Download.displayDownloadBox
+import com.example.movieapp.features.Details.bottomSheets.Rating.giveRatingBox
+import com.example.movieapp.features.Details.bottomSheets.shareDisplayBox
 import com.example.movieapp.R
-import com.example.movieapp.features.Details.ui.composables.Comments
-import com.example.movieapp.features.Details.ui.composables.MoreLikeThis
-import com.example.movieapp.features.Details.ui.composables.belowTitleSection
-import com.example.movieapp.features.Details.ui.composables.buttonsSection
-import com.example.movieapp.features.Details.ui.composables.descriptionSection
-import com.example.movieapp.features.Details.ui.composables.titleSection
+import com.example.movieapp.features.Details.composables.Comments
+import com.example.movieapp.features.Details.composables.MoreLikeThis
+import com.example.movieapp.features.Details.composables.belowTitleSection
+import com.example.movieapp.features.Details.composables.buttonsSection
+import com.example.movieapp.features.Details.composables.descriptionSection
+import com.example.movieapp.features.Details.composables.titleSection
+import com.example.movieapp.shared.SharedViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(onClick: (String) -> Unit) {
+fun DetailScreen(viewModel: SharedViewModel, id: Int, onClick: (String) -> Unit) {
+    if(id != null){
+        Log.d("testowanie", "id w details $id")
+    }
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = SheetState(
             skipHiddenState = false,
@@ -80,10 +85,10 @@ fun DetailScreen(onClick: (String) -> Unit) {
                     shareDisplayBox()
                 }
                 "download" -> {
-                    displayDownloadBox(scaffoldState)
+                    displayDownloadBox(scaffoldState, viewModel)
                 }
                 "rating" -> {
-                    giveRatingBox(scaffoldState)
+                    giveRatingBox(scaffoldState, viewModel)
                 }
             }
         },

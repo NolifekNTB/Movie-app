@@ -11,5 +11,6 @@ data class AnimeItemTopHits(
     val image: String,
     val rating: Double,
     val year: Int,
-    val genres: List<Genre>
+    val genres: List<Genre>,
+    val description: String
 )

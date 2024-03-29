@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import com.example.movieapp.features.MyList.ui.MyList
 import com.example.movieapp.core.ui.BottomNavMenu.BottomBarScreen
 import com.example.movieapp.features.Calendar.ui.ReleaseCalendar
-import com.example.movieapp.features.Download.Download
+import com.example.movieapp.features.Download.ui.Download
 import com.example.movieapp.shared.SharedViewModel
 
 @Composable
@@ -38,6 +38,8 @@ fun BottomNavGraph(navController: NavHostController, viewModel: SharedViewModel)
         }
 
         profileNavGraph(navController = navController)
+
+        detailsNavGraph(navController = navController, viewModel)
     }
 }
 
