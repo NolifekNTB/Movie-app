@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
+import com.example.movieapp.core.network.models.shared.Trailer
 import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.Search.NotFound
 import com.example.movieapp.features.Home.ui.composables.ListEpisodeReleases
@@ -76,7 +77,8 @@ fun fromMyListToTopHits(animeList: List<AnimeItemMyList>): List<AnimeItemTopHits
             rating = i.rating,
             year = 2024,
             genres = emptyList(),
-            description = ""
+            description = "",
+            trailer = Trailer("")
         )
         list.add(anime)
     }

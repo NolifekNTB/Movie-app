@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.features.Download.domain.DownloadViewModel
 import com.example.movieapp.features.Download.ui.composables.DownloadListItem
 import com.example.movieapp.features.Download.ui.scaffolds.DownloadDeleteScaffold
 import com.example.movieapp.shared.TopBar
@@ -24,8 +23,6 @@ import kotlinx.coroutines.CoroutineScope
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Download(onClick: () -> Unit) {
-    val viewModel = DownloadViewModel()
-
     val scaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = SheetState(
             skipHiddenState = false,

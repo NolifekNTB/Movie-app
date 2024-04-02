@@ -178,7 +178,8 @@ fun buttonsSection(
     scaffoldState: BottomSheetScaffoldState,
     whichState: MutableState<String>,
     scope: CoroutineScope,
-    onClick: (String) -> Unit
+    animeItem: AnimeItemTopHits,
+    onClick: (String, String) -> Unit
     ) {
     Row(
         modifier = Modifier
@@ -188,7 +189,7 @@ fun buttonsSection(
         verticalAlignment = Alignment.CenterVertically
     ) {
         FilledTonalButton(
-            onClick = { onClick("videoPlayer") },
+            onClick = { onClick("videoPlayer", animeItem.trailer.url) },
             modifier = Modifier
                 .weight(1f),
             colors = ButtonDefaults.buttonColors(

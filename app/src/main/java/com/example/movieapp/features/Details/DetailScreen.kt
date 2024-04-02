@@ -112,7 +112,9 @@ fun DetailScreen(viewModel: SharedViewModel, id: Int, onClick: (String) -> Unit)
                      MainPhoto(animeList[id-1]){ popUpOrNextScreen ->
                             onClick(popUpOrNextScreen)
                     }
-                    Description(scaffoldState, whichState, animeList[id-1], onClick)
+                    Description(scaffoldState, whichState, animeList[id-1]){what ->
+                        onClick(what)
+                    }
                     MoreLikeThisComments(animeList, animeList[id-1]){ popUpOrNextScreen ->
                         onClick(popUpOrNextScreen)
                     }
@@ -171,7 +173,9 @@ fun Description(
     Column(Modifier.background(Color.White)) {
         titleSection(scaffoldState, whichState, scope, animeItem.name)
         belowTitleSection(scaffoldState, whichState, scope, animeItem)
-        buttonsSection(scaffoldState, whichState, scope, onClick)
+        buttonsSection(scaffoldState, whichState, scope, animeItem){what, url ->
+            onClick(what)
+        }
         DescriptionSection(animeItem)
     }
 }

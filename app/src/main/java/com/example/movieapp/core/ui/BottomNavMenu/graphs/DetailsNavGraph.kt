@@ -29,6 +29,7 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController, viewModel:
                 }
             }
         }
+
         composable(route = DetailsScreen.Comments.route){
             CommentsScreen(){
                 navController.popBackStack(

@@ -129,7 +129,7 @@ fun LeftBottom(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
             modifier = Modifier.padding(top = 10.dp)
         ) {
             FilledTonalButton(
-                onClick = { onClick("PLAYER") },
+                onClick = { onClick("webView") },
                 modifier = Modifier
                     .size(ButtonWidth, ButtonHeight),
                 colors = ButtonDefaults.buttonColors(

@@ -57,7 +57,8 @@ class MainViewModel @Inject constructor(
                 rating = data.score,
                 year = data.year,
                 genres = data.genres,
-                description = data.synopsis
+                description = data.synopsis,
+                trailer = data.trailer
             )
             animeItemList.add(animeItem)
         }

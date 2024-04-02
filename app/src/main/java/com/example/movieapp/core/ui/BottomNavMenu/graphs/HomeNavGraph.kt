@@ -8,9 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.movieapp.core.ui.BottomNavMenu.BottomBarScreen
+import com.example.movieapp.features.Details.screens.VideoPlayerWebView
 import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeScreen
 import com.example.movieapp.features.Home.ui.NewSeasonsReleases.NewSeasonsReleases
@@ -34,6 +37,10 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewMod
                 onClick = { direction, id ->
                     navController.navigate("$direction/$id")
                 })
+        }
+
+        composable(route = "webView/{url}"){
+            VideoPlayerWebView()
         }
 
         composable(route = "Notification"){
