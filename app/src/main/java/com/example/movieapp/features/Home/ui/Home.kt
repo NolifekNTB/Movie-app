@@ -41,8 +41,8 @@ fun HomeScreen(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel, o
         RowList("Top Hits Anime", animeList) { direction, id ->
             onClick(direction, id)
         }
-        RowListNewSeasons("New Seasons Releases", animeListNewSeasons){ direction ->
-            onClick(direction, 0)
+        RowListNewSeasons("New Seasons Releases", animeListNewSeasons){ direction, id ->
+            onClick(direction, id)
         }
     }
 
@@ -72,12 +72,12 @@ fun RowList(name: String, animeList: List<AnimeItemTopHits>, onClick: (String, I
 }
 
 @Composable
-fun RowListNewSeasons(name: String, animeList: List<AnimeItemNewSeasons>, onClick: (String) -> Unit){
+fun RowListNewSeasons(name: String, animeList: List<AnimeItemNewSeasons>, onClick: (String, Int) -> Unit){
     rowListTitle(name){ direction ->
-        onClick(direction)
+        onClick(direction, 0)
     }
-    rowListItemsNewSeasons(animeList){ direction ->
-        onClick(direction)
+    rowListItemsNewSeasons(animeList){ direction, id ->
+        onClick(direction, id)
     }
 }
 

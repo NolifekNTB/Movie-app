@@ -85,7 +85,7 @@ fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String, Int) -> Un
 }
 
 @Composable
-fun rowListItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (String) -> Unit) {
+fun rowListItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (String, Int) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
             items(10){ item ->
@@ -95,7 +95,7 @@ fun rowListItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (Strin
                         .width(150.dp)
                         .padding(10.dp)
                         .clickable {
-                            onClick("Details")
+                            onClick("details", animeList[item].id)
                         }
                 ){
                     rowListItemsImageNewSeasons(

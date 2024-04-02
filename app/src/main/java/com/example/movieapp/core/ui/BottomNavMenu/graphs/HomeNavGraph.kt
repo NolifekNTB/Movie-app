@@ -35,11 +35,15 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewMod
                 mainViewModel = mainViewModel,
                 sharedViewModel = sharedViewModel,
                 onClick = { direction, id ->
-                    navController.navigate("$direction/$id")
+                    if(direction == "details") {
+                        navController.navigate("$direction/$id")
+                    } else {
+                        navController.navigate(direction)
+                    }
                 })
         }
 
-        composable(route = "webView/{url}"){
+        composable(route = "webView"){
             VideoPlayerWebView()
         }
 
