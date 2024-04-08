@@ -26,9 +26,8 @@ import androidx.compose.ui.unit.dp
 import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.core.network.models.shared.Trailer
-import com.example.movieapp.features.Home.domain.MainViewModel
-import com.example.movieapp.features.Home.ui.Search.NotFound
-import com.example.movieapp.features.Home.ui.composables.ListEpisodeReleases
+import com.example.movieapp.features.Home.ui.HomeScreens.Search.NotFound
+import com.example.movieapp.features.Home.ui.HomeComposables.ListEpisodeReleases
 import com.example.movieapp.shared.SharedViewModel
 import com.example.movieapp.shared.TopBar
 import kotlinx.coroutines.CoroutineScope

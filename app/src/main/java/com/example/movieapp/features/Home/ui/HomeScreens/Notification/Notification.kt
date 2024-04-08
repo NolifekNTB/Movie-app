@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Notification
+package com.example.movieapp.features.Home.ui.HomeScreens.Notification
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

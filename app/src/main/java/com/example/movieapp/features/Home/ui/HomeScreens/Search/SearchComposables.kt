@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Search
+package com.example.movieapp.features.Home.ui.HomeScreens.Search
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

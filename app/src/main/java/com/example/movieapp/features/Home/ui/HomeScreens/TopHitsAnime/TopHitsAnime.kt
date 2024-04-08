@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.TopHitsAnime
+package com.example.movieapp.features.Home.ui.HomeScreens.TopHitsAnime
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

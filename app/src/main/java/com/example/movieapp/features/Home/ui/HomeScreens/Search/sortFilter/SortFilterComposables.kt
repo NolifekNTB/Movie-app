@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Search.sortFilter
+package com.example.movieapp.features.Home.ui.HomeScreens.Search.sortFilter
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke

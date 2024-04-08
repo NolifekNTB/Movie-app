@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Anime app</string>
+
+    <!--Home-->
+    <string name="topHitsAnime">Top Hits Anime</string>
+    <string name="newSeasonsReleases">New Seasons Releases</string>
 </resources>

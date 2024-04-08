@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Search.sortFilter
+package com.example.movieapp.features.Home.ui.HomeScreens.Search.sortFilter
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

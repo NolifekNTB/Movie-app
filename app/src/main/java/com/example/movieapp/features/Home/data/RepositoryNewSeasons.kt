@@ -35,8 +35,9 @@ class AnimeRepositoryNewSeasons(context: Context): AnimeDaoNewSeasons {
         return daoNewSeasons.getAllAnime()
     }
 
-    override suspend fun searchAnimeByName(searchQuery: String): List<AnimeItemNewSeasons> = withContext(
-        Dispatchers.IO){
+    override suspend fun searchAnimeByName(searchQuery: String): List<AnimeItemNewSeasons> =
+            withContext(Dispatchers.IO)
+        {
         return@withContext daoNewSeasons.searchAnimeByName(searchQuery)
     }
 }

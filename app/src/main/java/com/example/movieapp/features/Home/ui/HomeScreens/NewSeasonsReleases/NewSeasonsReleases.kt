@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.NewSeasonsReleases
+package com.example.movieapp.features.Home.ui.HomeScreens.NewSeasonsReleases
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,7 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.core.network.models.shared.Trailer
-import com.example.movieapp.features.Home.ui.composables.ListEpisodeReleases
+import com.example.movieapp.features.Home.ui.HomeComposables.ListEpisodeReleases
 import com.example.movieapp.shared.TopBar
 
 @Composable

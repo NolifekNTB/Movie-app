@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.movieapp.R
 import com.example.movieapp.features.Calendar.data.Day
 import com.example.movieapp.features.Calendar.domain.CalendarViewModel
 import com.example.movieapp.shared.TopBar
@@ -28,7 +30,7 @@ fun ReleaseCalendar(onClick: () -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ){
-        TopBar("Release Calendar"){_ -> onClick()}
+        TopBar("Release Calendar"){ _ -> onClick()}
         CalendarBar(days = days, viewModel = viewModel)
         DateList(viewModel)
         //NotFound("No Release Schedule", "Sorry, there is no anime release schedule on this date.")

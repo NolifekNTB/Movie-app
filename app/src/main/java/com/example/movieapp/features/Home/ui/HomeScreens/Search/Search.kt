@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.Search
+package com.example.movieapp.features.Home.ui.HomeScreens.Search
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.features.Home.domain.SearchViewModel
-import com.example.movieapp.features.Home.ui.composables.ListEpisodeReleases
+import com.example.movieapp.features.Home.ui.HomeComposables.ListEpisodeReleases
 import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

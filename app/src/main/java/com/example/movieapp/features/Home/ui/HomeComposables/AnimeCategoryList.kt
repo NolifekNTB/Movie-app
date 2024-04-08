@@ -1,6 +1,5 @@
-package com.example.movieapp.features.Home.ui.composables
+package com.example.movieapp.features.Home.ui.HomeComposables
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,7 +32,7 @@ import com.example.movieapp.core.database.entities.AnimeItemTopHits
 private const val AlphaValue = 0.85f
 
 @Composable
-fun rowListTitle(name: String, onClick: (String) -> Unit) {
+fun CategoryTitle(name: String, onClick: (String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -61,7 +60,7 @@ fun rowListTitle(name: String, onClick: (String) -> Unit) {
     }
 
 @Composable
-fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String, Int) -> Unit) {
+fun CategoryItemsTopHits(animeList: List<AnimeItemTopHits>, onClick: (String, Int) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
             items(10){ item ->
@@ -85,7 +84,7 @@ fun rowListItems(animeList: List<AnimeItemTopHits>, onClick: (String, Int) -> Un
 }
 
 @Composable
-fun rowListItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (String, Int) -> Unit) {
+fun CategoryItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (String, Int) -> Unit) {
     LazyRow(){
         if(animeList.isNotEmpty()){
             items(10){ item ->
