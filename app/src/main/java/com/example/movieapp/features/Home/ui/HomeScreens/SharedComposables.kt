@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.ui.HomeComposables
+package com.example.movieapp.features.Home.ui.HomeScreens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

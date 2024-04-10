@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -18,10 +19,11 @@ import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeComposables.BannerImage
 import com.example.movieapp.features.Home.ui.HomeComposables.PlayAndMyList
 import com.example.movieapp.features.Home.ui.HomeComposables.SearchAndNotifications
-import com.example.movieapp.features.Home.ui.HomeComposables.CategoryItemsTopHits
-import com.example.movieapp.features.Home.ui.HomeComposables.CategoryItemsNewSeasons
-import com.example.movieapp.features.Home.ui.HomeComposables.CategoryTitle
+import com.example.movieapp.features.Home.ui.HomeComposables.RowItemsTopHits
+import com.example.movieapp.features.Home.ui.HomeComposables.RowTitle
 import com.example.movieapp.shared.SharedViewModel
+import com.example.movieapp.features.Home.domain.MainViewModel.topHitsAndNewSeasons
+import com.example.movieapp.features.Home.ui.HomeComposables.RowItemsNewSeasons
 
 @Composable
 fun HomeScreen(
@@ -29,13 +31,11 @@ fun HomeScreen(
     sharedViewModel: SharedViewModel,
     onNavigate: (destination: String, animeId: Int) -> Unit
 ) {
-    val topHitsAnime = mainViewModel.getListTopHits().collectAsState(emptyList())
-    val newSeasonsAnime = mainViewModel.getListNewSeasons().collectAsState(emptyList())
+    val bothList = mainViewModel.getLists()
 
     HomeScreenLayout(
         sharedViewModel = sharedViewModel,
-        topHitsAnimeList = topHitsAnime.value,
-        newSeasonsAnimeList = newSeasonsAnime.value,
+        bothLists = bothList,
         onNavigate = onNavigate
     )
 }
@@ -43,10 +43,12 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenLayout(
     sharedViewModel: SharedViewModel,
-    topHitsAnimeList: List<AnimeItemTopHits>,
-    newSeasonsAnimeList: List<AnimeItemNewSeasons>,
+    bothLists: topHitsAndNewSeasons,
     onNavigate: (destination: String, animeId: Int) -> Unit
 ) {
+    val topHits by bothLists.topHits.collectAsState(emptyList())
+    val newSeasons by bothLists.newSeasons.collectAsState(emptyList())
+
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -57,16 +59,16 @@ private fun HomeScreenLayout(
             onNavigate(direction, 0)
         }
 
-        AnimeCategoryListTopHits(
+        AnimeListRowTopHits(
             categoryTitle = stringResource(id = R.string.topHitsAnime),
-            animeList = topHitsAnimeList)
+            animeList = topHits)
         { direction, id ->
             onNavigate(direction, id)
         }
 
-        AnimeCategoryListNewSeasons(
-            categoryTitle = stringResource(id = R.string.newSeasonsReleases),
-            animeList = newSeasonsAnimeList)
+        AnimeListRowNewSeasons(
+            categoryTitle = "New Seasons Releases",
+            animeList = newSeasons)
         { direction, id ->
             onNavigate(direction, id)
         }
@@ -82,31 +84,30 @@ fun FeaturedAnimeBanner(sharedViewModel: SharedViewModel, onSelect: (String) -> 
     }
 }
 
-
 @Composable
-fun AnimeCategoryListTopHits(
+fun AnimeListRowTopHits(
     categoryTitle: String,
     animeList: List<AnimeItemTopHits>,
     onSelect: (String, Int) -> Unit)
 {
-    CategoryTitle(categoryTitle){ direction ->
+    RowTitle(categoryTitle){ direction ->
         onSelect(direction, 0)
     }
-    CategoryItemsTopHits(animeList){ direction, id ->
+    RowItemsTopHits(animeList){ direction, id ->
         onSelect(direction, id)
     }
 }
 
 @Composable
-fun AnimeCategoryListNewSeasons(
+fun AnimeListRowNewSeasons(
     categoryTitle: String,
     animeList: List<AnimeItemNewSeasons>,
-    onSelect: (String, Int) -> Unit
-){
-    CategoryTitle(categoryTitle){ direction ->
+    onSelect: (String, Int) -> Unit)
+{
+    RowTitle(categoryTitle){ direction ->
         onSelect(direction, 0)
     }
-    CategoryItemsNewSeasons(animeList){ direction, id ->
+    RowItemsNewSeasons(animeList){ direction, id ->
         onSelect(direction, id)
     }
 }

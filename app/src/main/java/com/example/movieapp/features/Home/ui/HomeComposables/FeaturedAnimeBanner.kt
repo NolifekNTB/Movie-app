@@ -46,9 +46,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-private val MainPhotoHeight = 300.dp
-private const val AlphaValue = 0.85f
-private val DetailsPadding = 15.dp
+private val bannerImageHeight = 300.dp
 private val ButtonWidth = 100.dp
 private val ButtonHeight = 35.dp
 
@@ -57,9 +55,9 @@ fun BannerImage(){
     Image(
         painter = painterResource(id = R.drawable.home_demonslayer),
         contentDescription = "mainPhoto",
-        modifier = Modifier.height(MainPhotoHeight),
+        modifier = Modifier.height(bannerImageHeight),
         contentScale = ContentScale.Crop,
-        alpha = AlphaValue
+        alpha = 0.85f
     )
 }
 
@@ -71,16 +69,31 @@ fun SearchAndNotifications(onClick: (String) -> Unit) {
             .padding(top = 25.dp, end = 25.dp),
         horizontalAlignment = Alignment.End
     ) {
-        Row{
-            SearchIcon { onClick("Search") }
-            Spacer(Modifier.width(10.dp))
-            NotificationIcon(){ onClick("Notification") }
+        Row {
+            SearchAndNotificationsIcons { direction ->
+                onClick(direction)
+            }
         }
     }
 }
 
 @Composable
-fun SearchIcon(onClick: (String) -> Unit) {
+fun PlayAndMyList(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .height(bannerImageHeight)
+            .fillMaxWidth()
+            .padding(15.dp),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        PlayAndMyListElements(sharedViewModel){ direction ->
+            onClick(direction)
+        }
+    }
+}
+
+@Composable
+fun SearchAndNotificationsIcons(onClick: (String) -> Unit) {
     Icon(
         imageVector = Icons.Default.Search,
         contentDescription = "Search",
@@ -91,13 +104,9 @@ fun SearchIcon(onClick: (String) -> Unit) {
             },
         tint = Color.White
     )
-}
-
-@Composable
-fun NotificationIcon(onClick: (String) -> Unit) {
     Icon(
         imageVector = Icons.Outlined.Notifications,
-        contentDescription = "Search",
+        contentDescription = "Notification",
         modifier = Modifier
             .size(35.dp)
             .clickable {
@@ -107,24 +116,8 @@ fun NotificationIcon(onClick: (String) -> Unit) {
     )
 }
 
-
 @Composable
-fun PlayAndMyList(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
-    Column(
-        modifier = Modifier
-            .height(MainPhotoHeight)
-            .fillMaxWidth()
-            .padding(DetailsPadding),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        AnimeTitleText()
-        AnimeGenreText()
-        ActionButtonsRow(sharedViewModel, onClick)
-    }
-}
-
-@Composable
-fun AnimeTitleText() {
+fun PlayAndMyListElements(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
     Text(
         text = "Demon slayer: Kimetsu no Yaiba",
         modifier = Modifier
@@ -135,21 +128,14 @@ fun AnimeTitleText() {
         fontFamily = FontFamily.Default,
         overflow = TextOverflow.Ellipsis
     )
-}
-
-@Composable
-fun AnimeGenreText() {
     Text(
         text = "Action: Shounen, Martial Arts, Adventure",
         color = Color.White,
         fontWeight = FontWeight.W500,
         fontFamily = FontFamily.Default,
-        overflow = TextOverflow.Ellipsis)
-}
-
-@Composable
-fun ActionButtonsRow(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
-    Row(modifier = Modifier.padding(top = 10.dp)) {
+        overflow = TextOverflow.Ellipsis
+    )
+    Row (modifier = Modifier.padding(top = 10.dp)) {
         PlayButton(){onClick("webView")}
         Spacer(modifier = Modifier.width(10.dp))
         MyListButton(sharedViewModel)

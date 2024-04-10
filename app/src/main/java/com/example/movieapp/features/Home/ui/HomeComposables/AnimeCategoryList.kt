@@ -29,10 +29,8 @@ import coil.compose.AsyncImage
 import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 
-private const val AlphaValue = 0.85f
-
 @Composable
-fun CategoryTitle(name: String, onClick: (String) -> Unit) {
+fun RowTitle(name: String, onClick: (String) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth(),
@@ -47,36 +45,43 @@ fun CategoryTitle(name: String, onClick: (String) -> Unit) {
             fontWeight = FontWeight.SemiBold,
             textAlign = TextAlign.Left
         )
-            Text(
-                text = "See all",
-                modifier = Modifier
-                    .padding(end = 10.dp, top = 10.dp)
-                    .clickable {
-                        onClick(name)
-                    },
-                fontSize = 15.sp,
-                color = Color.Green)
-        }
+        Text(
+            text = "See all",
+            modifier = Modifier
+                .padding(end = 10.dp, top = 10.dp)
+                .clickable { onClick(name) },
+            fontSize = 15.sp,
+            color = Color.Green)
     }
+}
 
 @Composable
-fun CategoryItemsTopHits(animeList: List<AnimeItemTopHits>, onClick: (String, Int) -> Unit) {
-    LazyRow(){
-        if(animeList.isNotEmpty()){
+fun RowItemsTopHits(
+    animeList: List<AnimeItemTopHits>,
+    onClick: (String, Int) -> Unit
+) {
+    if(animeList.isNotEmpty()){
+        LazyRow(){
             items(10){ item ->
-                Box(
-                    modifier = Modifier
-                        .height(200.dp)
-                        .width(150.dp)
-                        .padding(10.dp)
-                        .clickable {
-                            onClick("details", animeList[item].id)
-                        }
-                ){
-                    rowListItemsImage(
-                        animeList[item],
-                        item,
-                        Modifier.align(Alignment.BottomStart))
+                RowItemsTopHitsElement(animeList[item]){ direction, animeId ->
+                    onClick("details", animeList[item].id)
+                }
+            }
+        }
+
+    }
+}
+
+@Composable
+fun RowItemsNewSeasons(
+    animeList: List<AnimeItemNewSeasons>,
+    onClick: (String, Int) -> Unit
+) {
+    if(animeList.isNotEmpty()){
+        LazyRow(){
+            items(6){ item ->
+                RowItemsNewSeasonsElement(animeList[item]){ direction, animeId ->
+                    onClick("details", animeList[item].id)
                 }
             }
         }
@@ -84,40 +89,58 @@ fun CategoryItemsTopHits(animeList: List<AnimeItemTopHits>, onClick: (String, In
 }
 
 @Composable
-fun CategoryItemsNewSeasons(animeList: List<AnimeItemNewSeasons>, onClick: (String, Int) -> Unit) {
-    LazyRow(){
-        if(animeList.isNotEmpty()){
-            items(10){ item ->
-                Box(
-                    modifier = Modifier
-                        .height(200.dp)
-                        .width(150.dp)
-                        .padding(10.dp)
-                        .clickable {
-                            onClick("details", animeList[item].id)
-                        }
-                ){
-                    rowListItemsImageNewSeasons(
-                        animeList[item],
-                        item,
-                        Modifier.align(Alignment.BottomStart))
-                }
+fun RowItemsTopHitsElement(
+    animeList: AnimeItemTopHits,
+    onClick: (String, Int) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .height(200.dp)
+            .width(150.dp)
+            .padding(10.dp)
+            .clickable {
+                onClick("details", animeList.id)
             }
-        }
+    ){
+        ElementImage(animeList.image)
+        ElementCard(animeList.rating)
     }
 }
 
 @Composable
-fun rowListItemsImage(itemAnime: AnimeItemTopHits, index: Int, modifier: Modifier){
+fun RowItemsNewSeasonsElement(
+    animeList: AnimeItemNewSeasons,
+    onClick: (String, Int) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .height(200.dp)
+            .width(150.dp)
+            .padding(10.dp)
+            .clickable {
+                onClick("details", animeList.id)
+            }
+    ){
+        ElementImage(animeList.image)
+        ElementCard(animeList.rating)
+    }
+}
+
+@Composable
+fun ElementImage(image: String) {
     Card(){
         AsyncImage(
-            model = itemAnime.image,
+            model = image,
             contentDescription = "image",
-            alpha = AlphaValue,
+            alpha = 0.85f,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
     }
+}
+
+@Composable
+fun ElementCard(rating: Double) {
     Card(
         modifier = Modifier
             .padding(top = 10.dp, start = 10.dp)
@@ -133,80 +156,10 @@ fun rowListItemsImage(itemAnime: AnimeItemTopHits, index: Int, modifier: Modifie
             contentAlignment = Alignment.Center
         ){
             Text(
-                text = "${itemAnime.rating}",
+                text = rating.toString(),
                 textAlign = TextAlign.Center,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold)
         }
     }
-    Text(
-        text = index.toString(),
-        modifier = modifier
-            .padding(bottom = 10.dp, start = 10.dp),
-        textAlign = TextAlign.Left,
-        fontSize = 33.sp,
-        color = Color.White)
 }
-
-@Composable
-fun rowListItemsImageNewSeasons(itemAnime: AnimeItemNewSeasons, index: Int, modifier: Modifier){
-    Card(){
-        AsyncImage(
-            model = itemAnime.image,
-            contentDescription = "image",
-            alpha = AlphaValue,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxSize()
-        )
-    }
-    Card(
-        modifier = Modifier
-            .padding(top = 10.dp, start = 10.dp)
-            .size(30.dp, 20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Green,
-            contentColor = Color.White
-        ),
-        shape = RoundedCornerShape(corner = CornerSize(5.dp))
-    ){
-        Box(
-            Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ){
-            Text(
-                text = "${itemAnime.rating}",
-                textAlign = TextAlign.Center,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold)
-        }
-    }
-    Text(
-        text = index.toString(),
-        modifier = modifier
-            .padding(bottom = 10.dp, start = 10.dp),
-        textAlign = TextAlign.Left,
-        fontSize = 33.sp,
-        color = Color.White)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

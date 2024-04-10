@@ -78,6 +78,21 @@ class MainViewModel @Inject constructor(
         return animeItemList
     }
 
+    data class topHitsAndNewSeasons(
+        val topHits: Flow<List<AnimeItemTopHits>>,
+        val newSeasons: Flow<List<AnimeItemNewSeasons>>
+    )
+
+    fun getLists(): topHitsAndNewSeasons {
+        val list1 = getListTopHits()
+        val list2 = getListNewSeasons()
+
+        return topHitsAndNewSeasons(
+            topHits = list1,
+            newSeasons = list2
+
+        )
+    }
 
     fun getListTopHits(): Flow<List<AnimeItemTopHits>> {
         return repoTopHits.getAllAnime()
