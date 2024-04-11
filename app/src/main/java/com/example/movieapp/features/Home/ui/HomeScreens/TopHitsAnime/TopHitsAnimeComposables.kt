@@ -44,128 +44,135 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun TopHitsAnimeListImage(item: AnimeItemTopHits, modifier: Modifier) {
+fun TopHitsListImage(item: AnimeItemTopHits, modifier: Modifier) {
     Box(
         modifier = modifier
             .height(200.dp)
             .padding(10.dp)
     ) {
-        Card() {
-            AsyncImage(
-                model = item.image ,
-                contentDescription = "itemPhoto",
-                alpha = 0.85f,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize())
-        }
-        Card(
+        ListImagePhoto(item.image)
+        ListImageRating(item.rating)
+    }
+}
+
+@Composable
+fun ListImagePhoto(image: String) {
+    Card() {
+        AsyncImage(
+            model = image,
+            contentDescription = "itemPhoto",
+            alpha = 0.85f,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
-                .padding(top = 10.dp, start = 10.dp)
-                .size(30.dp, 20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.Green,
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(corner = CornerSize(5.dp))
-        ) {
-            Box(
-                Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    "${item.rating}",
-                    textAlign = TextAlign.Center,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
-        }
-        Text(
-            text = "${item.id}",
-            modifier = Modifier
-                .align(Alignment.BottomStart)
-                .padding(bottom = 10.dp, start = 10.dp),
-            textAlign = TextAlign.Left,
-            fontSize = 33.sp,
-            color = Color.White
+                .fillMaxSize()
         )
     }
 }
 
 @Composable
-fun TopHitsAnimeListDetails(item: AnimeItemTopHits, modifier: Modifier, sharedViewModel: SharedViewModel) {
-    Column(
-        modifier = modifier.padding(start = 15.dp, end = 25.dp)
+fun ListImageRating(rating: Double) {
+    Card(
+        modifier = Modifier
+            .padding(top = 10.dp, start = 10.dp)
+            .size(30.dp, 20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Green,
+            contentColor = Color.White
+        ),
+        shape = RoundedCornerShape(corner = CornerSize(5.dp))
     ) {
-        Text(
-            text = item.name,
-            modifier = Modifier
-                .width(200.dp),
-            overflow = TextOverflow.Ellipsis,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.SemiBold
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(text = if(item.year > 0) "${item.year} | Japan" else "Japan")
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Genre: ${item.genres.joinToString { it.name }}",
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 2
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-
-
-        //MyList add start ->
-        val currentItem = AnimeItemMyList(
-            id = 0, name = item.name, image = item.image, rating = item.rating
-        )
-        var isCheck by remember { mutableStateOf(false) }
-        var itemToDelete = AnimeItemMyList(0, "", "", 0.0)
-
-        LaunchedEffect(currentItem) {
-            isCheck = sharedViewModel.searchAllAnime(item.name).isNotEmpty()
-        }
-
-        FilledTonalButton(
-            onClick = {
-                if (!isCheck) {
-                    sharedViewModel.insertAnimeItem(currentItem)
-                } else {
-                    CoroutineScope(Dispatchers.IO).launch {
-                        itemToDelete = sharedViewModel.searchAllAnime(item.name).first()
-                        sharedViewModel.deleteAnimeItem(itemToDelete)
-                    }
-                }
-                isCheck = !isCheck
-                      },
-            modifier = Modifier
-                .size(125.dp, 40.dp),
-            border = BorderStroke(if(!isCheck) 2.dp else 2.dp, Color.Green),
-            colors = ButtonDefaults.outlinedButtonColors(
-                containerColor = if(!isCheck) Color.Green else Color.Transparent,
-                contentColor = if(!isCheck) Color.White else Color.Green
-            ),
-            contentPadding = PaddingValues(5.dp)
+        Box(
+            Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = "")
             Text(
-                text = "My List",
-                modifier = Modifier
-                    .padding(start = 3.dp),
-                fontSize = 15.sp)
+                rating.toString(),
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }
 
+@Composable
+fun TopHitsListDetails(
+    item: AnimeItemTopHits,
+    sharedViewModel: SharedViewModel,
+    modifier: Modifier
+) {
+    Column(
+        modifier = modifier.padding(start = 15.dp, end = 25.dp)
+    ) {
+        ListDetailsTexts(item)
+        ListDetailsButton(item, sharedViewModel)
+    }
+}
 
+@Composable
+fun ListDetailsTexts(item: AnimeItemTopHits) {
+    Text(
+        text = item.name,
+        modifier = Modifier
+            .width(200.dp),
+        overflow = TextOverflow.Ellipsis,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.SemiBold
+    )
+    Spacer(modifier = Modifier.height(8.dp))
+    Text(text = if(item.year > 0) "${item.year} | Japan" else "Japan")
+    Spacer(modifier = Modifier.height(8.dp))
+    Text(
+        text = "Genre: ${item.genres.joinToString { it.name }}",
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 2
+    )
+    Spacer(modifier = Modifier.height(15.dp))
+}
 
+@Composable
+fun ListDetailsButton(item: AnimeItemTopHits, sharedViewModel: SharedViewModel) {
+    val currentItem = AnimeItemMyList(
+        id = 0, name = item.name, image = item.image, rating = item.rating
+    )
+    var isCheck by remember { mutableStateOf(false) }
+    var itemToDelete = AnimeItemMyList(0, "", "", 0.0)
 
+    LaunchedEffect(currentItem) {
+        isCheck = sharedViewModel.searchAllAnime(item.name).isNotEmpty()
+    }
 
-
+    FilledTonalButton(
+        onClick = {
+            if (!isCheck) {
+                sharedViewModel.insertAnimeItem(currentItem)
+            } else {
+                CoroutineScope(Dispatchers.IO).launch {
+                    itemToDelete = sharedViewModel.searchAllAnime(item.name).first()
+                    sharedViewModel.deleteAnimeItem(itemToDelete)
+                }
+            }
+            isCheck = !isCheck
+        },
+        modifier = Modifier
+            .size(125.dp, 40.dp),
+        border = BorderStroke(if(!isCheck) 2.dp else 2.dp, Color.Green),
+        colors = ButtonDefaults.outlinedButtonColors(
+            containerColor = if(!isCheck) Color.Green else Color.Transparent,
+            contentColor = if(!isCheck) Color.White else Color.Green
+        ),
+        contentPadding = PaddingValues(5.dp)
+    ) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "")
+        Text(
+            text = "My List",
+            modifier = Modifier
+                .padding(start = 3.dp),
+            fontSize = 15.sp)
+    }
+}
 
 
 

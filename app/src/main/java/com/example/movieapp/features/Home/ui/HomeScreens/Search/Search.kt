@@ -35,7 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.features.Home.domain.SearchViewModel
-import com.example.movieapp.features.Home.ui.HomeComposables.ListEpisodeReleases
+import com.example.movieapp.features.Home.ui.HomeScreens.ListEpisodeReleases
 import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

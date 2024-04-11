@@ -35,8 +35,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun TopHitsAnime(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
-    val animeList by mainViewModel.getListTopHits().collectAsState(emptyList())
+fun TopHitsAnime(
+    mainViewModel: MainViewModel,
+    sharedViewModel: SharedViewModel,
+    onNavigate: (String) -> Unit
+) {
+    val animeList = mainViewModel.getListTopHits().collectAsState(emptyList())
     val searchResults = remember { mutableStateOf<List<AnimeItemTopHits>>(emptyList()) }
     var searchBarVisible by remember { mutableStateOf(false) }
 
@@ -45,48 +49,34 @@ fun TopHitsAnime(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel,
             .fillMaxSize()
             .background(Color.White)
     ){
-        TopBar("Top Hits Anime"){what ->
-            onClick(what)
-            if(what == "Icon") searchBarVisible = !searchBarVisible
+        TopBar("Top Hits Anime"){ action ->
+            if(action == "Icon") searchBarVisible = !searchBarVisible
+            onNavigate(action)
         }
         if(searchBarVisible){
-            searchTopHitsBar(searchResults, mainViewModel)
-        }
-        if(animeList.isNotEmpty() && !searchBarVisible) {
-            TopHitsAnimeList(animeList, sharedViewModel)
-        } else if(searchResults.value.isNotEmpty() && searchBarVisible){
-            TopHitsAnimeList(searchResults.value, sharedViewModel)
+            TopHistSearchBar(searchResults, mainViewModel)
+            TopHitsList(searchResults.value, sharedViewModel = sharedViewModel)
+        } else {
+            TopHitsList(animeList.value, sharedViewModel)
         }
     }
 }
 
 @Composable
-fun TopHitsAnimeList(animeList: List<AnimeItemTopHits>, sharedViewModel: SharedViewModel) {
-    LazyColumn(){
-        items(animeList.size){ item ->
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Start
-            ) {
-                TopHitsAnimeListImage(animeList[item], Modifier.weight(0.5f))
-                TopHitsAnimeListDetails(animeList[item], Modifier.weight(1f), sharedViewModel)
-            }
-        }
-    }
-}
-
-@Composable
-fun searchTopHitsBar(searchResults: MutableState<List<AnimeItemTopHits>>, viewModel: MainViewModel){
-    val text = remember { mutableStateOf("")}
+fun TopHistSearchBar(
+    searchResults: MutableState<List<AnimeItemTopHits>>,
+    viewModel: MainViewModel
+){
+    val searchText = remember { mutableStateOf("")}
     val isFocused = remember { mutableStateOf(false)}
 
     OutlinedTextField(
-        value = text.value,
+        value = searchText.value,
         onValueChange = {
-            text.value = it;
+            searchText.value = it;
             isFocused.value = true;
             CoroutineScope(Dispatchers.Main).launch {
-                searchResults.value = viewModel.searchAllAnime(text.value)}
+                searchResults.value = viewModel.searchAllAnime(searchText.value)}
         },
         modifier = Modifier
             .fillMaxWidth()
@@ -110,22 +100,20 @@ fun searchTopHitsBar(searchResults: MutableState<List<AnimeItemTopHits>>, viewMo
     )
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@Composable
+fun TopHitsList(
+    animeList: List<AnimeItemTopHits>,
+    sharedViewModel: SharedViewModel
+) {
+    LazyColumn(){
+        items(animeList.size){ item ->
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start
+            ) {
+                TopHitsListImage(animeList[item], Modifier.weight(0.5f))
+                TopHitsListDetails(animeList[item], sharedViewModel, Modifier.weight(1f))
+            }
+        }
+    }
+}
