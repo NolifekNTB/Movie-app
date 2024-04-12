@@ -29,23 +29,6 @@ import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 
 @Composable
-fun choseFilter(name: String) {
-    OutlinedButton(
-        onClick = {},
-        modifier = Modifier.padding(3 .dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color.Green
-        ),
-        border = BorderStroke(2.dp, Color.Green)
-    ) {
-        Text(
-            text = name,
-            color = Color.White
-        )
-    }
-}
-
-@Composable
 fun SearchScreenDefault() {
     Column(
         modifier = Modifier.height(70.dp),

@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.data
+package com.example.movieapp.features.Home.data.repositories
 
 import android.content.Context
 import com.example.movieapp.core.database.AnimeDatabase

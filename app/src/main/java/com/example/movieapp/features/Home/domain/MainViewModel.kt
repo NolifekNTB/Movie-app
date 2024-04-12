@@ -7,8 +7,9 @@ import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.core.network.RetrofitInstance
 import com.example.movieapp.core.network.models.AnimeData
-import com.example.movieapp.features.Home.data.AnimeRepository
-import com.example.movieapp.features.Home.data.AnimeRepositoryNewSeasons
+import com.example.movieapp.features.Home.data.repositories.AnimeRepository
+import com.example.movieapp.features.Home.data.repositories.AnimeRepositoryNewSeasons
+import com.example.movieapp.features.Home.data.model.topHitsAndNewSeasons
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -64,7 +65,6 @@ class MainViewModel @Inject constructor(
         }
         return animeItemList
     }
-
     private fun mapRetrofitToRoomNewSeasons(animeData: AnimeData): List<AnimeItemNewSeasons> {
         val animeItemList = mutableListOf<AnimeItemNewSeasons>()
         animeData.data.forEach { data ->
@@ -78,10 +78,6 @@ class MainViewModel @Inject constructor(
         return animeItemList
     }
 
-    data class topHitsAndNewSeasons(
-        val topHits: Flow<List<AnimeItemTopHits>>,
-        val newSeasons: Flow<List<AnimeItemNewSeasons>>
-    )
 
     fun getLists(): topHitsAndNewSeasons {
         val list1 = getListTopHits()
@@ -90,18 +86,14 @@ class MainViewModel @Inject constructor(
         return topHitsAndNewSeasons(
             topHits = list1,
             newSeasons = list2
-
         )
     }
 
     fun getListTopHits(): Flow<List<AnimeItemTopHits>> {
         return repoTopHits.getAllAnime()
     }
-
-    private fun deleteTopHits() {
-        CoroutineScope(viewModelScope.coroutineContext).launch{
-            repoTopHits.deleteALlAnime()
-        }
+    fun getListNewSeasons(): Flow<List<AnimeItemNewSeasons>> {
+        return repoNewSeasons.getAllAnime()
     }
 
     private fun insertTopHits(animeList: List<AnimeItemTopHits>) {
@@ -111,17 +103,6 @@ class MainViewModel @Inject constructor(
             )
         }
     }
-
-    fun getListNewSeasons(): Flow<List<AnimeItemNewSeasons>> {
-        return repoNewSeasons.getAllAnime()
-    }
-
-    private fun deleteNewSeasons(){
-        CoroutineScope(viewModelScope.coroutineContext).launch{
-            repoNewSeasons.deleteALlAnime()
-        }
-    }
-
     private fun insertNewSeasons(animeList: List<AnimeItemNewSeasons>) {
         CoroutineScope(viewModelScope.coroutineContext).launch{
             repoNewSeasons.insertAllAnime(
@@ -131,19 +112,6 @@ class MainViewModel @Inject constructor(
     }
 
     suspend fun searchAllAnime(query: String): List<AnimeItemTopHits> {
-
         return repoTopHits.searchAnimeByName(query)
     }
-
 }
-
-
-
-
-
-
-
-
-
-
-

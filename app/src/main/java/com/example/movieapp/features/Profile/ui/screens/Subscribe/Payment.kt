@@ -1,5 +1,6 @@
 package com.example.movieapp.features.Profile.ui.screens.Subscribe
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,49 +35,49 @@ import com.example.movieapp.features.Profile.domain.ProfileViewModel
 import com.example.movieapp.shared.TopBar
 
 @Composable
-    fun payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
-    val cardNumber = viewModel.cardValue.collectAsState().value
-
+fun Payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
         TopBar(name = "Payment") { onClick("back") }
-        Column(
-            modifier = Modifier.padding(20.dp, 0.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(text = "Select the payment mehtod you want to use.")
-            Spacer(modifier = Modifier.height(15.dp))
-            paymentMethods("PayPal", viewModel)
-            paymentMethods("GooglePay", viewModel)
-            paymentMethods("ApplePay", viewModel)
-            if(cardNumber.length >= 1){
-                paymentMethods(cardNumber, viewModel)
-            }
-            addNewCard(){where ->
-                onClick(where)
-            }
+        PaymentMethods(viewModel) {where ->
+            onClick(where)
         }
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(20.dp, 20.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Bottom
-        ) {
-            Continue(){where ->
-                onClick(where)
-            }
+        ContinueButton(){where ->
+            onClick(where)
         }
     }
 }
 
 @Composable
-fun paymentMethods(name: String, viewModel: ProfileViewModel) {
+fun PaymentMethods(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
+    val cardNumber = viewModel.cardValue.collectAsState().value
 
+    Column(
+        modifier = Modifier.padding(20.dp, 0.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "Select the payment mehtod you want to use.")
+        Spacer(modifier = Modifier.height(15.dp))
+
+        PaymentMethodsElement("PayPal", viewModel)
+        PaymentMethodsElement("GooglePay", viewModel)
+        PaymentMethodsElement("ApplePay", viewModel)
+
+        if(cardNumber.isNotEmpty()){
+            PaymentMethodsElement(cardNumber, viewModel)
+        }
+        AddNewCard(){ where ->
+            onClick(where)
+        }
+    }
+}
+
+@Composable
+fun PaymentMethodsElement(name: String, viewModel: ProfileViewModel) {
     var icon = 0
     when(name){
         "PayPal" -> icon = R.drawable.payment_paypal
@@ -97,7 +98,7 @@ fun paymentMethods(name: String, viewModel: ProfileViewModel) {
             containerColor = Color.LightGray
         ),
         shape = RoundedCornerShape(25.dp)
-        ){
+    ){
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -110,17 +111,7 @@ fun paymentMethods(name: String, viewModel: ProfileViewModel) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically){
-                    Image(
-                        painter = painterResource(id = icon),
-                        contentDescription = "",
-                        modifier = Modifier.size(50.dp))
-                    Text(
-                        text = name,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(start = 10.dp))
-                }
+                ImageWithText(icon, name)
                 CircleButton(name, viewModel)
             }
         }
@@ -128,8 +119,43 @@ fun paymentMethods(name: String, viewModel: ProfileViewModel) {
 }
 
 @Composable
-fun addNewCard(onClick: (String) -> Unit){
+fun ImageWithText(icon: Int, name: String) {
+    Row(verticalAlignment = Alignment.CenterVertically){
+        Image(
+            painter = painterResource(id = icon),
+            contentDescription = "",
+            modifier = Modifier.size(50.dp))
+        Text(
+            text = name,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(start = 10.dp))
+    }
+}
+
+
+@Composable
+fun CircleButton(name: String, viewModel: ProfileViewModel){
+    val clicked = viewModel.clickedDay.collectAsState().value
+
+    Card(
+        shape = RoundedCornerShape(15.dp),
+        modifier = Modifier
+            .size(20.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if(clicked == name) Color.Green else Color.White
+        ),
+        border = BorderStroke(2.dp, Color.Green)
+    ){
+        Text(text = "", color = Color.White, modifier = Modifier.padding(1.dp))
+    }
+}
+
+
+@Composable
+fun AddNewCard(onClick: (String) -> Unit){
     Spacer(modifier = Modifier.height(20.dp))
+
     FilledTonalButton(
         onClick = { onClick("addNewCard") },
         colors = ButtonDefaults.buttonColors(
@@ -142,6 +168,21 @@ fun addNewCard(onClick: (String) -> Unit){
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(text = "Add new card")
+        }
+    }
+}
+
+@Composable
+fun ContinueButton(onClick: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(20.dp, 20.dp),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        Continue(){where ->
+            onClick(where)
         }
     }
 }

@@ -78,21 +78,6 @@ fun SearchAndNotifications(onClick: (String) -> Unit) {
 }
 
 @Composable
-fun PlayAndMyList(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
-    Column(
-        modifier = Modifier
-            .height(bannerImageHeight)
-            .fillMaxWidth()
-            .padding(15.dp),
-        verticalArrangement = Arrangement.Bottom
-    ) {
-        PlayAndMyListElements(sharedViewModel){ direction ->
-            onClick(direction)
-        }
-    }
-}
-
-@Composable
 fun SearchAndNotificationsIcons(onClick: (String) -> Unit) {
     Icon(
         imageVector = Icons.Default.Search,
@@ -114,6 +99,21 @@ fun SearchAndNotificationsIcons(onClick: (String) -> Unit) {
             },
         tint = Color.White
     )
+}
+
+@Composable
+fun PlayAndMyList(sharedViewModel: SharedViewModel, onClick: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .height(bannerImageHeight)
+            .fillMaxWidth()
+            .padding(15.dp),
+        verticalArrangement = Arrangement.Bottom
+    ) {
+        PlayAndMyListElements(sharedViewModel){ direction ->
+            onClick(direction)
+        }
+    }
 }
 
 @Composable

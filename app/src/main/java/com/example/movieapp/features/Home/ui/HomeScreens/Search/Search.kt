@@ -1,6 +1,7 @@
 package com.example.movieapp.features.Home.ui.HomeScreens.Search
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,11 +17,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
@@ -41,12 +45,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
 @HiltViewModelMap
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun Search(viewModel: SearchViewModel, onClick: () -> Unit) {
-    val text = remember { mutableStateOf("")}
+fun Search(viewModel: SearchViewModel, onNavigate: () -> Unit) {
     val isFocused = remember { mutableStateOf(false)}
     val searchResults = remember { mutableStateOf<List<AnimeItemTopHits>>(emptyList()) }
 
@@ -55,18 +57,30 @@ fun Search(viewModel: SearchViewModel, onClick: () -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(end = 20.dp, start = 10.dp, top = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            searchBar(text, isFocused, viewModel, searchResults, Modifier.weight(1f))
-            filterButton(onClick, viewModel)
-        }
-        displayChoseFilters(viewModel = viewModel)
+        SearchBarWithFilters(viewModel, searchResults, isFocused){ onNavigate() }
+        displayChoseFilters(viewModel)
         logicBetweenSearchScreens(searchResults, isFocused)
+    }
+}
+
+@Composable
+fun SearchBarWithFilters(
+    viewModel: SearchViewModel,
+    searchResults: MutableState<List<AnimeItemTopHits>>,
+    isFocused: MutableState<Boolean>,
+    onClick: () -> Unit = {}
+) {
+    val text = remember { mutableStateOf("")}
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(end = 20.dp, start = 10.dp, top = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        searchBar(text, isFocused, viewModel, searchResults, Modifier.weight(1f))
+        filterButton(onClick, viewModel)
     }
 }
 
@@ -153,7 +167,27 @@ fun displayChoseFilters(viewModel: SearchViewModel) {
 }
 
 @Composable
-fun logicBetweenSearchScreens(searchResults: MutableState<List<AnimeItemTopHits>>, isFocused: MutableState<Boolean>) {
+fun choseFilter(name: String) {
+    OutlinedButton(
+        onClick = {},
+        modifier = Modifier.padding(3 .dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Green
+        ),
+        border = BorderStroke(2.dp, Color.Green)
+    ) {
+        Text(
+            text = name,
+            color = Color.White
+        )
+    }
+}
+
+@Composable
+fun logicBetweenSearchScreens(
+    searchResults: MutableState<List<AnimeItemTopHits>>,
+    isFocused: MutableState<Boolean>
+) {
     if (searchResults.value.isNotEmpty()) {
         ListEpisodeReleases(searchResults.value)
     } else if (searchResults.value.isEmpty() && isFocused.value) {
@@ -165,14 +199,3 @@ fun logicBetweenSearchScreens(searchResults: MutableState<List<AnimeItemTopHits>
         SearchScreenDefault()
     }
 }
-
-
-
-
-
-
-
-
-
-
-

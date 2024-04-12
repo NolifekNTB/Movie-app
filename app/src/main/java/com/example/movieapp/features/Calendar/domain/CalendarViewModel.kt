@@ -1,13 +1,10 @@
 package com.example.movieapp.features.Calendar.domain
 
-import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.core.network.RetrofitInstance
 import com.example.movieapp.features.Calendar.data.Day
-import com.example.movieapp.features.Home.data.AnimeRepository
+import com.example.movieapp.features.Home.data.repositories.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,10 +12,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.format.TextStyle
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel

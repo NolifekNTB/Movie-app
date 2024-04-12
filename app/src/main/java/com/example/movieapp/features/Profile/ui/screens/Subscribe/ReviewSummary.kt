@@ -40,13 +40,9 @@ import com.example.movieapp.features.Profile.domain.ProfileViewModel
 import com.example.movieapp.shared.TopBar
 
 @Composable
-fun reviewSummary(viewModel: ProfileViewModel, onClick: () -> Unit) {
+fun ReviewSummary(viewModel: ProfileViewModel, onClick: () -> Unit) {
     val openDialog = remember {
         mutableStateOf(false)
-    }
-
-    if(openDialog.value){
-        AlertDialogExample(openDialog)
     }
 
     Column(
@@ -59,16 +55,20 @@ fun reviewSummary(viewModel: ProfileViewModel, onClick: () -> Unit) {
         TopBar(name = "ReviewSummary"){
             onClick()
         }
-        premiumBox(monthOrYearly = "monthly"){_ -> }
-        review()
-        card(viewModel)
-        confirmButton(openDialog)
+        PremiumBox(monthOrYearly = "monthly"){ _ -> }
+        Summary()
+        CreditCard(viewModel)
+        ConfirmButton(openDialog)
         Spacer(modifier = Modifier.height(20.dp))
+    }
+
+    if(openDialog.value){
+        AlertDialogExample(openDialog)
     }
 }
 
 @Composable
-fun review() {
+fun Summary() {
     Card(
         colors = CardDefaults.cardColors(
             containerColor = Color.White
@@ -82,16 +82,16 @@ fun review() {
         Column(Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
-            oneRow(name = "Amount", price = "$9.99")
-            oneRow(name = "Tax", price = "$1.99")
+            SummaryField(name = "Amount", price = "$9.99")
+            SummaryField(name = "Tax", price = "$1.99")
             Divider(thickness = 1.dp, color = Color.LightGray, modifier = Modifier.padding(10.dp, 0.dp))
-            oneRow(name = "Total", price = "$11.99")
+            SummaryField(name = "Total", price = "$11.99")
         }
     }
 }
 
 @Composable
-fun oneRow(name: String, price: String){
+fun SummaryField(name: String, price: String){
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,7 +104,7 @@ fun oneRow(name: String, price: String){
 }
 
 @Composable
-fun card(viewModel: ProfileViewModel) {
+fun CreditCard(viewModel: ProfileViewModel) {
     val cardNumber = viewModel.cardValue.collectAsState().value
 
     Card(
@@ -130,17 +130,7 @@ fun card(viewModel: ProfileViewModel) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically){
-                    Image(
-                        painter = painterResource(id = R.drawable.payment_mastercard),
-                        contentDescription = "",
-                        modifier = Modifier.size(50.dp))
-                    Text(
-                        text = cardNumber,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(start = 10.dp))
-                }
+                CreditCardImageWithNumber(cardNumber)
                 TextButton(onClick = { /*TODO*/ }) {
                     Text(text = "Change", color = Color.Green)
                 }
@@ -150,7 +140,22 @@ fun card(viewModel: ProfileViewModel) {
 }
 
 @Composable
-fun confirmButton(openDialog: MutableState<Boolean>) {
+fun CreditCardImageWithNumber(cardNumber: String) {
+    Row(verticalAlignment = Alignment.CenterVertically){
+        Image(
+            painter = painterResource(id = R.drawable.payment_mastercard),
+            contentDescription = "",
+            modifier = Modifier.size(50.dp))
+        Text(
+            text = cardNumber,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(start = 10.dp))
+    }
+}
+
+@Composable
+fun ConfirmButton(openDialog: MutableState<Boolean>) {
     FilledTonalButton(
         onClick = { openDialog.value = true },
         colors = ButtonDefaults.buttonColors(
@@ -203,7 +208,6 @@ fun AlertDialogExample(openDialog: MutableState<Boolean>) {
             }
         },
         dismissButton = {
-
         }
     )
 }

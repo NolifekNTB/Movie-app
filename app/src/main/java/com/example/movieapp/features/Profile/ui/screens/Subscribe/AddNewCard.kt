@@ -44,38 +44,28 @@ import com.example.movieapp.shared.TopBar
 
 
 @Composable
-fun addNewCard(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
-    Column(modifier = Modifier.background(Color.White)){
+fun AddNewCard(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ){
         TopBar(name = "AddNewCard") {
             onClick("back")
         }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)
-                .padding(20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Top
-        ) {
-            BankCard()
-            Divider()
-            Field("Card Name", Modifier.fillMaxWidth(), viewModel)
-            Field("Card Number", Modifier.fillMaxWidth(), viewModel)
-            Row {
-                Field("Expiry Date", Modifier.weight(0.5f), viewModel)
-                Spacer(modifier = Modifier.width(15.dp))
-                Field("CVV", Modifier.weight(0.5f), viewModel)
-            }
-            AddNewCard(){where ->
-                onClick(where)
-            }
+        CardImage()
+        Divider()
+        CardInfoFields(viewModel)
+        AddButton(){ where ->
+            onClick(where)
         }
     }
-
 }
 
 @Composable
-fun BankCard(){
+fun CardImage(){
     Card(
         modifier = Modifier
             .size(350.dp, 200.dp)
@@ -87,6 +77,24 @@ fun BankCard(){
             contentDescription = "cardImage",
             contentScale = ContentScale.Crop
         )
+    }
+}
+
+@Composable
+fun CardInfoFields(viewModel: ProfileViewModel) {
+    Column(
+        modifier = Modifier
+            .background(Color.White)
+            .padding(20.dp),
+    ) {
+        Field("Card Name", Modifier.fillMaxWidth(), viewModel)
+        Field("Card Number", Modifier.fillMaxWidth(), viewModel)
+        Row {
+            Field("Expiry Date", Modifier.weight(0.5f), viewModel)
+            Spacer(modifier = Modifier.width(15.dp))
+            Field("CVV", Modifier.weight(0.5f), viewModel)
+        }
+
     }
 }
 
@@ -153,10 +161,11 @@ fun Field(name: String, modifier: Modifier, viewModel: ProfileViewModel){
 }
 
 @Composable
-fun AddNewCard(onClick: (String) -> Unit){
+fun AddButton(onClick: (String) -> Unit){
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom
+        modifier = Modifier.fillMaxSize().padding(bottom = 15.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         FilledTonalButton(
             onClick = { onClick("add") },
@@ -174,28 +183,3 @@ fun AddNewCard(onClick: (String) -> Unit){
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

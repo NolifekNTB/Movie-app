@@ -1,8 +1,8 @@
 package com.example.movieapp.core.di
 
 import android.app.Application
-import com.example.movieapp.features.Home.data.AnimeRepository
-import com.example.movieapp.features.Home.data.AnimeRepositoryNewSeasons
+import com.example.movieapp.features.Home.data.repositories.AnimeRepository
+import com.example.movieapp.features.Home.data.repositories.AnimeRepositoryNewSeasons
 import com.example.movieapp.features.MyList.data.AnimeRepositoryMyList
 import dagger.Module
 import dagger.Provides

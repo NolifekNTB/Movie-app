@@ -12,10 +12,10 @@ import androidx.navigation.compose.navigation
 import com.example.movieapp.features.Profile.domain.ProfileViewModel
 import com.example.movieapp.features.Profile.ui.Profile
 import com.example.movieapp.features.Profile.ui.screens.Settings.settings
-import com.example.movieapp.features.Profile.ui.screens.Subscribe.addNewCard
-import com.example.movieapp.features.Profile.ui.screens.Subscribe.payment
-import com.example.movieapp.features.Profile.ui.screens.Subscribe.reviewSummary
-import com.example.movieapp.features.Profile.ui.screens.Subscribe.subscribe
+import com.example.movieapp.features.Profile.ui.screens.Subscribe.AddNewCard
+import com.example.movieapp.features.Profile.ui.screens.Subscribe.Payment
+import com.example.movieapp.features.Profile.ui.screens.Subscribe.ReviewSummary
+import com.example.movieapp.features.Profile.ui.screens.Subscribe.Subscribe
 
 fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
     navigation(
@@ -33,7 +33,7 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
         }
 
         composable(route = ProfileScreen.Subscribe.route){
-            subscribe(){where ->
+            Subscribe(){ where ->
                 when(where){
                     "back" -> navController.popBackStack()
                     "next" -> navController.navigate("payment")
@@ -49,7 +49,7 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
         composable(route = "payment"){ entry ->
             val viewModel = entry.sharedViewModel<ProfileViewModel>(navController)
 
-            payment(viewModel){ where ->
+            Payment(viewModel){ where ->
                 when(where){
                     "addNewCard" -> navController.navigate("addNewCard")
                     "continue" -> navController.navigate("reviewSummary")
@@ -61,7 +61,7 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
         composable(route = "addNewCard"){ entry ->
             val viewModel = entry.sharedViewModel<ProfileViewModel>(navController)
 
-            addNewCard(viewModel){ where ->
+            AddNewCard(viewModel){ where ->
                 when(where){
                     "back" -> navController.popBackStack()
                     "add" -> navController.navigate("payment")
@@ -72,7 +72,7 @@ fun NavGraphBuilder.profileNavGraph(navController: NavHostController){
         composable(route = "reviewSummary"){ entry ->
             val viewModel = entry.sharedViewModel<ProfileViewModel>(navController)
 
-            reviewSummary(viewModel){
+            ReviewSummary(viewModel){
                 navController.popBackStack()
             }
         }

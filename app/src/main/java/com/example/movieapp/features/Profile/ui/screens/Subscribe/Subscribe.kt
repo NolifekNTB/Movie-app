@@ -35,7 +35,7 @@ import com.example.movieapp.R
 import com.example.movieapp.shared.TopBar
 
 @Composable
-fun subscribe(onClick: (String) -> Unit) {
+fun Subscribe(onClick: (String) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,19 +46,19 @@ fun subscribe(onClick: (String) -> Unit) {
         TopBar(name = "") {
             onClick("back")
         }
-        title()
-        premiumBox("monthly"){where ->
+        MainTitle()
+        PremiumBox("monthly"){ where ->
             onClick(where)
         }
         Spacer(modifier = Modifier.height(15.dp))
-        premiumBox("yearly"){where ->
+        PremiumBox("yearly"){ where ->
             onClick(where)
         }
     }
 }
 
 @Composable
-fun title(){
+fun MainTitle(){
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -84,10 +84,7 @@ fun title(){
 }
 
 @Composable
-fun premiumBox(monthOrYearly: String, onClick: (String) -> Unit){
-    val price = if (monthOrYearly == "monthly") "$9.99" else "$99.99"
-    val monthYear = if (monthOrYearly == "monthly") "/Monthly" else "/Yearly"
-
+fun PremiumBox(monthOrYearly: String, onClick: (String) -> Unit){
     Card(
         modifier = Modifier
             .size(350.dp, 300.dp)
@@ -101,42 +98,59 @@ fun premiumBox(monthOrYearly: String, onClick: (String) -> Unit){
             containerColor = Color.White
         )
     ){
-        Box(Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ){
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.subscribe_crown),
-                    contentDescription = null,
-                    tint = Color.Green,
-                    modifier = Modifier
-                        .size(50.dp)
-                )
-                Row(verticalAlignment = Alignment.CenterVertically){
-                    Text(
-                        text = price, fontSize = 25.sp, color = Color.Black,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(text = monthYear)
+        PremiumBoxElements(monthOrYearly)
+    }
+}
 
-                }
-                Divider(thickness = 1.dp, modifier = Modifier.padding(20.dp, 10.dp))
-                textWithCheckmark("Watch all you want. Ad-free.")
-                textWithCheckmark("Allows streaming of 4K.")
-                textWithCheckmark("Video & Audio Quality is Better.")
-            }
+@Composable
+fun PremiumBoxElements(monthOrYearly: String) {
+    Box(Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            MainIcon()
+            Price(monthOrYearly)
+            Divider(thickness = 1.dp, modifier = Modifier.padding(20.dp, 10.dp))
+            AdvantagesOfBuy("Watch all you want. Ad-free.")
+            AdvantagesOfBuy("Allows streaming of 4K.")
+            AdvantagesOfBuy("Video & Audio Quality is Better.")
         }
     }
 }
 
 @Composable
-fun textWithCheckmark(text: String){
-    Row(        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 35.dp, top = 10.dp),
+fun MainIcon() {
+    Icon(
+        painter = painterResource(id = R.drawable.subscribe_crown),
+        contentDescription = null,
+        tint = Color.Green,
+        modifier = Modifier
+            .size(50.dp)
+    )
+}
+
+@Composable
+fun Price(monthOrYearly: String) {
+    val price = if (monthOrYearly == "monthly") "$9.99" else "$99.99"
+    val monthYear = if (monthOrYearly == "monthly") "/Monthly" else "/Yearly"
+
+    Row(verticalAlignment = Alignment.CenterVertically){
+        Text(
+            text = price, fontSize = 25.sp, color = Color.Black,
+            fontWeight = FontWeight.SemiBold
+        )
+        Text(text = monthYear)
+    }
+}
+
+@Composable
+fun AdvantagesOfBuy(text: String){
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 35.dp, top = 10.dp),
         horizontalArrangement = Arrangement.Start) {
         Icon(
             imageVector = Icons.Default.Check,

@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Home.data
+package com.example.movieapp.features.Home.data.model
 
 import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
 import com.example.movieapp.core.database.entities.AnimeItemTopHits

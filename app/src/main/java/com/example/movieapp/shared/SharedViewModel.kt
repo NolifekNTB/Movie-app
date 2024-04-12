@@ -3,18 +3,16 @@ package com.example.movieapp.shared
 import android.app.DownloadManager
 import android.content.Context
 import android.os.Environment
-import androidx.compose.foundation.layout.FlowColumnScope
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.features.Home.data.AnimeRepository
+import com.example.movieapp.features.Home.data.repositories.AnimeRepository
 import com.example.movieapp.features.MyList.data.AnimeRepositoryMyList
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

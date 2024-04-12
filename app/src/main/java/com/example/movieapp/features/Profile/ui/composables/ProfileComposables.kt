@@ -36,7 +36,7 @@ import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 
 @Composable
-fun profileImage(){
+fun ProfileImage(){
     Card(
         modifier = Modifier
             .size(100.dp),
@@ -53,7 +53,7 @@ fun profileImage(){
 }
 
 @Composable
-fun profileInformation(){
+fun ProfileInformation(){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -64,7 +64,7 @@ fun profileInformation(){
 }
 
 @Composable
-fun premiumFirstIcon(){
+fun PremiumFirstIcon(){
     Icon(
         imageVector = Icons.Default.Check,
         contentDescription = "PremiumIcon",
@@ -74,7 +74,7 @@ fun premiumFirstIcon(){
 }
 
 @Composable
-fun premiumDescription(modifier: Modifier){
+fun PremiumDescription(modifier: Modifier){
     Column(
         modifier = modifier
             .width(250.dp)
@@ -86,7 +86,7 @@ fun premiumDescription(modifier: Modifier){
 }
 
 @Composable
-fun premiumSecondIcon(){
+fun PremiumSecondIcon(){
     Icon(
         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
         contentDescription = "PremiumIcon2",
@@ -96,7 +96,24 @@ fun premiumSecondIcon(){
 }
 
 @Composable
-fun settingsRow(index: Int, onClick: (String) -> Unit){
+fun SettingsList(index: Int, onClick: (String) -> Unit){
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 20.dp)
+            .clickable {
+                onClick("settings")
+            },
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        SettingsListElement(index)
+        SettingsListIfDarkMode(index)
+    }
+}
+
+@Composable
+fun SettingsListElement(index: Int) {
     val name = when(index){
         0 -> "Edit Profile"
         1 -> "Notifications"
@@ -109,7 +126,6 @@ fun settingsRow(index: Int, onClick: (String) -> Unit){
         8 -> "Log Out"
         else -> "Settings"
     }
-
     val icon = when(index){
         0 -> R.drawable.profile_person
         1 -> R.drawable.profile_notification
@@ -122,47 +138,38 @@ fun settingsRow(index: Int, onClick: (String) -> Unit){
         8 -> R.drawable.profile_logout
         else -> R.drawable.profile_person
     }
-
-    var checked by remember { mutableStateOf(true) }
-
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 20.dp)
-            .clickable {
-                onClick("settings")
-            },
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(painter = painterResource(id = icon),
-                contentDescription = "leadIcon",
-                tint = if(index == 8 ) Color.Red else Color.Black,
-                modifier = Modifier.size(30.dp)
-                )
-            Spacer(modifier = Modifier.width(10.dp))
-            Text(text = name, fontSize = 18.sp,
-                color = if(index == 8 ) Color.Red else Color.Black)
-        }
-        if(index == 5){
-            Switch(
-                checked = checked,
-                onCheckedChange = { checked = it },
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = Color.White,
-                    checkedTrackColor = Color.Green,
-                    uncheckedThumbColor = Color.LightGray
-                )
+        Icon(painter = painterResource(id = icon),
+            contentDescription = "leadIcon",
+            tint = if(index == 8 ) Color.Red else Color.Black,
+            modifier = Modifier.size(30.dp)
+        )
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(text = name, fontSize = 18.sp,
+            color = if(index == 8 ) Color.Red else Color.Black)
+    }
+}
+
+@Composable
+fun SettingsListIfDarkMode(index: Int) {
+    var checked by remember { mutableStateOf(true) }
+    if(index == 5){
+        Switch(
+            checked = checked,
+            onCheckedChange = { checked = it },
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Color.White,
+                checkedTrackColor = Color.Green,
+                uncheckedThumbColor = Color.LightGray
             )
-        } else if (index == 8){}
-        else {
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = "lastIcon",)
-        }
+        )
+    }
+    else {
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+            contentDescription = "lastIcon",)
     }
 }
 

@@ -27,7 +27,7 @@ import com.example.movieapp.core.database.entities.AnimeItemTopHits
 
 
 /*
-            This Composable is used in search screen and NewEpisodeReleases screen
+            This Composable is used in search screen, NewEpisodeReleases and MyList
  */
 @Composable
 fun ListEpisodeReleases(animeList: List<AnimeItemTopHits>) {

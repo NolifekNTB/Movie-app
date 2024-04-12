@@ -44,33 +44,7 @@ fun NotificationListItem() {
             .padding(15.dp)
     ){
         NotificationImage()
-        NotificationContent()
+        NotificationDetails()
         NotificationDate()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

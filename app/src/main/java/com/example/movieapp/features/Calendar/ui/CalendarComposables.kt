@@ -43,7 +43,7 @@ import com.example.movieapp.features.Calendar.domain.CalendarViewModel
 import java.time.LocalTime
 
 @Composable
-fun DayItem(day: Day, viewModel: CalendarViewModel) {
+fun CalendarBarDay(day: Day, viewModel: CalendarViewModel) {
     val whichDayIsSelected = viewModel.clickedDay.collectAsState().value
     val isSelected = whichDayIsSelected == day
 
@@ -59,10 +59,9 @@ fun DayItem(day: Day, viewModel: CalendarViewModel) {
                 containerColor = if (isSelected) Color.Green else Color.White
             )
         ){
-            Column(modifier = Modifier.padding(8.dp),
+             Column(modifier = Modifier.padding(8.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
-
             ) {
                 Text(text = day.dayOfWeek, fontSize = 12.sp,
                     color = if (isSelected) Color.White else Color.DarkGray)
@@ -74,10 +73,10 @@ fun DayItem(day: Day, viewModel: CalendarViewModel) {
 }
 
 @Composable
-fun dateListItem(topHitsElement: AnimeItemTopHits, element: Int) {
+fun CalendarListElement(topHitsElement: AnimeItemTopHits, element: Int) {
     upperTime(element)
     itemMainContent(topHitsElement)
-    currentTimeDivider(topHitsElement, element)
+    currentTimeDivider(element)
 }
 
 @Composable
@@ -103,63 +102,78 @@ fun itemMainContent(topHitsElement: AnimeItemTopHits){
             .fillMaxWidth()
             .padding(15.dp)
     ){
-        Card(){
-            AsyncImage(
-                model = topHitsElement.image,
-                contentDescription = "",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(150.dp, 125.dp)
-            )
-        }
-        Column(
-            modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+        itemMainContentImage(topHitsElement)
+        itemMainContentText(topHitsElement)
+    }
+}
+
+@Composable
+fun itemMainContentImage(topHitsElement: AnimeItemTopHits) {
+    Card(){
+        AsyncImage(
+            model = topHitsElement.image,
+            contentDescription = "",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(150.dp, 125.dp)
+        )
+    }
+}
+
+@Composable
+fun itemMainContentText(topHitsElement: AnimeItemTopHits) {
+    Column(
+        modifier = Modifier.padding(top = 10.dp, start = 20.dp)
+    ) {
+        Text(text = topHitsElement.name,
+            modifier = Modifier
+                .width(125.dp),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        Spacer(Modifier.height(5.dp))
+        Text(text = "Episodes 1040")
+        Spacer(Modifier.height(5.dp))
+        MyListButton()
+    }
+}
+
+@Composable
+fun MyListButton() {
+    Card(
+        modifier = Modifier
+            .size(90.dp, 30.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Green,
+            contentColor = Color.White
+        ),
+        shape = RoundedCornerShape(corner = CornerSize(10.dp))
+    ) {
+        OutlinedButton(
+            onClick = {  },
+            modifier = Modifier.padding(3.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent,
+                contentColor = Color.White
+            ),
+            border = BorderStroke(3.dp, Color.Green),
+            contentPadding = PaddingValues(3.dp)
         ) {
-            Text(text = topHitsElement.name,
-                modifier = Modifier
-                    .width(125.dp),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = "",
+                tint = Color.White
             )
-            Spacer(Modifier.height(5.dp))
-            Text(text = "Episodes 1040")
-            Spacer(Modifier.height(5.dp))
-            Card(
-                modifier = Modifier
-                    .size(90.dp, 30.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color.Green,
-                    contentColor = Color.White
-                ),
-                shape = RoundedCornerShape(corner = CornerSize(10.dp))
-            ) {
-                OutlinedButton(
-                    onClick = {  },
-                    modifier = Modifier.padding(3.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Transparent,
-                        contentColor = Color.White
-                    ),
-                    border = BorderStroke(3.dp, Color.Green),
-                    contentPadding = PaddingValues(3.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "",
-                        tint = Color.White
-                    )
-                    Spacer(Modifier.width(5.dp))
-                    Text(text = "My List")
-                }
-            }
+            Spacer(Modifier.width(5.dp))
+            Text(text = "My List")
         }
     }
 }
 
 @Composable
-fun currentTimeDivider(topHitsElement: AnimeItemTopHits, element: Int){
+fun currentTimeDivider(element: Int){
     val currentTime = LocalTime.now()
 
     if(element == 1){
@@ -193,17 +207,3 @@ fun currentTimeDivider(topHitsElement: AnimeItemTopHits, element: Int){
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

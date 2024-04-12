@@ -30,5 +30,4 @@ fun NewSeasonsReleases(onClick: () -> Unit) {
         TopBar("New Seasons Releases"){_ -> onClick() }
         ListEpisodeReleases(exampleList)
     }
-
 }

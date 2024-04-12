@@ -43,7 +43,7 @@ fun NotificationImage() {
 }
 
 @Composable
-fun NotificationContent() {
+fun NotificationDetails() {
     Column(
         modifier = Modifier.padding(top = 10.dp, start = 10.dp)
     ) {
@@ -59,26 +59,31 @@ fun NotificationContent() {
         Spacer(Modifier.height(5.dp))
         Text(text = "Episodes 1040")
         Spacer(Modifier.height(5.dp))
-        Card(
-            modifier = Modifier
-                .size(60.dp, 25.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.Green,
-                contentColor = Color.White
-            ),
-            shape = RoundedCornerShape(corner = CornerSize(3.dp))
+        AdditionalInfo()
+    }
+}
+
+@Composable
+fun AdditionalInfo() {
+    Card(
+        modifier = Modifier
+            .size(60.dp, 25.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.Green,
+            contentColor = Color.White
+        ),
+        shape = RoundedCornerShape(corner = CornerSize(3.dp))
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "Update",
-                    textAlign = TextAlign.Center,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
-            }
+            Text(
+                text = "Update",
+                textAlign = TextAlign.Center,
+                fontSize = 11.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
     }
 }

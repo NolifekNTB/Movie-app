@@ -2,7 +2,7 @@ package com.example.movieapp.features.Home.domain
 
 import androidx.lifecycle.ViewModel
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.features.Home.data.AnimeRepository
+import com.example.movieapp.features.Home.data.repositories.AnimeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,15 +13,15 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val repo: AnimeRepository
 ): ViewModel() {
-
     suspend fun searchAllAnime(query: String): List<AnimeItemTopHits> {
         return repo.searchAnimeByName(query)
     }
+
+
     private val _filtersList = MutableStateFlow<List<String>>(listOf())
-
     val filtersList: StateFlow<List<String>> = _filtersList.asStateFlow()
-    private val _applyFilters: MutableStateFlow<Boolean> = MutableStateFlow(false)
 
+    private val _applyFilters: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val applyFilters: StateFlow<Boolean> = _applyFilters.asStateFlow()
 
     fun remove(element: String){
@@ -39,5 +39,4 @@ class SearchViewModel @Inject constructor(
     fun applyFilters(value: Boolean){
         _applyFilters.value = value
     }
-
 }

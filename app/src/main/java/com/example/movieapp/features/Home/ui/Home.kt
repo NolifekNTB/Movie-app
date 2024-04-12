@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
+import com.example.movieapp.features.Home.data.model.topHitsAndNewSeasons
 import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeComposables.BannerImage
 import com.example.movieapp.features.Home.ui.HomeComposables.PlayAndMyList
@@ -22,7 +23,6 @@ import com.example.movieapp.features.Home.ui.HomeComposables.SearchAndNotificati
 import com.example.movieapp.features.Home.ui.HomeComposables.RowItemsTopHits
 import com.example.movieapp.features.Home.ui.HomeComposables.RowTitle
 import com.example.movieapp.shared.SharedViewModel
-import com.example.movieapp.features.Home.domain.MainViewModel.topHitsAndNewSeasons
 import com.example.movieapp.features.Home.ui.HomeComposables.RowItemsNewSeasons
 
 @Composable

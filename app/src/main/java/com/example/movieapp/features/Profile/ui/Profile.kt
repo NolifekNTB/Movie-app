@@ -20,12 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.features.Profile.ui.composables.premiumDescription
-import com.example.movieapp.features.Profile.ui.composables.premiumFirstIcon
-import com.example.movieapp.features.Profile.ui.composables.premiumSecondIcon
-import com.example.movieapp.features.Profile.ui.composables.profileImage
-import com.example.movieapp.features.Profile.ui.composables.profileInformation
-import com.example.movieapp.features.Profile.ui.composables.settingsRow
+import com.example.movieapp.features.Profile.ui.composables.PremiumDescription
+import com.example.movieapp.features.Profile.ui.composables.PremiumFirstIcon
+import com.example.movieapp.features.Profile.ui.composables.PremiumSecondIcon
+import com.example.movieapp.features.Profile.ui.composables.ProfileImage
+import com.example.movieapp.features.Profile.ui.composables.ProfileInformation
+import com.example.movieapp.features.Profile.ui.composables.SettingsList
 import com.example.movieapp.shared.TopBar
 
 @Composable
@@ -36,7 +36,7 @@ fun Profile(onClick: (String) -> Unit) {
             .background(Color.White)
     ) { 
         TopBar(name = "Profile") { onClick("back") }
-        ImageInformation()
+        ImageAndInformation()
         BuyPremium(){ where ->
             onClick(where)
         }
@@ -47,7 +47,7 @@ fun Profile(onClick: (String) -> Unit) {
 }
 
 @Composable
-fun ImageInformation(){
+fun ImageAndInformation(){
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Absolute.Left,
@@ -55,9 +55,9 @@ fun ImageInformation(){
             .fillMaxWidth()
             .padding(start = 20.dp, top = 10.dp)
     ) {
-        profileImage()
+        ProfileImage()
         Spacer(Modifier.width(30.dp))
-        profileInformation()
+        ProfileInformation()
     }
 }
 
@@ -89,10 +89,10 @@ fun BuyPremium(onClick: (String) -> Unit){
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ){
-                    premiumFirstIcon()
+                    PremiumFirstIcon()
                     Spacer(modifier = Modifier.width(15.dp))
-                    premiumDescription(Modifier.weight(1f))
-                    premiumSecondIcon()
+                    PremiumDescription(Modifier.weight(1f))
+                    PremiumSecondIcon()
                 }
             }
         }
@@ -107,24 +107,9 @@ fun Settings(onClick: (String) -> Unit){
             .padding(20.dp, 0.dp)
     ){
         repeat(9){ index ->
-            settingsRow(index){where ->
+            SettingsList(index){ where ->
                 onClick(where)
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
