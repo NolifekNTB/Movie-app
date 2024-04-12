@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.bottomSheets.Download
+package com.example.movieapp.features.Details.ui.bottomSheets.Download
 
 import android.annotation.SuppressLint
 import android.app.DownloadManager

@@ -6,9 +6,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
-import com.example.movieapp.features.Details.DetailScreen
-import com.example.movieapp.features.Details.screens.CommentsScreen
-import com.example.movieapp.features.Details.screens.VideoPlayer
+import com.example.movieapp.features.Details.ui.DetailScreen
+import com.example.movieapp.features.Details.ui.screens.CommentsScreen
+import com.example.movieapp.features.Details.ui.screens.VideoPlayer
 import com.example.movieapp.shared.SharedViewModel
 
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController, viewModel: SharedViewModel) {

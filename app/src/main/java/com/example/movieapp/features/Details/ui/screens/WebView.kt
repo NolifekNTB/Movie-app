@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.screens
+package com.example.movieapp.features.Details.ui.screens
 
 import android.webkit.WebView
 import android.webkit.WebViewClient

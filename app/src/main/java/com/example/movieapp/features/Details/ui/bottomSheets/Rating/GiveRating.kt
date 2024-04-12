@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.bottomSheets.Rating
+package com.example.movieapp.features.Details.ui.bottomSheets.Rating
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,8 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.features.Details.bottomSheets.scaffoldSheetButtons
-import com.example.movieapp.features.Details.bottomSheets.shareTitle
+import com.example.movieapp.features.Details.ui.bottomSheets.scaffoldSheetButtons
+import com.example.movieapp.features.Details.ui.bottomSheets.shareTitle
 import com.example.movieapp.shared.SharedViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

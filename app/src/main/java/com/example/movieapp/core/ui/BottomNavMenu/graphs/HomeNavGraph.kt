@@ -10,7 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.movieapp.core.ui.BottomNavMenu.BottomBarScreen
-import com.example.movieapp.features.Details.screens.VideoPlayerWebView
+import com.example.movieapp.features.Details.ui.screens.VideoPlayerWebView
 import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeScreen
 import com.example.movieapp.features.Home.ui.HomeScreens.NewSeasonsReleases.NewSeasonsReleases

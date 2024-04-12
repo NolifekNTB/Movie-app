@@ -22,7 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Details.bottomSheets.shareTitle
+import com.example.movieapp.features.Details.ui.bottomSheets.shareTitle
 import com.example.movieapp.features.Download.ui.DownloadListItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

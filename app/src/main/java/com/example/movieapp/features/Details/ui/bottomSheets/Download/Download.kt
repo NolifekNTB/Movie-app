@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.bottomSheets.Download
+package com.example.movieapp.features.Details.ui.bottomSheets.Download
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,8 +33,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Details.bottomSheets.scaffoldSheetButtons
-import com.example.movieapp.features.Details.bottomSheets.shareTitle
+import com.example.movieapp.features.Details.ui.bottomSheets.scaffoldSheetButtons
+import com.example.movieapp.features.Details.ui.bottomSheets.shareTitle
 import com.example.movieapp.R
 import com.example.movieapp.shared.SharedViewModel
 

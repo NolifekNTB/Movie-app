@@ -1,4 +1,4 @@
-package com.example.movieapp.features.Details.bottomSheets
+package com.example.movieapp.features.Details.ui.bottomSheets
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Details.bottomSheets.Download.downloadBox
+import com.example.movieapp.features.Details.ui.bottomSheets.Download.downloadBox
 import com.example.movieapp.shared.SharedViewModel
 import kotlinx.coroutines.launch
 
