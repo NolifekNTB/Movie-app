@@ -24,10 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.core.database.entities.AnimeItemMyList
-import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.core.network.models.shared.Trailer
 import com.example.movieapp.features.Home.ui.HomeScreens.ListEpisodeReleases
 import com.example.movieapp.features.Home.ui.HomeScreens.Search.NotFound
+import com.example.movieapp.features.MyList.domain.MyListViewModel
 import com.example.movieapp.shared.SharedViewModel
 import com.example.movieapp.shared.TopBar
 import kotlinx.coroutines.CoroutineScope
@@ -35,10 +34,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-fun MyList(viewModel: SharedViewModel, onClick: (String) -> Unit) {
-    val animeList by viewModel.getListMyList().collectAsState(emptyList())
+fun MyList(sharedVM: SharedViewModel, onClick: (String) -> Unit) {
+    val animeList by sharedVM.getListMyList().collectAsState(emptyList())
     val searchResults = remember { mutableStateOf<List<AnimeItemMyList>>(emptyList()) }
     var searchBarVisible by remember { mutableStateOf(false) }
+    val myListVM = MyListViewModel()
 
     Column(
         modifier = Modifier
@@ -53,39 +53,24 @@ fun MyList(viewModel: SharedViewModel, onClick: (String) -> Unit) {
             }
         }
         if(searchBarVisible){
-            searchMyListBar(searchResults = searchResults, viewModel = viewModel)
+            SearchBarMyList(searchResults = searchResults, viewModel = sharedVM)
         }
         if(animeList.isEmpty()){
             NotFound(title = "Your list is empty", text = "It seems that you haven't added" +
                     "any anime to the list")
         } else if (searchBarVisible && searchResults.value.isNotEmpty()) {
-            ListEpisodeReleases(animeList = fromMyListToTopHits(searchResults.value))
+            ListEpisodeReleases(animeList = myListVM.FromMyListToTopHits(searchResults.value))
         } else {
-            ListEpisodeReleases(animeList = fromMyListToTopHits(animeList))
+            ListEpisodeReleases(animeList = myListVM.FromMyListToTopHits(animeList))
         }
     }
 }
 
-fun fromMyListToTopHits(animeList: List<AnimeItemMyList>): List<AnimeItemTopHits> {
-    val list = mutableListOf<AnimeItemTopHits>()
-    for (i in animeList) {
-        val anime = AnimeItemTopHits(
-            id = i.id,
-            name = i.name,
-            image = i.image,
-            rating = i.rating,
-            year = 2024,
-            genres = emptyList(),
-            description = "",
-            trailer = Trailer("")
-        )
-        list.add(anime)
-    }
-    return list
-}
-
 @Composable
-fun searchMyListBar(searchResults: MutableState<List<AnimeItemMyList>>, viewModel: SharedViewModel){
+fun SearchBarMyList(
+    searchResults: MutableState<List<AnimeItemMyList>>,
+    viewModel: SharedViewModel
+){
     val text = remember { mutableStateOf("") }
     val isFocused = remember { mutableStateOf(false) }
 
