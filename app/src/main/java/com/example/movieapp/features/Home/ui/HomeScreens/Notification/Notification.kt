@@ -20,7 +20,7 @@ fun Notification(onClick: () -> Unit) {
            .fillMaxSize()
            .background(Color.White)
     ) {
-        TopBar(name = "Notification"){_ -> onClick()}
+        TopBar(title = "Notification"){ _ -> onClick()}
         NotificationList()
     }
 }

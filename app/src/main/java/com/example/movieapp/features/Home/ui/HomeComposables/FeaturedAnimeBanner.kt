@@ -179,17 +179,17 @@ fun MyListButton(sharedViewModel: SharedViewModel) {
     var isCheck by remember { mutableStateOf(false) }
     var item = AnimeItemMyList(0, "", "", 0.0)
     LaunchedEffect(Unit) {
-        isCheck = sharedViewModel.searchAllAnime("Demon Slayer").isNotEmpty()
+        isCheck = sharedViewModel.searchItemMyList("Demon Slayer").isNotEmpty()
     }
 
     OutlinedButton(
         onClick = {
             if (!isCheck) {
-                sharedViewModel.insertAnimeItem(animeItem)
+                sharedViewModel.insertItemMyList(animeItem)
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
-                    item = sharedViewModel.searchAllAnime("Demon Slayer").first()
-                    sharedViewModel.deleteAnimeItem(item)
+                    item = sharedViewModel.searchItemMyList("Demon Slayer").first()
+                    sharedViewModel.deleteItemMyList(item)
                 }
             }
             isCheck = !isCheck

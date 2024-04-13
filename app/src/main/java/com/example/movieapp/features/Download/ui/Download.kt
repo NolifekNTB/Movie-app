@@ -71,7 +71,7 @@ fun Download(onClick: () -> Unit) {
                 )
                 .alpha(if (scaffoldState.bottomSheetState.isVisible) 0.5f else 1f)
         ){
-            TopBar(name = "Download") { onClick() }
+            TopBar(title = "Download") { onClick() }
             DownloadList(scaffoldState, scope)
         }
     }

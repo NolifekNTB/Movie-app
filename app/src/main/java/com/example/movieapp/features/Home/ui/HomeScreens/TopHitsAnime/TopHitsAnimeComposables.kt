@@ -139,17 +139,17 @@ fun ListDetailsButton(item: AnimeItemTopHits, sharedViewModel: SharedViewModel) 
     var itemToDelete = AnimeItemMyList(0, "", "", 0.0)
 
     LaunchedEffect(currentItem) {
-        isCheck = sharedViewModel.searchAllAnime(item.name).isNotEmpty()
+        isCheck = sharedViewModel.searchItemMyList(item.name).isNotEmpty()
     }
 
     FilledTonalButton(
         onClick = {
             if (!isCheck) {
-                sharedViewModel.insertAnimeItem(currentItem)
+                sharedViewModel.insertItemMyList(currentItem)
             } else {
                 CoroutineScope(Dispatchers.IO).launch {
-                    itemToDelete = sharedViewModel.searchAllAnime(item.name).first()
-                    sharedViewModel.deleteAnimeItem(itemToDelete)
+                    itemToDelete = sharedViewModel.searchItemMyList(item.name).first()
+                    sharedViewModel.deleteItemMyList(itemToDelete)
                 }
             }
             isCheck = !isCheck

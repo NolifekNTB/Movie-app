@@ -41,7 +41,7 @@ fun Payment(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) {
-        TopBar(name = "Payment") { onClick("back") }
+        TopBar(title = "Payment") { onClick("back") }
         PaymentMethods(viewModel) {where ->
             onClick(where)
         }

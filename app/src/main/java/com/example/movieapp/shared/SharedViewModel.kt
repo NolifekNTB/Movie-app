@@ -22,48 +22,39 @@ class SharedViewModel @Inject constructor(
     private val repoMyList: AnimeRepositoryMyList,
     private val repoTopHis: AnimeRepository
 ): ViewModel() {
-    //TopHits
-    fun getTopHits(): Flow<List<AnimeItemTopHits>> {
-        return repoTopHis.getAllAnime()
-    }
+    fun getTopHits(): Flow<List<AnimeItemTopHits>> = repoTopHis.getAllAnime()
+    fun getListMyList(): Flow<List<AnimeItemMyList>> = repoMyList.getAllAnime()
 
-    //MyList
     private fun insertListMyList(animeMyList: AnimeItemMyList){
         CoroutineScope(viewModelScope.coroutineContext).launch{
             repoMyList.insertAnime(animeMyList)
         }
     }
 
-    fun getListMyList(): Flow<List<AnimeItemMyList>> {
-        return repoMyList.getAllAnime()
-    }
-
-    fun insertAnimeItem(item: AnimeItemMyList){
+    fun insertItemMyList(item: AnimeItemMyList){
         CoroutineScope(viewModelScope.coroutineContext).launch {
             repoMyList.insertAnime(item)
         }
     }
 
-    private fun deleteMyList(){
+    private fun deleteListMyList(){
         CoroutineScope(viewModelScope.coroutineContext).launch{
             repoMyList.deleteALlAnime()
         }
     }
 
-    fun deleteAnimeItem(animeItem: AnimeItemMyList){
+    fun deleteItemMyList(animeItem: AnimeItemMyList){
         CoroutineScope(viewModelScope.coroutineContext).launch {
             repoMyList.deleteAnime(animeItem)
         }
     }
 
-    suspend fun searchAllAnime(query: String): List<AnimeItemMyList> {
+    suspend fun searchItemMyList(query: String): List<AnimeItemMyList> {
         return repoMyList.searchAnimeByName(query)
     }
 
-    //Details
     fun downloadFile(url: String, context: Context): Long {
         val downloadManager = context.getSystemService(DownloadManager::class.java)
-
         val request = DownloadManager.Request(url.toUri())
             .setMimeType("photo/jpeg")
             .setAllowedOverRoaming(false)
@@ -73,6 +64,7 @@ class SharedViewModel @Inject constructor(
             .setDestinationInExternalPublicDir(
                 Environment.DIRECTORY_DOWNLOADS, "photo.jpeg"
             )
+
         return downloadManager.enqueue(request)
     }
 }

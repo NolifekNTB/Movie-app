@@ -45,7 +45,7 @@ fun MyList(sharedVM: SharedViewModel, onClick: (String) -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ){
-        TopBar(name = "My List") { where ->
+        TopBar(title = "My List") { where ->
             if(where == "Icon") {
                 searchBarVisible = !searchBarVisible
             } else {
@@ -80,7 +80,7 @@ fun SearchBarMyList(
             text.value = it;
             isFocused.value = true;
             CoroutineScope(Dispatchers.Main).launch {
-                searchResults.value = viewModel.searchAllAnime(text.value)}
+                searchResults.value = viewModel.searchItemMyList(text.value)}
         },
         modifier = Modifier
             .fillMaxWidth()

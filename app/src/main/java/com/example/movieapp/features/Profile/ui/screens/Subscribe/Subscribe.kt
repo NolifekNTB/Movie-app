@@ -43,7 +43,7 @@ fun Subscribe(onClick: (String) -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        TopBar(name = "") {
+        TopBar(title = "") {
             onClick("back")
         }
         MainTitle()

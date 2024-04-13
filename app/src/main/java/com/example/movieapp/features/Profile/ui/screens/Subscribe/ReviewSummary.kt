@@ -52,7 +52,7 @@ fun ReviewSummary(viewModel: ProfileViewModel, onClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        TopBar(name = "ReviewSummary"){
+        TopBar(title = "ReviewSummary"){
             onClick()
         }
         PremiumBox(monthOrYearly = "monthly"){ _ -> }

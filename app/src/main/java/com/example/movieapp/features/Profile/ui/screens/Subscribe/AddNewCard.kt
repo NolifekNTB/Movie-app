@@ -52,7 +52,7 @@ fun AddNewCard(viewModel: ProfileViewModel, onClick: (String) -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ){
-        TopBar(name = "AddNewCard") {
+        TopBar(title = "AddNewCard") {
             onClick("back")
         }
         CardImage()

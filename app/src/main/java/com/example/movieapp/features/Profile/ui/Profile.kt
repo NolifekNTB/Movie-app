@@ -35,7 +35,7 @@ fun Profile(onClick: (String) -> Unit) {
             .fillMaxSize()
             .background(Color.White)
     ) { 
-        TopBar(name = "Profile") { onClick("back") }
+        TopBar(title = "Profile") { onClick("back") }
         ImageAndInformation()
         BuyPremium(){ where ->
             onClick(where)
