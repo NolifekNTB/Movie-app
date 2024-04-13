@@ -43,14 +43,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.example.movieapp.features.Details.ui.bottomSheets.Download.displayDownloadBox
-import com.example.movieapp.features.Details.ui.bottomSheets.Rating.giveRatingBox
-import com.example.movieapp.features.Details.ui.bottomSheets.shareDisplayBox
+import com.example.movieapp.features.Details.ui.bottomSheets.Scaffolds.ShareDisplayBox
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.features.Details.data.BottomSheetContent
 import com.example.movieapp.features.Details.data.Section
 import com.example.movieapp.features.Details.domain.DetailViewModel
+import com.example.movieapp.features.Details.ui.bottomSheets.Scaffolds.DisplayDownloadBox
+import com.example.movieapp.features.Details.ui.bottomSheets.Scaffolds.GiveRatingBox
 import com.example.movieapp.shared.SharedViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,9 +86,9 @@ fun BottomSheetContentDisplay(
     viewModel: SharedViewModel
 ) {
     when (content) {
-        BottomSheetContent.SHARE -> shareDisplayBox()
-        BottomSheetContent.DOWNLOAD -> displayDownloadBox(scaffoldState, viewModel)
-        BottomSheetContent.RATING -> giveRatingBox(scaffoldState, viewModel)
+        BottomSheetContent.SHARE -> ShareDisplayBox()
+        BottomSheetContent.DOWNLOAD -> DisplayDownloadBox(scaffoldState, viewModel)
+        BottomSheetContent.RATING -> GiveRatingBox(scaffoldState, viewModel)
         else -> {}
     }
 }

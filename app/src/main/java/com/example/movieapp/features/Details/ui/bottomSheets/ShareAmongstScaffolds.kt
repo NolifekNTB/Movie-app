@@ -1,95 +1,84 @@
-package com.example.movieapp.features.Download.ui.scaffolds
+package com.example.movieapp.features.Details.ui.bottomSheets
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.material3.BottomSheetScaffoldState
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.features.Details.ui.bottomSheets.ScaffoldTitle
-import com.example.movieapp.features.Download.ui.DownloadListItem
+import com.example.movieapp.features.Details.ui.bottomSheets.Scaffolds.DownloadBox
+import com.example.movieapp.shared.SharedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DeleteScaffold(scaffoldState: BottomSheetScaffoldState, scope: CoroutineScope) {
-    Column(
-        modifier = Modifier
-            .height(425.dp)
-            .padding(20.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        ScaffoldTitle(title = "Delete")
-        Divider(thickness = 1.dp, color = Color.LightGray)
-        ConfirmationSentence()
-        DeleteItem(scaffoldState, scope)
-        Divider(thickness = 1.dp, color = Color.LightGray)
-        DeleteButtons(scaffoldState, scope)
-    }
-}
-
-@Composable
-fun ConfirmationSentence(){
+fun ScaffoldTitle(title: String) {
     Text(
-        text = "Are you sure you want to delete this download?",
+        text = title,
         fontSize = 20.sp,
+        color = Color.Black,
         fontWeight = FontWeight.SemiBold,
-        textAlign = TextAlign.Center,
-        modifier = Modifier.padding(top = 10.dp)
+        modifier = Modifier.padding(15.dp)
     )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DeleteItem(scaffoldState: BottomSheetScaffoldState, scope: CoroutineScope) {
-    DownloadListItem(
-        scaffoldState = scaffoldState,
-        scope = scope,
-        shouldShow = false)
-}
+fun ScaffoldSheetButtons(
+    scaffoldState: BottomSheetScaffoldState,
+    viewModel: SharedViewModel,
+    type: String
+) {
+    val scope = rememberCoroutineScope()
+    val showDialog = remember { mutableStateOf(false) }
+    val startDownloadPhoto = remember { mutableStateOf(false) }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DeleteButtons(scaffoldState: BottomSheetScaffoldState, scope: CoroutineScope){
-    Row(modifier = Modifier.padding(top = 10.dp)) {
-        CancelButton(scope, scaffoldState, Modifier.weight(1f))
-        Spacer(modifier = Modifier.width(10.dp))
-        ConfirmButton(scope, scaffoldState, Modifier.weight(1f))
+    ButtonRow(scaffoldState, scope, showDialog, startDownloadPhoto, type)
+
+    if (showDialog.value) {
+        DownloadBox(showDialog, startDownloadPhoto, viewModel)
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CancelButton(
+private fun ButtonRow(
+    scaffoldState: BottomSheetScaffoldState,
+    scope: CoroutineScope,
+    showDialog: MutableState<Boolean>,
+    startDownloadPhoto: MutableState<Boolean>,
+    type: String
+) {
+    Row {
+        CancelButton(scope, scaffoldState, Modifier.weight(1f))
+        Spacer(modifier = Modifier.width(10.dp))
+        ConfirmButton(type, scope, scaffoldState, showDialog, startDownloadPhoto, Modifier.weight(1f))
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun CancelButton(
     scope: CoroutineScope,
     scaffoldState: BottomSheetScaffoldState,
     modifier: Modifier
 ) {
     FilledTonalButton(
-        onClick = {
-            scope.launch {
-                scaffoldState.bottomSheetState.hide()
-            }
-        },
+        onClick = { scope.launch { scaffoldState.bottomSheetState.hide() } },
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.Green.copy(alpha = 0.15f),
@@ -98,9 +87,8 @@ fun CancelButton(
         contentPadding = PaddingValues(5.dp)
     ) {
         Text(
-            text = "Cancel",
-            modifier = Modifier
-                .padding(start = 3.dp),
+            "Cancel",
+            modifier = Modifier.padding(start = 3.dp),
             fontSize = 15.sp,
             color = Color.Green
         )
@@ -109,14 +97,21 @@ fun CancelButton(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConfirmButton(
+private fun ConfirmButton(
+    type: String,
     scope: CoroutineScope,
     scaffoldState: BottomSheetScaffoldState,
+    showDialog: MutableState<Boolean>,
+    startDownloadPhoto: MutableState<Boolean>,
     modifier: Modifier
 ) {
     FilledTonalButton(
         onClick = {
-            scope.launch { scaffoldState.bottomSheetState.hide() };
+            scope.launch { scaffoldState.bottomSheetState.hide() }
+            if (type == "download") {
+                showDialog.value = true
+                startDownloadPhoto.value = true
+            }
         },
         modifier = modifier,
         colors = ButtonDefaults.buttonColors(
@@ -126,12 +121,10 @@ fun ConfirmButton(
         contentPadding = PaddingValues(5.dp)
     ) {
         Text(
-            text = "Yes, delete",
-            modifier = Modifier
-                .padding(start = 3.dp),
+            if (type == "download") "Download" else "Submit",
+            modifier = Modifier.padding(start = 3.dp),
             fontSize = 15.sp,
             color = Color.White
         )
     }
 }
-
