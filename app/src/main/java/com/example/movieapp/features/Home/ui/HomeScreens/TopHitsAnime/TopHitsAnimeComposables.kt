@@ -1,5 +1,7 @@
 package com.example.movieapp.features.Home.ui.HomeScreens.TopHitsAnime
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,14 +25,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,8 +42,6 @@ import coil.compose.AsyncImage
 import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.shared.SharedViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
@@ -137,13 +136,15 @@ fun ListDetailsButton(item: AnimeItemTopHits, sharedViewModel: SharedViewModel) 
     val isCheck = remember { mutableStateOf(false) }
     val containerColor = if(isCheck.value) Color.Green else Color.Transparent
     val contentColor = if(isCheck.value) Color.White else Color.Green
+    val toastContext = LocalContext.current
 
     LaunchedEffect(key1 = item) {
         isCheck.value = sharedViewModel.searchItemMyList(item.name).isNotEmpty()
     }
 
+
     FilledTonalButton(
-        onClick = { logicOfTheButton(isCheck, sharedViewModel, item) },
+        onClick = { logicOfTheButton(isCheck, sharedViewModel, item, toastContext) },
         modifier = Modifier.size(125.dp, 40.dp),
         border = BorderStroke(2.dp, Color.Green),
         contentPadding = PaddingValues(5.dp),
@@ -165,19 +166,29 @@ fun ListDetailsButton(item: AnimeItemTopHits, sharedViewModel: SharedViewModel) 
 fun logicOfTheButton(
     isCheck: MutableState<Boolean>,
     sharedViewModel: SharedViewModel,
-    item: AnimeItemTopHits
+    item: AnimeItemTopHits,
+    toastContext: Context
 ) {
     val currentItem = AnimeItemMyList(id = 0, name = item.name, image = item.image, rating = item.rating)
 
     if (!isCheck.value) {
         sharedViewModel.insertItemMyList(currentItem)
+        toastShow(toastContext, "Anime added")
     } else {
         sharedViewModel.viewModelScope.launch {
             val itemToDelete = sharedViewModel.searchItemMyList(item.name).first()
             sharedViewModel.deleteItemMyList(itemToDelete)
+            toastShow(toastContext, "Anime deleted")
         }
     }
     isCheck.value = !isCheck.value
+}
+
+fun toastShow(context: Context, text: String){
+    val duration = Toast.LENGTH_SHORT
+
+    val toast = Toast.makeText(context, text, duration)
+    toast.show()
 }
 
 
