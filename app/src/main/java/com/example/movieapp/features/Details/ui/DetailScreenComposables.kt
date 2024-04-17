@@ -397,7 +397,7 @@ fun CommentContent(username: String, selected: Boolean, onSelect: () -> Unit) {
         modifier = Modifier.padding(end = 5.dp)
     ){
         Text(text = "4 days ago")
-        TextButton(onClick = { /*TODO*/ }) {
+        TextButton(onClick = { }) {
             Text(text = "Reply")
         }
     }

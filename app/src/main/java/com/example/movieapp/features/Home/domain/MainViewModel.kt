@@ -3,13 +3,14 @@ package com.example.movieapp.features.Home.domain
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
+import com.example.movieapp.core.database.entities.AnimeItemTopCharacters
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.core.network.RetrofitInstance
 import com.example.movieapp.core.network.models.AnimeData
+import com.example.movieapp.core.network.models.topCharacters.DataTopCharacters
 import com.example.movieapp.features.Home.data.repositories.AnimeRepository
-import com.example.movieapp.features.Home.data.repositories.AnimeRepositoryNewSeasons
-import com.example.movieapp.features.Home.data.model.topHitsAndNewSeasons
+import com.example.movieapp.features.Home.data.repositories.AnimeRepositoryTopCharacters
+import com.example.movieapp.features.Home.data.model.topHitsAndTopCharacters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
@@ -20,10 +21,10 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repoTopHits: AnimeRepository,
-    private val repoNewSeasons: AnimeRepositoryNewSeasons
+    private val repoTopCharacters: AnimeRepositoryTopCharacters
 ): ViewModel() {
     private val apiTopHits = RetrofitInstance.animeApiTopHits
-    private val apiNewSeasons = RetrofitInstance.animeApiSeasonsUpcoming
+    private val apiTopCharacters = RetrofitInstance.animeApiTopCharacters
 
     init {
         fetchPost()
@@ -38,10 +39,11 @@ class MainViewModel @Inject constructor(
                     insertTopHits(mapRetrofitToRoomTopHits(responseTopHits))
                 }
 
-                val newSeasonsFromDb = repoNewSeasons.getAllAnime().first()
-                if(newSeasonsFromDb.isEmpty()){
-                    val responseNewSeasons = apiNewSeasons.getNewSeasons()
-                    insertNewSeasons(mapRetrofitToRoomNewSeasons(responseNewSeasons))
+                val topCharactersFromDb = repoTopCharacters.getAllAnime().first()
+                if(topCharactersFromDb.isEmpty()){
+                    val responseTopCharacters = apiTopCharacters.getTopCharacters()
+                    insertTopCharacters(mapRetrofitToRoomTopCharacters(responseTopCharacters))
+                    Log.d("testowanie", "topCharacters -> $responseTopCharacters")
                 }
             } catch (e: Exception){
                 Log.e("codeDebugging", "fetchPost -> $e")
@@ -65,13 +67,13 @@ class MainViewModel @Inject constructor(
         }
         return animeItemList
     }
-    private fun mapRetrofitToRoomNewSeasons(animeData: AnimeData): List<AnimeItemNewSeasons> {
-        val animeItemList = mutableListOf<AnimeItemNewSeasons>()
+    private fun mapRetrofitToRoomTopCharacters(animeData: DataTopCharacters): List<AnimeItemTopCharacters> {
+        val animeItemList = mutableListOf<AnimeItemTopCharacters>()
         animeData.data.forEach { data ->
-            val animeItem = AnimeItemNewSeasons(
-                name = data.title,
+            val animeItem = AnimeItemTopCharacters(
+                name = data.name,
                 image = data.images.jpg.image_url,
-                rating = data.score
+
             )
             animeItemList.add(animeItem)
         }
@@ -79,21 +81,21 @@ class MainViewModel @Inject constructor(
     }
 
 
-    fun getLists(): topHitsAndNewSeasons {
+    fun getLists(): topHitsAndTopCharacters {
         val list1 = getListTopHits()
         val list2 = getListNewSeasons()
 
-        return topHitsAndNewSeasons(
+        return topHitsAndTopCharacters(
             topHits = list1,
-            newSeasons = list2
+            topCharacters = list2
         )
     }
 
     fun getListTopHits(): Flow<List<AnimeItemTopHits>> {
         return repoTopHits.getAllAnime()
     }
-    fun getListNewSeasons(): Flow<List<AnimeItemNewSeasons>> {
-        return repoNewSeasons.getAllAnime()
+    fun getListNewSeasons(): Flow<List<AnimeItemTopCharacters>> {
+        return repoTopCharacters.getAllAnime()
     }
 
     private fun insertTopHits(animeList: List<AnimeItemTopHits>) {
@@ -103,9 +105,9 @@ class MainViewModel @Inject constructor(
             )
         }
     }
-    private fun insertNewSeasons(animeList: List<AnimeItemNewSeasons>) {
+    private fun insertTopCharacters(animeList: List<AnimeItemTopCharacters>) {
         CoroutineScope(viewModelScope.coroutineContext).launch{
-            repoNewSeasons.insertAllAnime(
+            repoTopCharacters.insertAllAnime(
                 animeList
             )
         }

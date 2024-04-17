@@ -1,5 +1,6 @@
 package com.example.movieapp.features.Home.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.example.movieapp.R
-import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
+import com.example.movieapp.core.database.entities.AnimeItemTopCharacters
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.features.Home.data.model.topHitsAndNewSeasons
+import com.example.movieapp.features.Home.data.model.topHitsAndTopCharacters
 import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeComposables.BannerImage
 import com.example.movieapp.features.Home.ui.HomeComposables.PlayAndMyList
@@ -23,7 +24,7 @@ import com.example.movieapp.features.Home.ui.HomeComposables.SearchAndNotificati
 import com.example.movieapp.features.Home.ui.HomeComposables.RowItemsTopHits
 import com.example.movieapp.features.Home.ui.HomeComposables.RowTitle
 import com.example.movieapp.shared.SharedViewModel
-import com.example.movieapp.features.Home.ui.HomeComposables.RowItemsNewSeasons
+import com.example.movieapp.features.Home.ui.HomeComposables.RowItemsTopCharacters
 
 @Composable
 fun HomeScreen(
@@ -43,11 +44,11 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenLayout(
     sharedViewModel: SharedViewModel,
-    bothLists: topHitsAndNewSeasons,
+    bothLists: topHitsAndTopCharacters,
     onNavigate: (destination: String, animeId: Int) -> Unit
 ) {
     val topHits by bothLists.topHits.collectAsState(emptyList())
-    val newSeasons by bothLists.newSeasons.collectAsState(emptyList())
+    val topCharacters by bothLists.topCharacters.collectAsState(emptyList())
 
     Column(
         modifier = Modifier
@@ -66,9 +67,9 @@ private fun HomeScreenLayout(
             onNavigate(direction, id)
         }
 
-        AnimeListRowNewSeasons(
-            categoryTitle = "New Seasons Releases",
-            animeList = newSeasons)
+        AnimeListRowTopCharacters(
+            categoryTitle = "Top Characters",
+            animeList = topCharacters)
         { direction, id ->
             onNavigate(direction, id)
         }
@@ -99,15 +100,13 @@ fun AnimeListRowTopHits(
 }
 
 @Composable
-fun AnimeListRowNewSeasons(
+fun AnimeListRowTopCharacters(
     categoryTitle: String,
-    animeList: List<AnimeItemNewSeasons>,
+    animeList: List<AnimeItemTopCharacters>,
     onSelect: (String, Int) -> Unit)
 {
     RowTitle(categoryTitle){ direction ->
         onSelect(direction, 0)
     }
-    RowItemsNewSeasons(animeList){ direction, id ->
-        onSelect(direction, id)
-    }
+    RowItemsTopCharacters(animeList)
 }

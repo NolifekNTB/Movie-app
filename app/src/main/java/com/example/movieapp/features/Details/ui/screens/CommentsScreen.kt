@@ -184,7 +184,7 @@ fun CommentFollowReply() {
         Text(text = "125")
         Spacer(modifier = Modifier.width(15.dp))
         Text(text = "4 days ago")
-        TextButton(onClick = { /*TODO*/ }) {
+        TextButton(onClick = { }) {
             Text(text = "Reply")
         }
     }

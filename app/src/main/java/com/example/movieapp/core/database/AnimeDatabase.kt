@@ -4,26 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.example.movieapp.core.database.converters.Converters
 import com.example.movieapp.core.database.dao.AnimeDao
 import com.example.movieapp.core.database.dao.AnimeDaoMyList
-import com.example.movieapp.core.database.dao.AnimeDaoNewSeasons
+import com.example.movieapp.core.database.dao.AnimeDaoTopCharacters
 import com.example.movieapp.core.database.entities.AnimeItemMyList
-import com.example.movieapp.core.database.entities.AnimeItemNewSeasons
+import com.example.movieapp.core.database.entities.AnimeItemTopCharacters
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 
 @Database(entities = [
         AnimeItemTopHits::class,
-        AnimeItemNewSeasons::class,
+        AnimeItemTopCharacters::class,
         AnimeItemMyList::class
                ],
-    version = 4)
+    version = 6,
+    exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AnimeDatabase : RoomDatabase() {
     abstract fun animedao(): AnimeDao
-    abstract fun animedaoNewSeasons(): AnimeDaoNewSeasons
+    abstract fun animedaoTopCharacters(): AnimeDaoTopCharacters
     abstract fun animedaoMyList(): AnimeDaoMyList
 
 

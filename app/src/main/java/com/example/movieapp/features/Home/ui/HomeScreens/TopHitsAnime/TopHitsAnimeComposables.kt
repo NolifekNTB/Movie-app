@@ -22,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,6 +36,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import coil.compose.AsyncImage
 import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
@@ -132,46 +134,50 @@ fun ListDetailsTexts(item: AnimeItemTopHits) {
 
 @Composable
 fun ListDetailsButton(item: AnimeItemTopHits, sharedViewModel: SharedViewModel) {
-    val currentItem = AnimeItemMyList(
-        id = 0, name = item.name, image = item.image, rating = item.rating
-    )
-    var isCheck by remember { mutableStateOf(false) }
-    var itemToDelete = AnimeItemMyList(0, "", "", 0.0)
+    val isCheck = remember { mutableStateOf(false) }
+    val containerColor = if(isCheck.value) Color.Green else Color.Transparent
+    val contentColor = if(isCheck.value) Color.White else Color.Green
 
-    LaunchedEffect(currentItem) {
-        isCheck = sharedViewModel.searchItemMyList(item.name).isNotEmpty()
+    LaunchedEffect(key1 = item) {
+        isCheck.value = sharedViewModel.searchItemMyList(item.name).isNotEmpty()
     }
 
     FilledTonalButton(
-        onClick = {
-            if (!isCheck) {
-                sharedViewModel.insertItemMyList(currentItem)
-            } else {
-                CoroutineScope(Dispatchers.IO).launch {
-                    itemToDelete = sharedViewModel.searchItemMyList(item.name).first()
-                    sharedViewModel.deleteItemMyList(itemToDelete)
-                }
-            }
-            isCheck = !isCheck
-        },
-        modifier = Modifier
-            .size(125.dp, 40.dp),
-        border = BorderStroke(if(!isCheck) 2.dp else 2.dp, Color.Green),
+        onClick = { logicOfTheButton(isCheck, sharedViewModel, item) },
+        modifier = Modifier.size(125.dp, 40.dp),
+        border = BorderStroke(2.dp, Color.Green),
+        contentPadding = PaddingValues(5.dp),
         colors = ButtonDefaults.outlinedButtonColors(
-            containerColor = if(!isCheck) Color.Green else Color.Transparent,
-            contentColor = if(!isCheck) Color.White else Color.Green
-        ),
-        contentPadding = PaddingValues(5.dp)
+            containerColor = containerColor,
+            contentColor = contentColor
+        )
     ) {
         Icon(
             imageVector = Icons.Default.Add,
             contentDescription = "")
         Text(
             text = "My List",
-            modifier = Modifier
-                .padding(start = 3.dp),
+            modifier = Modifier.padding(start = 3.dp),
             fontSize = 15.sp)
     }
+}
+
+fun logicOfTheButton(
+    isCheck: MutableState<Boolean>,
+    sharedViewModel: SharedViewModel,
+    item: AnimeItemTopHits
+) {
+    val currentItem = AnimeItemMyList(id = 0, name = item.name, image = item.image, rating = item.rating)
+
+    if (!isCheck.value) {
+        sharedViewModel.insertItemMyList(currentItem)
+    } else {
+        sharedViewModel.viewModelScope.launch {
+            val itemToDelete = sharedViewModel.searchItemMyList(item.name).first()
+            sharedViewModel.deleteItemMyList(itemToDelete)
+        }
+    }
+    isCheck.value = !isCheck.value
 }
 
 

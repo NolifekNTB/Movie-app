@@ -13,7 +13,7 @@ import com.example.movieapp.core.ui.BottomNavMenu.BottomBarScreen
 import com.example.movieapp.features.Details.ui.screens.VideoPlayerWebView
 import com.example.movieapp.features.Home.domain.MainViewModel
 import com.example.movieapp.features.Home.ui.HomeScreen
-import com.example.movieapp.features.Home.ui.HomeScreens.NewSeasonsReleases.NewSeasonsReleases
+import com.example.movieapp.features.Home.ui.HomeScreens.TopCharacters.NewSeasonsReleases
 import com.example.movieapp.features.Home.ui.HomeScreens.Notification.Notification
 import com.example.movieapp.features.Home.domain.SearchViewModel
 import com.example.movieapp.features.Home.ui.HomeScreens.Search.Search
@@ -28,6 +28,7 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewMod
     ){
         composable(route = BottomBarScreen.Home.route) { entry ->
             val mainViewModel = entry.sharedViewModelSearch<MainViewModel>(navController)
+
             HomeScreen(
                 mainViewModel = mainViewModel,
                 sharedViewModel = sharedViewModel,
@@ -71,9 +72,12 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController, sharedViewMod
             }
         }
 
-        composable(route = "New Seasons Releases"){
+        composable(route = "Top Characters"){entry ->
+            val mainViewModel = entry.sharedViewModelSearch<MainViewModel>(navController)
+
             NewSeasonsReleases (
-                onClick = { navController.popBackStack() }
+                mainViewModel = mainViewModel,
+                onNavigate = { navController.popBackStack() }
             )
         }
     }

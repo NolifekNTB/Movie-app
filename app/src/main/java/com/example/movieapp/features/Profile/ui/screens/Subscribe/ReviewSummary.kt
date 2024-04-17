@@ -131,7 +131,7 @@ fun CreditCard(viewModel: ProfileViewModel) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CreditCardImageWithNumber(cardNumber)
-                TextButton(onClick = { /*TODO*/ }) {
+                TextButton(onClick = { }) {
                     Text(text = "Change", color = Color.Green)
                 }
             }

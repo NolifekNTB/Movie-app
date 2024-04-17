@@ -1,6 +1,6 @@
 package com.example.movieapp.core.network
 
-import com.example.movieapp.core.network.api.AnimeApiSeasonsUpcoming
+import com.example.movieapp.core.network.api.AnimeApiTopCharacters
 import com.example.movieapp.core.network.api.AnimeApiTopHits
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,8 +13,8 @@ object RetrofitInstance {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val animeApiSeasonsUpcoming: AnimeApiSeasonsUpcoming by lazy {
-        retrofit.create(AnimeApiSeasonsUpcoming::class.java)
+    val animeApiTopCharacters: AnimeApiTopCharacters by lazy {
+        retrofit.create(AnimeApiTopCharacters::class.java)
     }
 
     val animeApiTopHits: AnimeApiTopHits by lazy {

@@ -63,7 +63,7 @@ fun SectionWithSeeAllButton(
                 modifier = Modifier.padding(top = 15.dp, start = 8.dp, bottom = 15.dp)
             )
         }
-        TextButton(onClick = { /*TODO*/ }) {
+        TextButton(onClick = { }) {
             Text(text = "See all", color = Color.Green)
         }
     }
