@@ -32,14 +32,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.automirrored.outlined.Send
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TextButton
@@ -64,9 +62,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
-import com.example.movieapp.core.network.models.topHits.Genre
+import com.example.movieapp.core.network.models.shared.Genre
 import com.example.movieapp.features.Details.data.BottomSheetContent
-import kotlinx.coroutines.launch
 
 @Composable
 fun TitleSection(

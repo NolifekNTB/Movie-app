@@ -1,4 +1,4 @@
-package com.example.movieapp.core.network.models
+package com.example.movieapp.core.network.models.shared
 
 import com.example.movieapp.core.network.models.shared.Data
 

@@ -9,15 +9,17 @@ import com.example.movieapp.core.database.converters.Converters
 import com.example.movieapp.core.database.dao.AnimeDao
 import com.example.movieapp.core.database.dao.AnimeDaoMyList
 import com.example.movieapp.core.database.dao.AnimeDaoTopCharacters
+import com.example.movieapp.core.database.dao.AnimeDaoTopSearches
 import com.example.movieapp.core.database.entities.AnimeItemMyList
 import com.example.movieapp.core.database.entities.AnimeItemTopCharacters
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
+import com.example.movieapp.core.database.entities.AnimeItemTopSearches
 
 @Database(entities = [
         AnimeItemTopHits::class,
         AnimeItemTopCharacters::class,
-        AnimeItemMyList::class
-               ],
+        AnimeItemMyList::class,
+        AnimeItemTopSearches::class],
     version = 6,
     exportSchema = false)
 @TypeConverters(Converters::class)
@@ -25,6 +27,7 @@ abstract class AnimeDatabase : RoomDatabase() {
     abstract fun animedao(): AnimeDao
     abstract fun animedaoTopCharacters(): AnimeDaoTopCharacters
     abstract fun animedaoMyList(): AnimeDaoMyList
+    abstract fun animedaoTopSearches(): AnimeDaoTopSearches
 
 
     companion object{

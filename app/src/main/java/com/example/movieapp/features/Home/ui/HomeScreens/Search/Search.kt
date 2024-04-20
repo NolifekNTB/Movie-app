@@ -1,6 +1,7 @@
 package com.example.movieapp.features.Home.ui.HomeScreens.Search
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.R
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
+import com.example.movieapp.core.database.entities.AnimeItemTopSearches
 import com.example.movieapp.features.Home.domain.SearchViewModel
 import com.example.movieapp.features.Home.ui.HomeScreens.ListEpisodeReleases
 import dagger.hilt.android.internal.lifecycle.HiltViewModelMap
@@ -51,6 +53,8 @@ import kotlinx.coroutines.launch
 fun Search(viewModel: SearchViewModel, onNavigate: () -> Unit) {
     val isFocused = remember { mutableStateOf(false)}
     val searchResults = remember { mutableStateOf<List<AnimeItemTopHits>>(emptyList()) }
+    val topSearchesList = viewModel.getTopSearches().collectAsState(emptyList()).value
+    Log.d("testowanie", topSearchesList.toString())
 
     Column(
         modifier = Modifier
@@ -59,7 +63,7 @@ fun Search(viewModel: SearchViewModel, onNavigate: () -> Unit) {
     ) {
         SearchBarWithFilters(viewModel, searchResults, isFocused){ onNavigate() }
         displayChoseFilters(viewModel)
-        logicBetweenSearchScreens(searchResults, isFocused)
+        logicBetweenSearchScreens(searchResults, isFocused, topSearchesList)
     }
 }
 
@@ -186,7 +190,8 @@ fun choseFilter(name: String) {
 @Composable
 fun logicBetweenSearchScreens(
     searchResults: MutableState<List<AnimeItemTopHits>>,
-    isFocused: MutableState<Boolean>
+    isFocused: MutableState<Boolean>,
+    animeList: List<AnimeItemTopSearches>
 ) {
     if (searchResults.value.isNotEmpty()) {
         ListEpisodeReleases(searchResults.value)
@@ -196,6 +201,6 @@ fun logicBetweenSearchScreens(
             "Sorry, the keyword you entered cannot be found. Try check it again or search with other keywords."
         )
     } else {
-        SearchScreenDefault()
+        SearchScreenDefault(animeList)
     }
 }

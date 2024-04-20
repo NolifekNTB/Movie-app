@@ -2,7 +2,7 @@ package com.example.movieapp.core.database.converters
 
 import androidx.room.TypeConverter
 import com.example.movieapp.core.network.models.shared.Trailer
-import com.example.movieapp.core.network.models.topHits.Genre
+import com.example.movieapp.core.network.models.shared.Genre
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

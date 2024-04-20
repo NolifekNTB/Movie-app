@@ -36,8 +36,7 @@ class AnimeRepository(context: Context): AnimeDao {
     }
 
     override suspend fun searchAnimeByName(searchQuery: String): List<AnimeItemTopHits> =
-            withContext(Dispatchers.IO)
-        {
+            withContext(Dispatchers.IO) {
         return@withContext dao.searchAnimeByName(searchQuery)
     }
 }

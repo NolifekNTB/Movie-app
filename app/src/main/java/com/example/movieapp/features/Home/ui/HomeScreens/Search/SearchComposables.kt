@@ -1,6 +1,5 @@
 package com.example.movieapp.features.Home.ui.HomeScreens.Search
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,10 +25,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.movieapp.R
+import com.example.movieapp.core.database.entities.AnimeItemTopSearches
 
 @Composable
-fun SearchScreenDefault() {
+fun SearchScreenDefault(animeItemTopSearches: List<AnimeItemTopSearches>) {
     Column(
         modifier = Modifier.height(70.dp),
         verticalArrangement = Arrangement.Center,
@@ -41,16 +42,17 @@ fun SearchScreenDefault() {
             fontSize = 25.sp,
             fontWeight = FontWeight.SemiBold)
     }
-    LazyColumn(){
-        items(5)
-        {
-            SearchScreenDefaultItem()
+    if(animeItemTopSearches.isNotEmpty()){
+        LazyColumn(){
+            items(animeItemTopSearches.size) {item ->
+                SearchScreenDefaultItem(animeItemTopSearches[item])
+            }
         }
     }
 }
 
 @Composable
-fun SearchScreenDefaultItem() {
+fun SearchScreenDefaultItem(animeElement: AnimeItemTopSearches) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -60,15 +62,17 @@ fun SearchScreenDefaultItem() {
         Card(
             modifier = Modifier.size(150.dp, 125.dp)
         ){
-            Image(
-                painter = painterResource(id = R.drawable.home_attackontitan),
-                contentDescription = null,
-                contentScale = ContentScale.Crop
-            )
+            AsyncImage(
+                model = animeElement.image,
+                contentDescription = "",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                )
         }
         Spacer(Modifier.width(15.dp))
         Text(
-            text = "Attack on titan Final Season part 2",
+            text = animeElement.name,
             modifier = Modifier
                 .width(160.dp),
             fontSize = 18.sp,

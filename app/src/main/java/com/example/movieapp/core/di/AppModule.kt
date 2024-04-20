@@ -3,6 +3,7 @@ package com.example.movieapp.core.di
 import android.app.Application
 import com.example.movieapp.features.Home.data.repositories.AnimeRepository
 import com.example.movieapp.features.Home.data.repositories.AnimeRepositoryTopCharacters
+import com.example.movieapp.features.Home.data.repositories.AnimeRepositoryTopSearches
 import com.example.movieapp.features.MyList.data.AnimeRepositoryMyList
 import dagger.Module
 import dagger.Provides
@@ -31,4 +32,12 @@ object AppModule {
     fun provideContextMyList(app: Application): AnimeRepositoryMyList {
         return AnimeRepositoryMyList(app.applicationContext)
     }
+
+    @Provides
+    @Singleton
+    fun provideContextTopSearches(app: Application): AnimeRepositoryTopSearches {
+        return AnimeRepositoryTopSearches(app.applicationContext)
+    }
+
+
 }

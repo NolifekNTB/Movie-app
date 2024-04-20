@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.movieapp.core.database.entities.AnimeItemTopCharacters
 import com.example.movieapp.core.database.entities.AnimeItemTopHits
 import com.example.movieapp.core.network.RetrofitInstance
-import com.example.movieapp.core.network.models.AnimeData
+import com.example.movieapp.core.network.models.shared.AnimeData
 import com.example.movieapp.core.network.models.topCharacters.DataTopCharacters
 import com.example.movieapp.features.Home.data.repositories.AnimeRepository
 import com.example.movieapp.features.Home.data.repositories.AnimeRepositoryTopCharacters
@@ -43,7 +43,7 @@ class MainViewModel @Inject constructor(
                 if(topCharactersFromDb.isEmpty()){
                     val responseTopCharacters = apiTopCharacters.getTopCharacters()
                     insertTopCharacters(mapRetrofitToRoomTopCharacters(responseTopCharacters))
-                    Log.d("testowanie", "topCharacters -> $responseTopCharacters")
+                    Log.d("", "topCharacters -> $responseTopCharacters")
                 }
             } catch (e: Exception){
                 Log.e("codeDebugging", "fetchPost -> $e")
