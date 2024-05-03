@@ -25,12 +25,13 @@
 
 ## Screenshots
 
-Include screenshots of the app's main screens here to provide a visual context.
-![home](https://github.com/NolifekNTB/Movie-app/assets/89972199/7ec5eed2-641c-428a-bf18-de13c4f9445a =250x)
-![profile](https://github.com/NolifekNTB/Movie-app/assets/89972199/ed926076-1b05-473f-9ac7-8b3d55166c65 =250x)
-![myList](https://github.com/NolifekNTB/Movie-app/assets/89972199/c27549e5-da97-40e6-a2bd-b49570cecf4d =250x)
-![topHitsAnime](https://github.com/NolifekNTB/Movie-app/assets/89972199/b42dd4b7-b19e-48ca-b943-74d4e4244382 =250x)
-![Search](https://github.com/NolifekNTB/Movie-app/assets/89972199/d28e71ea-2f58-479b-ab32-d73a5b83de13 =250x)
+<p align="center">
+  <img src="https://github.com/NolifekNTB/Movie-app/assets/89972199/7ec5eed2-641c-428a-bf18-de13c4f9445a" width="200">
+  <img src="https://github.com/NolifekNTB/Movie-app/assets/89972199/ed926076-1b05-473f-9ac7-8b3d55166c65" width="200">
+  <img src="https://github.com/NolifekNTB/Movie-app/assets/89972199/c27549e5-da97-40e6-a2bd-b49570cecf4d" width="200">
+  <img src="https://github.com/NolifekNTB/Movie-app/assets/89972199/b42dd4b7-b19e-48ca-b943-74d4e4244382" width="200">
+  <img src="https://github.com/NolifekNTB/Movie-app/assets/89972199/d28e71ea-2f58-479b-ab32-d73a5b83de13" width="200">
+</p>
 
 
 ## Getting Started
@@ -42,8 +43,28 @@ Include screenshots of the app's main screens here to provide a visual context.
 
 ## Contribution
 
-Contributions are welcome! Please read the contribution guidelines for how to submit pull requests effectively. This section should also include information on coding standards and the pull request process.
+We encourage contributions from everyone! If you're looking to contribute, here's how you can help:
+
+1. **Reporting Bugs**: If you find a bug, please check the issue tracker to see if it has already been reported. If it hasn't been reported, open a new issue with a descriptive title and a clear description of the bug, steps to reproduce the issue, and the expected behavior.
+
+2. **Feature Requests**: If you have ideas for new features or improvements, feel free to open an issue to discuss them. We're always looking for ways to make our app better.
+
+3. **Submitting Changes**:
+   - **Fork the Repository**: Start by forking the repository and then clone your fork to your local machine.
+   - **Create a Branch**: Make your changes in a new git branch based on the 'main' branch.
+   - **Commit Your Changes**: Commit your changes using clear, descriptive commit messages. 
+   - **Write Good Code**: Follow the existing code style guidelines, including inline documentation as needed.
+   - **Pull Request**: Submit a pull request with a clear description of your changes and any other relevant information to help the reviewers.
+   - **Code Review**: Wait for a code review, address any comments, and make necessary revisions.
+
+4. **Development Setup**:
+   - Ensure you have Android Studio and the Kotlin plugin installed.
+   - Import the project into Android Studio by selecting "Open an existing Android Studio project" and navigating to your cloned repository.
+
+Contributions are what make the open-source community such a powerful place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
 
 ## License
 
-This project is licensed under the XYZ License - see the [LICENSE.md](LICENSE) file for details.
+### Software License
+This project is licensed under the MIT License
