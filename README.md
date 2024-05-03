@@ -26,11 +26,11 @@
 ## Screenshots
 
 Include screenshots of the app's main screens here to provide a visual context.
-![home](https://github.com/NolifekNTB/Movie-app/assets/89972199/7ec5eed2-641c-428a-bf18-de13c4f9445a)
-![profile](https://github.com/NolifekNTB/Movie-app/assets/89972199/ed926076-1b05-473f-9ac7-8b3d55166c65)
-![myList](https://github.com/NolifekNTB/Movie-app/assets/89972199/c27549e5-da97-40e6-a2bd-b49570cecf4d)
-![topHitsAnime](https://github.com/NolifekNTB/Movie-app/assets/89972199/b42dd4b7-b19e-48ca-b943-74d4e4244382)
-![Search](https://github.com/NolifekNTB/Movie-app/assets/89972199/d28e71ea-2f58-479b-ab32-d73a5b83de13)
+![home](https://github.com/NolifekNTB/Movie-app/assets/89972199/7ec5eed2-641c-428a-bf18-de13c4f9445a =250x)
+![profile](https://github.com/NolifekNTB/Movie-app/assets/89972199/ed926076-1b05-473f-9ac7-8b3d55166c65 =250x)
+![myList](https://github.com/NolifekNTB/Movie-app/assets/89972199/c27549e5-da97-40e6-a2bd-b49570cecf4d =250x)
+![topHitsAnime](https://github.com/NolifekNTB/Movie-app/assets/89972199/b42dd4b7-b19e-48ca-b943-74d4e4244382 =250x)
+![Search](https://github.com/NolifekNTB/Movie-app/assets/89972199/d28e71ea-2f58-479b-ab32-d73a5b83de13 =250x)
 
 
 ## Getting Started
